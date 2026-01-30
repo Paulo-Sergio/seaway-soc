@@ -1,9 +1,7 @@
 package br.com.seaway.SOC_Web.service.file;
 
-import br.com.seaway.SOC_Web.model.Analise;
-import br.com.seaway.SOC_Web.model.Cor;
-import br.com.seaway.SOC_Web.repository.AnaliseRepository;
-import br.com.seaway.SOC_Web.repository.CorRepository;
+import br.com.seaway.SOC_Web.model.Cor01;
+import br.com.seaway.SOC_Web.repository.Cor01Repository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,9 +19,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CorFileService {
+public class Cor01FileService {
 
-    private final CorRepository corRepository;
+    private final Cor01Repository cor01Repository;
 
     @Value("${cor-txt.file.fixed-path}")
     private String fixedPath;
@@ -48,23 +46,23 @@ public class CorFileService {
      * Processa o conteúdo do arquivo
      */
     public void processFile(Path filePath) throws IOException {
-        List<Cor> cores = new ArrayList<>();
+        List<Cor01> cores = new ArrayList<>();
         try (BufferedReader reader = Files.newBufferedReader(filePath, StandardCharsets.ISO_8859_1)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 try {
-                    Cor cor = parseLine(line);
-                    cores.add(cor);
+                    Cor01 cor01 = parseLine(line);
+                    cores.add(cor01);
                 } catch (Exception e) {
                     log.error("Erro ao processar linha COR: {}", line, e);
                 }
             }
         }
         // Limpa a tabela antes de inserir novos registros
-        corRepository.deleteAll();
+        cor01Repository.deleteAll();
         // Salva todos os registros processados no banco de dados
-        corRepository.saveAll(cores);
+        cor01Repository.saveAll(cores);
         log.info("Processados e salvos {} registros de cores", cores.size());
     }
 
@@ -72,50 +70,50 @@ public class CorFileService {
      * Analisa uma linha do arquivo e converte para um objeto Cor
      * Todos os campos são mantidos como String para simplificar o processamento
      */
-    private Cor parseLine(String line) {
+    private Cor01 parseLine(String line) {
         if (line.length() < 45) {
             throw new IllegalArgumentException("Linha muito curta para processar: " + line);
         }
 
-        Cor cor = new Cor();
+        Cor01 cor01 = new Cor01();
 
         // Parse dos campos de acordo com o formato de largura fixa
         int currentPos = 0;
 
         // Referencia (4 digitos)
-        cor.setReferencia(extractField(line, currentPos, currentPos + 4));
+        cor01.setReferencia(extractField(line, currentPos, currentPos + 4));
         currentPos += 4;
 
         // Código da cor (2 digitos)
-        cor.setCodigoCor(extractField(line, currentPos, currentPos + 2));
+        cor01.setCodigoCor(extractField(line, currentPos, currentPos + 2));
         currentPos += 2;
 
         // Nome da Cor (15 digitos)
-        cor.setNomeCor(extractField(line, currentPos, currentPos + 15));
+        cor01.setNomeCor(extractField(line, currentPos, currentPos + 15));
         currentPos += 15;
 
         // Venda (4 digitos)
-        cor.setVenda(extractField(line, currentPos, currentPos + 4));
+        cor01.setVenda(extractField(line, currentPos, currentPos + 4));
         currentPos += 4;
 
         // Venda 10 dias (4 digitos)
-        cor.setVenda10Dias(extractField(line, currentPos, currentPos + 4));
+        cor01.setVenda10Dias(extractField(line, currentPos, currentPos + 4));
         currentPos += 4;
 
         // Estoque (4 digitos)
-        cor.setEstoque(extractField(line, currentPos, currentPos + 4));
+        cor01.setEstoque(extractField(line, currentPos, currentPos + 4));
         currentPos += 4;
 
-        cor.setIndice(extractField(line, currentPos, currentPos + 6)); // 4 inteiros + ponto + 1 decimal
+        cor01.setIndice(extractField(line, currentPos, currentPos + 6)); // 4 inteiros + ponto + 1 decimal
         currentPos += 6;
 
-        cor.setIop(extractField(line, currentPos, currentPos + 6)); // 4 inteiros + ponto + 1 decimal
+        cor01.setIop(extractField(line, currentPos, currentPos + 6)); // 4 inteiros + ponto + 1 decimal
         currentPos += 6;
 
         // Aqui você pega o restante da string para setClasse
-        cor.setClasse(line.substring(currentPos));
+        cor01.setClasse(line.substring(currentPos));
 
-        return cor;
+        return cor01;
     }
 
     /**

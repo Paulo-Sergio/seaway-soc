@@ -22,7 +22,7 @@ public class FilesController {
 
     private final AnaliseFileService analiseFileService;
 
-    private final CorFileService corFileService;
+    private final Cor01FileService cor01FileService;
 
     private final AuditFileService auditFileService;
 
@@ -35,7 +35,7 @@ public class FilesController {
         try {
             previsaoFileService.processFixedPathFile();
             analiseFileService.processFixedPathFile();
-            corFileService.processFixedPathFile();
+            cor01FileService.processFixedPathFile();
             auditFileService.processFixedPathFile();
             parametroFileService.processFixedPathFile();
             return ResponseEntity.ok("Arquivo do caminho fixo processado com sucesso");
