@@ -1,10 +1,7 @@
 package br.com.seaway.SOC_Web.controller;
 
 import br.com.seaway.SOC_Web.model.Previsao;
-import br.com.seaway.SOC_Web.service.file.AnaliseFileService;
-import br.com.seaway.SOC_Web.service.file.AuditFileService;
-import br.com.seaway.SOC_Web.service.file.CorFileService;
-import br.com.seaway.SOC_Web.service.file.PrevisaoFileService;
+import br.com.seaway.SOC_Web.service.file.*;
 import br.com.seaway.SOC_Web.service.PrevisaoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +26,8 @@ public class FilesController {
 
     private final AuditFileService auditFileService;
 
+    private final ParametroFileService parametroFileService;
+
     private final PrevisaoService previsaoService;
 
     @PostMapping("/process")
@@ -38,6 +37,7 @@ public class FilesController {
             analiseFileService.processFixedPathFile();
             corFileService.processFixedPathFile();
             auditFileService.processFixedPathFile();
+            parametroFileService.processFixedPathFile();
             return ResponseEntity.ok("Arquivo do caminho fixo processado com sucesso");
         } catch (IOException e) {
             return ResponseEntity.internalServerError().body("Falha ao processar arquivo: " + e.getMessage());
