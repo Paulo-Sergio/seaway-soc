@@ -11,7 +11,7 @@ public class Cor01Util {
         return Cor01Response.builder()
                 .id(cor01.getId())
                 .referencia(cor01.getReferencia())
-                .codigoCor(Integer.parseInt(cor01.getCodigoCor()))
+                .codigoCor(SeawayUtil.parseInt(cor01.getCodigoCor()))
                 .nomeCor(cor01.getNomeCor())
                 .venda(Integer.parseInt(cor01.getVenda()))
                 .venda10Dias(Integer.parseInt(cor01.getVenda10Dias()))

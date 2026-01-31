@@ -174,6 +174,6 @@ public class AnaliseFileService {
             endPos = line.length();
         }
 
-        return line.substring(startPos, endPos);
+        return line.substring(startPos, endPos).trim();
     }
 }

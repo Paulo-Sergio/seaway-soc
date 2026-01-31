@@ -111,7 +111,7 @@ public class Cor01FileService {
         currentPos += 6;
 
         // Aqui você pega o restante da string para setClasse
-        cor01.setClasse(line.substring(currentPos));
+        cor01.setClasse(line.substring(currentPos).trim());
 
         return cor01;
     }
@@ -126,6 +126,6 @@ public class Cor01FileService {
         if (endPos > line.length()) {
             endPos = line.length();
         }
-        return line.substring(startPos, endPos);
+        return line.substring(startPos, endPos).trim();
     }
 }

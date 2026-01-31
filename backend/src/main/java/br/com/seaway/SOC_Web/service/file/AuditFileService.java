@@ -250,6 +250,6 @@ public class AuditFileService {
         if (endPos > line.length()) {
             endPos = line.length();
         }
-        return line.substring(startPos, endPos);
+        return line.substring(startPos, endPos).trim();
     }
 }

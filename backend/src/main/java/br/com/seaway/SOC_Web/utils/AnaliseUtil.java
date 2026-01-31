@@ -11,9 +11,6 @@ import java.time.format.DateTimeFormatter;
 public class AnaliseUtil {
 
     public AnaliseResponse createResponse(Analise analise) {
-        // Definindo o formato da data
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
         return AnaliseResponse.builder()
                 .id(analise.getId())
                 .genero(analise.getGenero())
@@ -31,14 +28,14 @@ public class AnaliseUtil {
                 .calculadoAtacado(Integer.parseInt(analise.getCalculadoAtacado()))
                 .informadoTotal(Integer.parseInt(analise.getInformadoTotal()))
                 .sugestaoOc(Integer.parseInt(analise.getSugestaoOc()))
-                .dataSugestao(LocalDate.parse(analise.getDataSugestao(), formatter))
+                .dataSugestao(SeawayUtil.parseData(analise.getDataSugestao()))
                 .sugestaoAnterior(Integer.parseInt(analise.getSugestaoAnterior()))
                 .ocEmAberto(Integer.parseInt(analise.getOcEmAberto()))
                 .pedidoAtender(Integer.parseInt(analise.getPedidoAtender()))
                 .tipoProduto(Integer.parseInt(analise.getTipoProduto()))
                 .temPromocao(analise.getTemPromocao())
-                .agrupa(Integer.parseInt(analise.getAgrupa()))
-                .giro(Integer.parseInt(analise.getGiro()))
+                .agrupa(SeawayUtil.parseInt(analise.getAgrupa()))
+                .giro(SeawayUtil.parseInt(analise.getGiro()))
                 .bloqueado(analise.getBloqueado())
                 .estoqueFabrica(Integer.parseInt(analise.getEstoqueFabrica()))
                 .build();

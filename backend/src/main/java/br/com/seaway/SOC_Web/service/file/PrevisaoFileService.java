@@ -159,7 +159,7 @@ public class PrevisaoFileService {
         currentPos += 5;
 
         // Aqui você pega o restante da string para setNomeColecao
-        previsao.setNomeColecao(line.substring(currentPos));
+        previsao.setNomeColecao(line.substring(currentPos).trim());
 
         return previsao;
     }
@@ -176,6 +176,6 @@ public class PrevisaoFileService {
             endPos = line.length();
         }
 
-        return line.substring(startPos, endPos);
+        return line.substring(startPos, endPos).trim();
     }
 }

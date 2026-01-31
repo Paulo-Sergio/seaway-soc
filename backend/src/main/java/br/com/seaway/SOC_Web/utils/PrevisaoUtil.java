@@ -12,15 +12,12 @@ import java.time.format.DateTimeFormatter;
 public class PrevisaoUtil {
 
     public PrevisaoResponse createResponse(Previsao previsao) {
-        // Definindo o formato da data
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
         return PrevisaoResponse.builder()
                 .id(previsao.getId())
                 .genero(previsao.getGenero())
                 .tipo(previsao.getTipo())
                 .classificacao(previsao.getClassificacao())
-                .descricaoProduto(previsao.getDescricaoProduto())
+                .descricaoGrupo(previsao.getDescricaoGrupo())
                 .referencia(previsao.getReferencia())
                 .descricaoProduto(previsao.getDescricaoProduto())
                 .venda(Integer.parseInt(previsao.getVenda()))
@@ -32,14 +29,14 @@ public class PrevisaoUtil {
                 .calculadoAtacado(Integer.parseInt(previsao.getCalculadoAtacado()))
                 .informadoTotal(Integer.parseInt(previsao.getInformadoTotal()))
                 .sugestaoOc(Integer.parseInt(previsao.getSugestaoOc()))
-                .dataSugestao(LocalDate.parse(previsao.getDataSugestao(), formatter))
+                .dataSugestao(SeawayUtil.parseData(previsao.getDataSugestao()))
                 .sugestaoAnterior(Integer.parseInt(previsao.getSugestaoAnterior()))
                 .ocEmAberto(Integer.parseInt(previsao.getOcEmAberto()))
                 .pedidoAtender(Integer.parseInt(previsao.getPedidoAtender()))
                 .tipoProduto(Integer.parseInt(previsao.getTipoProduto()))
                 .temPromocao(previsao.getTemPromocao())
-                .agrupa(Integer.parseInt(previsao.getAgrupa()))
-                .giro(Integer.parseInt(previsao.getGiro()))
+                .agrupa(SeawayUtil.parseInt(previsao.getAgrupa()))
+                .giro(SeawayUtil.parseInt(previsao.getGiro()))
                 .bloqueado(previsao.getBloqueado())
                 .codigoColecao(previsao.getCodigoColecao())
                 .nomeColecao(previsao.getNomeColecao())

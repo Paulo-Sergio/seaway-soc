@@ -1,46 +1,6 @@
+server:
+  port: 8091
+
 spring:
-  application:
-    name: SOC-Web
-  datasource:
-    url: jdbc:mysql://localhost:3306/seaway_soc_web?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        #dialect: org.hibernate.dialect.MySQL8Dialect
-
-# Caminho fixo para o arquivo PREVISAO.TXT
-previsao-txt:
-  file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
-    filename: PREVISAO.TXT
-
-# Caminho fixo para o arquivo ANALISE.TXT
-analise-txt:
-  file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
-    filename: ANALISE.TXT
-
-# Caminho fixo para o arquivo COR01.TXT
-cor-txt:
-  file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
-    filename: COR01.TXT
-
-# Caminho fixo para o arquivo AUDIT.TXT
-audit-txt:
-  file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
-    filename: AUDIT.TXT
-
-# Caminho fixo para o arquivo PARAMETR.TXT
-parametro-txt:
-  file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
-    filename: PARAMETR.TXT
+  profiles:
+    active: test

@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface Cor01Repository extends JpaRepository<Cor01, Long> {
 
-    @Query("SELECT c FROM Cor c WHERE c.referencia = :referencia")
+    @Query("SELECT c FROM Cor01 c WHERE c.referencia = :referencia")
     List<Cor01> findByReferencia(String referencia);
 }
