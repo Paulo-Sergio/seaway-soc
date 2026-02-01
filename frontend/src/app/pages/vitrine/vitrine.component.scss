@@ -1,0 +1,92 @@
+.pi-star-fill,
+.pi-star {
+    cursor: pointer;
+}
+
+.card {
+    -webkit-box-shadow: 14px 8px 29px 0px rgba(135, 135, 135, 0.25);
+    -moz-box-shadow: 14px 8px 29px 0px rgba(135, 135, 135, 0.25);
+    box-shadow: 14px 8px 29px 0px rgba(135, 135, 135, 0.25);
+}
+
+// DEIXAR O CARD DE CORES FIXO (não esta sendo mais usado)
+.fixed-card {
+    position: sticky;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    /* Ajuste o z-index conforme necessário para garantir que o card fique sobre outros elementos */
+
+    border: 2px solid #cecece;
+}
+
+
+.card {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.auditDadosCalculo,
+.auditDadosCalculo2 .td-50 {
+    width: 50%;
+}
+
+.auditDadosCalculo .td-70 {
+    width: 70%;
+}
+
+.auditDadosCalculo .td-30 {
+    width: 30%;
+}
+
+.auditDadosCalculo2 {
+    border-collapse: collapse;
+    /* Colapsa as bordas para evitar espaços */
+}
+
+.auditDadosCalculo2 th,
+.auditDadosCalculo2 td {
+    border: 1px solid #ccc;
+    /* Borda fina e discreta */
+    padding: 7px;
+    /* Espaçamento interno */
+}
+
+.destacar-green {
+    color: green;
+    font-weight: bolder;
+}
+
+.destacar-blue {
+    color: blue;
+    font-weight: bolder;
+}
+
+// ---------- LOADING ----------
+.progress-spinner {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+/* Transparent Overlay */
+.progress-spinner:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.53);
+}
+
+// ---------- LOADING ----------

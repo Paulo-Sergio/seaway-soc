@@ -1,0 +1,348 @@
+<div class="grid main-grid">
+  <div class="col-12">
+    <div class="card">
+      <p-toast></p-toast>
+
+      <!--{{previsaoSelecionado | json}}-->
+      <div class="grid" style="height: 150px;">
+        <div class="col-10">
+          <p-table [value]="cores" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+            [scrollable]="true" scrollHeight="140px">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Cor</th>
+                <th>Vd</th>
+                <th>Vd 10d</th>
+                <th>Est</th>
+                <th>Ind</th>
+                <th>IOP</th>
+                <th>CI</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-cor let-i="rowIndex">
+              <tr>
+                <td>{{ cor.nomeCor }}</td>
+                <td>{{ cor.venda }}</td>
+                <td>{{ cor.venda10Dias }}</td>
+                <td>{{ cor.estoque }}</td>
+                <td>{{ cor.indice }}</td>
+                <td>{{ cor.iop }}</td>
+                <td>{{ cor.classe }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div class="col-2 text-center" *ngIf="previsaoSelecionado">
+          <p-image *ngIf="imageUrl" [src]="imageUrl" height="145" [preview]="true" alt="imagem de referencia" />
+        </div>
+      </div>
+    </div>
+
+    <form [formGroup]="form">
+      <div class="card">
+        <div class="grid">
+          <div class="col-6">
+            <p-dropdown [options]="grupos" formControlName="descricaoGrupo" [showClear]="false"
+              [style]="{'width':'100%'}">
+            </p-dropdown>
+          </div>
+          <div class="md:col-6">
+            <p-button (onClick)="showDialogGruposMaisVendidos()" label="Grupos mais vendidos" icon="pi pi-sort-alt"
+              iconPos="right" [outlined]="true" severity="info" class="mr-2"></p-button>
+            <p-button (onClick)="showDialogAudits()" label="Audt. Produto" icon="pi pi-sort-alt" iconPos="right"
+              [outlined]="true" severity="info"></p-button>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="col-12">
+            <p-table [value]="previsoes" [(selection)]="previsaoSelecionado" (onRowSelect)="onRowSelect($event)"
+              selectionMode="single" dataKey="referencia"
+              styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
+              (onRowUnselect)="onRowUnselect($event)" [rows]="10" responsiveLayout="scroll" [loading]="loading"
+              minFractionDigits="1" [scrollable]="true" [scrollHeight]="scrollHeight">
+              <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                  <span>
+                    Coleção: {{parametro?.codColecao}} - {{parametro?.nomeColecao}}
+                  </span>
+                  <p-button (onClick)="exportReport()" label="IMPRIMIR" icon="pi pi-file-pdf"
+                    iconPos="right"></p-button>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th colspan="7"></th>
+                  <th colspan="2" class="text-center" style="font-size: 1.2em;">Lojas</th>
+                  <th colspan="2" class="text-center" style="font-size: 1.2em;">Atacado</th>
+                  <th colspan="6"></th>
+                </tr>
+                <tr>
+                  <th style="width: 4rem" class="text-center">#</th>
+                  <th class="text-center" pSortableColumn="referencia">Ref<p-sortIcon field="referencia"></p-sortIcon>
+                  </th>
+                  <th class="text-right" pSortableColumn="giro">Giro<p-sortIcon field="giro"></p-sortIcon>
+                  </th>
+                  <th class="text-right" pSortableColumn="venda">Vend<p-sortIcon field="venda"></p-sortIcon>
+                  </th>
+                  <th class="text-right" pSortableColumn="indice">Indc<p-sortIcon field="indice"></p-sortIcon></th>
+                  <th class="text-right" pSortableColumn="estoque">Est<p-sortIcon field="estoque"></p-sortIcon></th>
+                  <th class="text-right" pSortableColumn="vendasDezDias">V.10<p-sortIcon
+                      field="vendasDezDias"></p-sortIcon></th>
+                  <th class="text-right" pSortableColumn="calculadoLoja">Calc<p-sortIcon
+                      field="calculadoLoja"></p-sortIcon>
+                  </th>
+                  <th class="text-right" pSortableColumn="informadoLoja">Info<p-sortIcon
+                      field="informadoLoja"></p-sortIcon>
+                  </th>
+                  <th class="text-right" pSortableColumn="informadoAtacado">Info<p-sortIcon
+                      field="informadoAtacado"></p-sortIcon>
+                  </th>
+                  <th class="text-right" pSortableColumn="calculadoAtacado">Calc<p-sortIcon
+                      field="calculadoAtacado"></p-sortIcon>
+                  </th>
+                  <th class="text-right" pSortableColumn="pedidoAtender">Ped Atend<p-sortIcon
+                      field="pedidoAtender"></p-sortIcon>
+                  </th>
+                  <th class="text-right" pSortableColumn="performance">Est.Fab<p-sortIcon
+                      field="performance"></p-sortIcon>
+                  </th>
+                  <th class="text-right" pSortableColumn="ocEmAberto">OC Prod<p-sortIcon
+                      field="ocEmAberto"></p-sortIcon>
+                  </th>
+                  <th class="text-right" pSortableColumn="sugestaoOc">S.OC<p-sortIcon field="sugestaoOc"></p-sortIcon>
+                  </th>
+                  <th class="text-right" pSortableColumn="dataSugestao">Data<p-sortIcon
+                      field="dataSugestao"></p-sortIcon>
+                  </th>
+                  <th class="text-right" pSortableColumn="temPromocao">P<p-sortIcon field="temPromocao"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-prev>
+                <tr [pSelectableRow]="prev">
+                  <td class="text-center">
+                    <p-tableRadioButton [value]="prev" />
+                  </td>
+                  <td class="text-center">{{ prev.referencia }}</td>
+                  <td class="text-right">{{ prev.giro }}%</td>
+                  <td class="text-right">{{ prev.venda }}</td>
+                  <td class="text-right">{{ prev.indice }}</td>
+                  <td class="text-right">{{ prev.estoque }}</td>
+                  <td class="text-right">{{ prev.vendasDezDias }}</td>
+                  <td class="text-right">{{ prev.calculadoLoja }}</td>
+                  <td class="text-right">{{ prev.informadoLoja }}</td>
+                  <td class="text-right">{{ prev.informadoAtacado }}</td>
+                  <td class="text-right">{{ prev.calculadoAtacado }}</td>
+                  <td class="text-right">{{ prev.pedidoAtender }}</td>
+                  <td class="text-right">Est.Fab</td>
+                  <td class="text-right">{{ prev.ocEmAberto }}</td>
+                  <td class="text-right">{{ prev.sugestaoOc }}</td>
+                  <td class="text-right">{{ prev.dataSugestao }}</td>
+                  <td class="text-right">{{ prev.temPromocao }}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- #################################### -->
+<!-- #################################### -->
+<!-- ### Modal GRUPOS MAIS VENDIDOS ##### -->
+<!-- #################################### -->
+<!-- #################################### -->
+<p-dialog header="Grupos Mais Vendidos" [modal]="true" [(visible)]="diplayModalGruposMaisVendidos">
+  <p-table [value]="gruposMaisVendidos" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Grupo</th>
+        <th class="text-right">Total (V.10)</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-grupo>
+      <tr>
+        <td>{{ grupo.descricaoGrupo }}</td>
+        <td class="text-right">{{ grupo.totalVendas }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>
+
+<!-- #################################### -->
+<!-- #################################### -->
+<!-- ########## Modal AUDITS ########## -->
+<!-- #################################### -->
+<!-- #################################### -->
+<p-dialog header="Auditoria" [modal]="true" [(visible)]="diplayModalAudits" [style]="{ width: '80vw' }"
+  [maximizable]="true">
+  <div class="grid">
+    <div class="col-12">
+      <p-table [value]="[{}]" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+        <ng-template pTemplate="header">
+          <tr>
+            <th colspan="7"></th>
+            <th colspan="2" class="text-center" style="font-size: 1.2em;">Lojas</th>
+            <th colspan="2" class="text-center" style="font-size: 1.2em;">Atacado</th>
+            <th colspan="6"></th>
+          </tr>
+          <tr>
+            <th>Ref</th>
+            <th class="text-right">Giro</th>
+            <th class="text-right">Vend</th>
+            <th class="text-right">Indc</th>
+            <th class="text-right">Est</th>
+            <th class="text-right">V.10</th>
+            <th class="text-right">Calc</th>
+            <th class="text-right">Info</th>
+            <th class="text-right">Info</th>
+            <th class="text-right">Calc</th>
+            <th class="text-right">Ped Atend</th>
+            <th class="text-right">Est.Fab</th>
+            <th class="text-right">OC Prod</th>
+            <th class="text-right">S.OC</th>
+            <th class="text-right">Data</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body">
+          <tr>
+            <td>{{ previsaoSelecionado?.referencia }}</td>
+            <td class="text-right">{{ previsaoSelecionado?.giro }}%</td>
+            <td class="text-right">{{ previsaoSelecionado?.venda }}</td>
+            <td class="text-right">{{ previsaoSelecionado?.indice }}</td>
+            <td class="text-right">{{ previsaoSelecionado?.estoque }}</td>
+            <td class="text-right">{{ previsaoSelecionado?.vendasDezDias }}</td>
+            <td class="text-right">{{ previsaoSelecionado?.calculadoLoja }}</td>
+            <td class="text-right">{{ previsaoSelecionado?.informadoLoja }}</td>
+            <td class="text-right">{{ previsaoSelecionado?.informadoAtacado }}</td>
+            <td class="text-right">{{ previsaoSelecionado?.calculadoAtacado }}</td>
+            <td class="text-right">{{ previsaoSelecionado?.pedidoAtender }}</td>
+            <td class="text-right">Est.Fab</td>
+            <td class="text-right">{{ previsaoSelecionado?.ocEmAberto }}</td>
+            <td class="text-right">{{ previsaoSelecionado?.sugestaoOc }}</td>
+            <td class="text-right">{{ previsaoSelecionado?.dataSugestao }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="col-12">
+      Produto: <span class="destacar-green">{{previsaoSelecionado?.descricaoProduto}}</span>
+    </div>
+
+    <div class="col-8 flex align-items-center">
+      <p-image *ngIf="imageUrl" [src]="imageUrl" height="100" alt="imagem de referencia" />
+      <table style="width:300px" class="auditDadosCalculo">
+        <tr>
+          <td class="text-right td-50">Coleção: </td>
+          <td class="td-50">
+            <span class="destacar-green">{{parametro?.codColecao}} - {{parametro?.nomeColecao}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right td-50">Último Cálculo: </td>
+          <td class="td-50">
+            <span class="destacar-green">{{parametro?.dataCalculo}} {{parametro?.horaCalculo}}</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-4">
+      <table style="width:100%" class="auditDadosCalculo" border="0.5">
+        <tr>
+          <td class="text-right td-70">S. OC: </td>
+          <td class="td-30">
+            <span class="destacar-blue">{{previsaoSelecionado?.sugestaoOc}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right td-70">Multiplicador p/ atacado: </td>
+          <td class="td-30">
+            <span class="destacar-blue">1</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right td-70">Multiplicador p/ venda 10 dias das lojas: </td>
+          <td class="td-30">
+            <span class="destacar-blue">1</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+    <div class="col-8">
+      <p-table [value]="audits" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Lojas</th>
+            <th>G. Mín</th>
+            <th>Est</th>
+            <th>V.10d</th>
+            <th>Vnd</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-audit>
+          <tr>
+            <td>{{ audit.nomeLoja }}</td>
+            <td class="text-right">{{ audit.gradeMinima }}</td>
+            <td class="text-right">{{ audit.estoqueLoja }}</td>
+            <td class="text-right">{{ audit.vendas10Dias }}</td>
+            <td class="text-right">{{ audit.vendaAcumulada }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="col-4">
+      <table style="width:100%;" class="auditDadosCalculo2">
+        <thead style="background-color: #e4e4e4;">
+          <tr>
+            <th colspan="2">Dados p/ cálculo sugest. de OC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-right td-50">+ Prev. Total</td>
+            <td class="td-50 destacar-blue">{{auditSummary?.previsaoTotal}}</td>
+          </tr>
+          <tr>
+            <td class="text-right td-50">- OC em aberto</td>
+            <td class="td-50 destacar-blue">{{auditSummary?.ocEmAberto}}</td>
+          </tr>
+          <tr>
+            <td class="text-right td-50">- Est. Fábrica</td>
+            <td class="td-50 destacar-blue">{{auditSummary?.estoqueFabrica}}</td>
+          </tr>
+          <tr>
+            <td class="text-right td-50">- Est. Lojas</td>
+            <td class="td-50 destacar-blue">{{auditSummary?.estoqueLojaFinal}}</td>
+          </tr>
+          <tr>
+            <td class="text-right td-50">- Ped. Exp/Fat/Desp</td>
+            <td class="td-50 destacar-blue">{{auditSummary?.pedidosExpFacDesp}}</td>
+          </tr>
+          <tr>
+            <td class="text-right td-50">+ Sld. Ped. Ant</td>
+            <td class="td-50 destacar-blue">{{auditSummary?.saldoPedidoAnterior}}</td>
+          </tr>
+        </tbody>
+        <tfoot style="background-color: #e4e4e4;">
+          <tr>
+            <td class="text-right td-50">= Sugestão de OC</td>
+            <td class="td-50 destacar-blue">
+              {{auditSummary?.previsaoTotal - auditSummary?.ocEmAberto - auditSummary?.estoqueFabrica -
+              auditSummary?.estoqueLojaFinal - auditSummary?.pedidosExpFacDesp + auditSummary?.saldoPedidoAnterior}}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</p-dialog>
+
+<div class="progress-spinner" *ngIf="loadingBtnImprimir">
+  <p-progressSpinner></p-progressSpinner>
+</div>
