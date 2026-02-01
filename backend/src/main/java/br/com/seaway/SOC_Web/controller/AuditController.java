@@ -19,12 +19,14 @@ public class AuditController {
 
     private final AuditService auditService;
 
+    // não usado
     @GetMapping
     public ResponseEntity<List<AuditResponse>> findAllAudits() {
         List<AuditResponse> response = auditService.findAllAudits();
         return ResponseEntity.ok(response);
     }
 
+    // não usado
     @GetMapping("summary")
     public ResponseEntity<List<AuditSummaryResponse>> findAllAuditsSummary() {
         List<AuditSummaryResponse> response = auditService.findAllAuditsSummary();

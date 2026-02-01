@@ -1,4 +1,4 @@
-export class Previsao {
+export class Analise {
 
   public id?: number
   public genero?: string
