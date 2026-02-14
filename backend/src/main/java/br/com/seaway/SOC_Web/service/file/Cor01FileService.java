@@ -104,6 +104,20 @@ public class Cor01FileService {
         cor01.setEstoque(extractField(line, currentPos, currentPos + 4));
         currentPos += 4;
 
+        // Novos campos
+        // Venda Ecommerce (4 digitos)
+        cor01.setVendaEcommerce(extractField(line, currentPos, currentPos + 4));
+        currentPos += 4;
+
+        // Venda 10 dias Ecommerce (4 digitos)
+        cor01.setVenda10DiasEcommerce(extractField(line, currentPos, currentPos + 4));
+        currentPos += 4;
+
+        // Estoque Ecommerce (4 digitos)
+        cor01.setEstoqueEcommerce(extractField(line, currentPos, currentPos + 4));
+        currentPos += 4;
+        // Fim dos novos campos
+
         cor01.setIndice(extractField(line, currentPos, currentPos + 6)); // 4 inteiros + ponto + 1 decimal
         currentPos += 6;
 

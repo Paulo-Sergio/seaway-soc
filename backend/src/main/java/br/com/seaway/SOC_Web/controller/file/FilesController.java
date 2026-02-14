@@ -1,6 +1,7 @@
 package br.com.seaway.SOC_Web.controller.file;
 
 import br.com.seaway.SOC_Web.service.file.*;
+import br.com.seaway.SOC_Web.service.file.Cor03FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,8 @@ public class FilesController {
 
     private final ParametroFileService parametroFileService;
 
+    private final Cor03FileService cor03FileService;
+
     @PostMapping("/process")
     public ResponseEntity<String> processFiles() {
         try {
@@ -32,6 +35,7 @@ public class FilesController {
             cor01FileService.processFixedPathFile();
             auditFileService.processFixedPathFile();
             parametroFileService.processFixedPathFile();
+            cor03FileService.processFixedPathFile();
             return ResponseEntity.ok("Arquivo do caminho fixo processado com sucesso");
         } catch (IOException e) {
             return ResponseEntity.internalServerError().body("Falha ao processar arquivo: " + e.getMessage());

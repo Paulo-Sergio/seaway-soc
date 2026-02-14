@@ -22,6 +22,13 @@ public class Cor01 {
     private String venda;
     private String venda10Dias;
     private String estoque;
+
+    // novos campos
+    private String vendaEcommerce; // 4 digitos
+    private String venda10DiasEcommerce; // 4 digitos
+    private String estoqueEcommerce; // 4 digitos
+    // fim novos campos
+
     private String indice;
     private String iop;
     private String classe;

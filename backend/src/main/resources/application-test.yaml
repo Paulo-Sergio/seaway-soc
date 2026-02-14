@@ -2,7 +2,7 @@ spring:
   application:
     name: SOC-Web
   datasource:
-    url: jdbc:mysql://localhost:3306/seaway_soc_web?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/seaway_soc_web?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -12,7 +12,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
         #dialect: org.hibernate.dialect.MySQL8Dialect
 
 # Caminho fixo para o arquivo PREVISAO.TXT
@@ -44,3 +44,9 @@ parametro-txt:
   file:
     fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
     filename: PARAMETR.TXT
+
+# Caminho fixo para o arquivo COR03.TXT
+cor03-txt:
+  file:
+    fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
+    filename: COR03.TXT

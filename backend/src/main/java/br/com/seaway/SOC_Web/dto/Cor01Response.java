@@ -14,6 +14,13 @@ public class Cor01Response {
     private int venda;
     private int venda10Dias;
     private int estoque;
+
+    // novos campos
+    private int vendaEcommerce; // 4 digitos
+    private int venda10DiasEcommerce; // 4 digitos
+    private int estoqueEcommerce; // 4 digitos
+    // fim novos campos
+
     private double indice;
     private double iop;
     private String classe;
