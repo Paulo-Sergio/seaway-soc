@@ -40,4 +40,7 @@ public class PrevisaoResponse {
 
     // campo de ação
     private String remanejar;
+
+    // row expanded
+    private AnaliseResponse analise;
 }

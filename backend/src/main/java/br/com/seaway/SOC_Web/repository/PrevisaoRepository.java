@@ -28,4 +28,12 @@ public interface PrevisaoRepository extends JpaRepository<Previsao, Long> {
                 ORDER BY SUM(CAST(p.vendasDezDias AS double)) DESC
             """)
     List<GruposMaisVendidosResponse> findDescricaoGrupoAndVendasSum();
+
+    @Query("SELECT p FROM Previsao p WHERE p.remanejar IS NOT NULL")
+    List<Previsao> findNotNullRemanejar();
+
+    @Query("SELECT p FROM Previsao p " +
+            "WHERE LENGTH(p.dataSugestao) = 10 " +
+            "AND p.dataSugestao NOT LIKE '%  %'")
+    List<Previsao> findValidDatesSugestao();
 }

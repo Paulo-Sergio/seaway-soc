@@ -50,3 +50,5 @@ cor03-txt:
   file:
     fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
     filename: COR03.TXT
+
+export-txts: C:/projetos/seaway-soc/arquivos-docs/output

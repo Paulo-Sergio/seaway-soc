@@ -14,6 +14,9 @@
                 <th>Vd</th>
                 <th>Vd 10d</th>
                 <th>Est</th>
+                <th>Vd eco</th>
+                <th>Vd 10d eco</th>
+                <th>Est eco</th>
                 <th>Ind</th>
                 <th>IOP</th>
                 <th>Cl</th>
@@ -25,6 +28,9 @@
                 <td>{{ cor.venda }}</td>
                 <td>{{ cor.venda10Dias }}</td>
                 <td>{{ cor.estoque }}</td>
+                <td>{{ cor.vendaEcommerce }}</td>
+                <td>{{ cor.venda10DiasEcommerce }}</td>
+                <td>{{ cor.estoqueEcommerce }}</td>
                 <td>{{ cor.indice }}</td>
                 <td>{{ cor.iop }}</td>
                 <!--<td>{{ cor.classe }}</td>-->
@@ -63,7 +69,7 @@
             <p-button (onClick)="showDialogAudits()" label="Audt. Produto" icon="pi pi-book" iconPos="left"
               [outlined]="true" severity="info" class="mr-2"></p-button>
             <p-button label="Sair/Gerar TXT" icon="pi pi-file-edit" iconPos="left" [outlined]="true" severity="info"
-              class="mr-2"></p-button>
+              (onClick)="exportOutputs()" class="mr-2"></p-button>
 
             <!-- Botões de rádio com ngModel -->
             <div class="flex align-items-center ml-3">
@@ -88,7 +94,7 @@
       <div class="grid">
         <div class="col-12">
           <p-table [value]="previsoes" [(selection)]="previsaoSelecionado" (onRowSelect)="onRowSelect($event)"
-            selectionMode="single" dataKey="referencia"
+            selectionMode="single" dataKey="referencia" [expandedRowKeys]="expandedRows"
             styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
             (onRowUnselect)="onRowUnselect($event)" [rows]="10" responsiveLayout="scroll" [loading]="loading"
             minFractionDigits="1" [scrollable]="true" [scrollHeight]="scrollHeight">
@@ -102,12 +108,13 @@
             </ng-template>
             <ng-template pTemplate="header">
               <tr>
-                <th colspan="7"></th>
+                <th colspan="8"></th>
                 <th colspan="2" class="text-center" style="font-size: 1.2em;">Lojas</th>
                 <th colspan="2" class="text-center" style="font-size: 1.2em;">Atacado</th>
                 <th colspan="6"></th>
               </tr>
               <tr>
+                <th></th> <!-- Expansion column -->
                 <th style="width: 4rem" class="text-center">#</th>
                 <th class="text-center" pSortableColumn="referencia">Ref<p-sortIcon field="referencia"></p-sortIcon>
                 </th>
@@ -147,13 +154,19 @@
                 </th>
               </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-prev>
-              <tr [pSelectableRow]="prev">
+            <ng-template pTemplate="body" let-prev let-expanded="expanded">
+              <tr [pSelectableRow]="prev" [ngClass]="{'bloqueado': prev.bloqueado === 'B'}">
+                <td>
+                  <button type="button" pButton pRipple [pRowToggler]="prev"
+                    class="p-button-text p-button-rounded p-button-plain"
+                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" *ngIf="prev.analise"></button>
+                </td>
                 <td class="text-center">
                   <p-tableRadioButton [value]="prev" />
                 </td>
                 <td class="text-center">
-                  {{ prev.referencia }} <small *ngIf="prev.remanejar">({{ prev.remanejar }})</small>
+                  {{ prev.referencia }}
+                  <small *ngIf="prev.remanejar"><strong>({{ prev.remanejar }})</strong></small>
                 </td>
                 <td class="text-right">{{ prev.giro }}%</td>
                 <td class="text-right">{{ prev.venda }}</td>
@@ -167,9 +180,42 @@
                 <td class="text-right">{{ prev.pedidoAtender }}</td>
                 <td class="text-right">Est.Fab</td>
                 <td class="text-right">{{ prev.ocEmAberto }}</td>
-                <td class="text-right">{{ prev.sugestaoOc }}</td>
-                <td class="text-right">{{ prev.dataSugestao }}</td>
+                <td class="text-right">
+                  <input type="number" class="input-compacto" [(ngModel)]="prev.sugestaoOc"
+                    (focus)="selecionarConteudo($event)" (blur)="updateSugestaoOc(prev)"
+                    (keyup.enter)="updateSugestaoOc(prev)" max="4">
+                </td>
+                <td class="text-right">{{ prev.dataSugestao | date:'dd/MM' }}</td>
                 <td class="text-right">{{ prev.temPromocao }}</td>
+              </tr>
+            </ng-template>
+
+            <!-- Row Expansion Template -->
+            <ng-template pTemplate="rowexpansion" let-prev>
+              <tr class="expansion-row" [ngClass]="{'bloqueado': prev.analise.bloqueado === 'B'}">
+                <td></td> <!-- Célula vazia para a coluna de expansão -->
+                <td class="text-center">
+                  <!-- Célula vazia ou ícone de análise -->
+                  <i class="pi pi-arrow-up-right text-primary"></i>
+                </td>
+                <td class="text-center">
+                  <span class="text-primary">{{ prev.analise.referencia || prev.referencia }}</span>
+                </td>
+                <td class="text-right">{{ prev.analise.giro }}%</td>
+                <td class="text-right">{{ prev.analise.venda }}</td>
+                <td class="text-right">{{ prev.analise.indice }}</td>
+                <td class="text-right">{{ prev.analise.estoque }}</td>
+                <td class="text-right">{{ prev.analise.vendasDezDias }}</td>
+                <td class="text-right">{{ prev.analise.calculadoLoja }}</td>
+                <td class="text-right">{{ prev.analise.informadoLoja }}</td>
+                <td class="text-right">{{ prev.analise.informadoAtacado }}</td>
+                <td class="text-right">{{ prev.analise.calculadoAtacado }}</td>
+                <td class="text-right">{{ prev.analise.pedidoAtender }}</td>
+                <td class="text-right">{{ prev.analise.performance }}</td>
+                <td class="text-right">{{ prev.analise.ocEmAberto }}</td>
+                <td class="text-right">{{ prev.analise.sugestaoOc }}</td>
+                <td class="text-right">{{ prev.analise.dataSugestao | date:'dd/MM' }}</td>
+                <td class="text-right">{{ prev.analise.temPromocao }}</td>
               </tr>
             </ng-template>
           </p-table>

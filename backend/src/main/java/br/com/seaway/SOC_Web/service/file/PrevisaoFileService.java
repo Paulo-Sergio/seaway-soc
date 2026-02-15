@@ -124,17 +124,20 @@ public class PrevisaoFileService {
         previsao.setInformadoTotal(extractField(line, currentPos, currentPos + 5));
         currentPos += 5;
 
-        previsao.setSugestaoOc(extractField(line, currentPos, currentPos + 4));
+        String sugestaoOc = extractField(line, currentPos, currentPos + 4);
+        previsao.setSugestaoOc(Integer.parseInt(sugestaoOc) < 0 ? "0000" : sugestaoOc);
         currentPos += 4;
 
         // Parse do campo de data (mantido como String)
         previsao.setDataSugestao(extractField(line, currentPos, currentPos + 10));
         currentPos += 10;
 
-        previsao.setSugestaoAnterior(extractField(line, currentPos, currentPos + 4));
+        String sugestaoAnterior = extractField(line, currentPos, currentPos + 4);
+        previsao.setSugestaoAnterior(Integer.parseInt(sugestaoAnterior) < 0 ? "0000" : sugestaoAnterior);
         currentPos += 4;
 
-        previsao.setOcEmAberto(extractField(line, currentPos, currentPos + 4));
+        String ocEmAberto = extractField(line, currentPos, currentPos + 4);
+        previsao.setOcEmAberto(Integer.parseInt(ocEmAberto) < 0 ? "0000" : ocEmAberto);
         currentPos += 4;
 
         previsao.setPedidoAtender(extractField(line, currentPos, currentPos + 4));

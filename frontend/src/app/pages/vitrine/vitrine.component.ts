@@ -26,6 +26,7 @@ export class VitrineComponent implements OnInit {
   public totalRecords: number
   public loading: boolean = true
   public previsaoSelecionado: Previsao
+  public expandedRows: { [key: string]: boolean } = {};
 
   public cores: Cor01[]
 
@@ -153,6 +154,38 @@ export class VitrineComponent implements OnInit {
         },
         error: (err) => {
           console.log(err)
+          this.showNotificationToast('error', 'Conexão Falhou!')
+        },
+      });
+  }
+
+  public updateSugestaoOc(prev: Previsao) {
+    console.log('Valor S.OC:', prev.sugestaoOc);
+    if (!prev.sugestaoOc) prev.sugestaoOc = 0
+    this.socService.updateSugestaoOc(prev.referencia, prev.sugestaoOc)
+      .subscribe({
+        next: (res: any) => {
+          console.log(res)
+        },
+        error: (err) => {
+          console.log(err)
+          this.showNotificationToast('error', 'Conexão Falhou!')
+        },
+      });
+  }
+
+  public exportOutputs() {
+    this.loading = true
+    this.socService.exportOutputs()
+      .subscribe({
+        next: (res: any) => {
+          console.log(res)
+          this.loading = false
+          this.showNotificationToast('success', 'Arquivos exportados com sucesso!')
+        },
+        error: (err) => {
+          console.log(err)
+          this.loading = false
           this.showNotificationToast('error', 'Conexão Falhou!')
         },
       });
@@ -288,6 +321,10 @@ export class VitrineComponent implements OnInit {
     } else {
       this.remanejarValue = 'NA'
     }
+  }
+
+  public selecionarConteudo(event: any) {
+    event.target.select();
   }
 
   private updateWindowHeight(): void {

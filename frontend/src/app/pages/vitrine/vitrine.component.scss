@@ -58,6 +58,10 @@
     font-weight: bolder;
 }
 
+:host ::ng-deep .bloqueado {
+    background-color: yellow !important
+}
+
 // ---------- LOADING ----------
 .progress-spinner {
     position: fixed;
@@ -89,17 +93,46 @@
 
 // Dropdown para Classe das Cores
 .dropdown-compacto {
-  width: 4.5rem;
-  //padding: 2px;
-  border: 1px solid #ced4da;
-  border-radius: 3px;
-  background-color: #f8f9fa;
-  font-size: 0.875rem;
+    width: 4.5rem;
+    //padding: 2px;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    background-color: #f8f9fa;
+    font-size: 0.875rem;
 }
 
 .dropdown-compacto:focus {
-  outline: none;
-  border-color: #2196F3;
-  box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
+    outline: none;
+    border-color: #2196F3;
+    box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
 }
+
 // FIM - Dropdown para Classe das Cores
+
+// Input para S.OC
+.input-compacto {
+    width: 100%;
+    max-width: 100px;
+    padding: 2px 5px;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    font-size: 0.875rem;
+    text-align: right;
+    background-color: #f8f9fa;
+}
+
+.input-compacto:focus {
+    outline: none;
+    border-color: #2196F3;
+    box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
+    background-color: #fff;
+}
+
+/* Remover setas para inputs numéricos */
+.input-compacto::-webkit-inner-spin-button,
+.input-compacto::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+// FIM - Input para S.OC

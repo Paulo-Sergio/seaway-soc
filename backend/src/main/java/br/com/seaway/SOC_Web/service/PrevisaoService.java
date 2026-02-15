@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +42,18 @@ public class PrevisaoService {
         if (optional.isPresent()) {
             Previsao previsao = optional.get();
             previsao.setRemanejar(remanejar.equals("NA") ? null :  remanejar);
+            previsaoRepository.save(previsao);
+        }
+    }
+
+    public void updateSugestaoOc(String referencia, String sugestaoOc) {
+        Optional<Previsao> optional = previsaoRepository.findByReferencia(referencia);
+        if (optional.isPresent()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            Previsao previsao = optional.get();
+            previsao.setSugestaoOc(String.format("%04d", Integer.parseInt(sugestaoOc)));
+            previsao.setDataSugestao(LocalDate.now().format(formatter));
             previsaoRepository.save(previsao);
         }
     }

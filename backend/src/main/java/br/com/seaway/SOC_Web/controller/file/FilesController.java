@@ -27,6 +27,8 @@ public class FilesController {
 
     private final Cor03FileService cor03FileService;
 
+    private final OutputFilesService outputFilesService;
+
     @PostMapping("/process")
     public ResponseEntity<String> processFiles() {
         try {
@@ -40,5 +42,13 @@ public class FilesController {
         } catch (IOException e) {
             return ResponseEntity.internalServerError().body("Falha ao processar arquivo: " + e.getMessage());
         }
+    }
+
+    @PostMapping("/export-outputs")
+    public ResponseEntity<Void> processOutput() {
+        outputFilesService.exportRemanejados();
+        outputFilesService.exportClasses();
+        outputFilesService.exportSOC();
+        return ResponseEntity.noContent().build();
     }
 }

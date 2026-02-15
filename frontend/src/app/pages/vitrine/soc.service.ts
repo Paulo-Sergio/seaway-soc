@@ -101,8 +101,24 @@ export class SocService {
     )
   }
 
+  public updateSugestaoOc(referencia: string, sugestaoOc: number): Observable<any> {
+    return this.http.put<any>(`${baseUrl}/api/previsoes/${referencia}/sugestaoOc/${sugestaoOc}`,
+      {
+        headers: new HttpHeaders({ contentType: this.applicationJson })
+      }
+    )
+  }
+
   public updateClasse(referencia: string, codCor: string, classe: string): Observable<any> {
     return this.http.put<any>(`${baseUrl}/api/cores01/${referencia}/codCor/${codCor}/classe/${classe}`,
+      {
+        headers: new HttpHeaders({ contentType: this.applicationJson })
+      }
+    )
+  }
+
+  public exportOutputs(): Observable<any> {
+    return this.http.post<any>(`${baseUrl}/api/files/export-outputs`,
       {
         headers: new HttpHeaders({ contentType: this.applicationJson })
       }

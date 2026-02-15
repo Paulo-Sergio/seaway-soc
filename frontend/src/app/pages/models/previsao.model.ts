@@ -1,3 +1,5 @@
+import { Analise } from "./analise.model"
+
 export class Previsao {
 
   public id?: number
@@ -31,4 +33,7 @@ export class Previsao {
 
   /** Ação */
   public remanejar?: string
+
+  /** Row expanded */
+  public analise?: Analise
 }

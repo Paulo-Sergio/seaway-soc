@@ -16,4 +16,7 @@ public interface Cor01Repository extends JpaRepository<Cor01, Long> {
 
     @Query("SELECT c FROM Cor01 c WHERE c.referencia = :referencia AND c.codigoCor = :codCor")
     Optional<Cor01> findByReferenciaAndCodCor(String referencia, String codCor);
+
+    @Query("SELECT c FROM Cor01 c WHERE c.classe IS NOT NULL AND TRIM(c.classe) <> ''")
+    List<Cor01> findNotNullClasse();
 }

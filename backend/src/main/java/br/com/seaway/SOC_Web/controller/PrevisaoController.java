@@ -38,4 +38,10 @@ public class PrevisaoController {
         previsaoService.updateRemanejar(referencia, remanejar);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{referencia}/sugestaoOc/{sugestaoOc}")
+    public ResponseEntity<Void> updatedSugestaoOc(@PathVariable String referencia, @PathVariable String sugestaoOc) {
+        previsaoService.updateSugestaoOc(referencia, sugestaoOc);
+        return ResponseEntity.noContent().build();
+    }
 }
