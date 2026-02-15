@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { baseUrl } from 'src/environments/environment';
-import { Cor } from "../models/cor.model";
+import { Cor01 } from "../models/cor01.model";
 import { Previsao } from "../models/previsao.model";
 import { Audit } from "../models/audit.model";
 import { AuditSummary } from "../models/audit-summary.model";
@@ -40,8 +40,8 @@ export class SocService {
     )
   }
 
-  public findCoresByReferencia(referencia: string): Observable<Cor[]> {
-    return this.http.get<Cor[]>(`${baseUrl}/api/cores01/${referencia}`,
+  public findCoresByReferencia(referencia: string): Observable<Cor01[]> {
+    return this.http.get<Cor01[]>(`${baseUrl}/api/cores01/${referencia}`,
       {
         headers: new HttpHeaders({ contentType: this.applicationJson })
       }
@@ -62,7 +62,7 @@ export class SocService {
         headers: new HttpHeaders({ contentType: this.applicationJson })
       }
     )
-  }  
+  }
 
   public findAuditSummaryByReferencia(referencia: string): Observable<AuditSummary> {
     return this.http.get<AuditSummary>(`${baseUrl}/api/audits/summary/${referencia}`,
@@ -70,7 +70,7 @@ export class SocService {
         headers: new HttpHeaders({ contentType: this.applicationJson })
       }
     )
-  }  
+  }
 
   public findParametros(): Observable<Parametro> {
     return this.http.get<Parametro>(`${baseUrl}/api/parametros`,
@@ -78,7 +78,7 @@ export class SocService {
         headers: new HttpHeaders({ contentType: this.applicationJson })
       }
     )
-  }  
+  }
 
   public exportReport(codColecao: string): Observable<any> {
     let params = new HttpParams()
@@ -88,6 +88,23 @@ export class SocService {
         observe: 'response',
         responseType: 'blob' as 'json',
         headers: new HttpHeaders({ contentType: "application/pdf" })
+      }
+    )
+  }
+
+  /** Ações */
+  public updatedRemanejar(referencia: string, remanejar: string): Observable<any> {
+    return this.http.put<any>(`${baseUrl}/api/previsoes/${referencia}/remanejar/${remanejar}`,
+      {
+        headers: new HttpHeaders({ contentType: this.applicationJson })
+      }
+    )
+  }
+
+  public updateClasse(referencia: string, codCor: string, classe: string): Observable<any> {
+    return this.http.put<any>(`${baseUrl}/api/cores01/${referencia}/codCor/${codCor}/classe/${classe}`,
+      {
+        headers: new HttpHeaders({ contentType: this.applicationJson })
       }
     )
   }

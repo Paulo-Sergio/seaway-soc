@@ -40,6 +40,7 @@ public class PrevisaoUtil {
                 .bloqueado(previsao.getBloqueado())
                 .codigoColecao(previsao.getCodigoColecao())
                 .nomeColecao(previsao.getNomeColecao())
+                .remanejar(previsao.getRemanejar())
                 .build();
     }
 }

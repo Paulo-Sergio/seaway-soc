@@ -7,7 +7,7 @@ import { UtilsSeaway } from '../../utilities/utils-seaway';
 import { debounceTime, distinctUntilChanged, tap, map } from 'rxjs/operators';
 import { WindowService } from './window.service';
 import { SocService } from './soc.service';
-import { Cor } from '../models/cor.model';
+import { Cor01 } from '../models/cor01.model';
 import { baseUrlImgs } from 'src/environments/environment';
 import { Audit } from '../models/audit.model';
 import { AuditSummary } from '../models/audit-summary.model';
@@ -20,13 +20,14 @@ import { Parametro } from '../models/parametro.model';
 export class VitrineComponent implements OnInit {
 
   public form: FormGroup
+  public remanejarValue: string // Propriedade para armazenar o valor do botão de rádio
 
   public previsoes: Previsao[]
   public totalRecords: number
   public loading: boolean = true
   public previsaoSelecionado: Previsao
 
-  public cores: Cor[]
+  public cores: Cor01[]
 
   public parametro: Parametro
 
@@ -40,7 +41,6 @@ export class VitrineComponent implements OnInit {
 
   public windowHeight: number = 0
   public scrollHeight: string = '400px'
-
   public imageUrl: string
   public loadingBtnImprimir: boolean = false
 
@@ -62,7 +62,7 @@ export class VitrineComponent implements OnInit {
     this.findParametros()
 
     this.form = this.fb.group({
-      descricaoGrupo: [null],
+      descricaoGrupo: [null]
     })
 
     this.updateWindowHeight();
@@ -109,10 +109,10 @@ export class VitrineComponent implements OnInit {
       });
   }
 
-  public typeRadioButton(referencia: string): void {
+  public changeRadioButton(referencia: string): void {
     this.socService.findCoresByReferencia(referencia)
       .subscribe({
-        next: (res: Cor[]) => {
+        next: (res: Cor01[]) => {
           this.cores = res
           console.log(this.cores)
           this.imageUrl = `${baseUrlImgs}/${referencia}F.JPG`
@@ -124,10 +124,46 @@ export class VitrineComponent implements OnInit {
       });
   }
 
+  public onRemanejarChange(value: string) {
+    console.log('Novo valor de remanejar:', value);
+    this.socService.updatedRemanejar(this.previsaoSelecionado.referencia, value)
+      .subscribe({
+        next: (res: any) => {
+          console.log(res)
+          const index = this.previsoes.findIndex(previsao => previsao.referencia === this.previsaoSelecionado.referencia)
+          if (index !== -1) {
+            // Atualize o registro
+            this.previsoes[index].remanejar = value === 'NA' ? null : value
+          }
+        },
+        error: (err) => {
+          console.log(err)
+          this.showNotificationToast('error', 'Conexão Falhou!')
+        },
+      });
+  }
+
+  // Método para lidar com as mudanças
+  public onClasseChange(cor: Cor01, event: any) {
+    console.log('Classe alterada para', cor.codigoCor, 'para', event.target.value);
+    this.socService.updateClasse(this.previsaoSelecionado.referencia, cor.codigoCor, event.target.value)
+      .subscribe({
+        next: (res: any) => {
+          console.log(res)
+        },
+        error: (err) => {
+          console.log(err)
+          this.showNotificationToast('error', 'Conexão Falhou!')
+        },
+      });
+  }
+
   public onRowSelect(event: any): void {
     console.log("onRowSelect: " + event?.data?.referencia)
+    this.gerenciarRadioButtonRemanejar()
     this.previsaoSelecionado = event?.data
-    this.typeRadioButton(event?.data?.referencia)
+
+    this.changeRadioButton(event?.data?.referencia)
   }
 
   public onRowUnselect(event: any): void {
@@ -242,6 +278,16 @@ export class VitrineComponent implements OnInit {
           this.showNotificationToast('error', 'Error exporting report!')
         }
       })
+  }
+
+  private gerenciarRadioButtonRemanejar(): void {
+    if (this.previsaoSelecionado.remanejar === 'LA') {
+      this.remanejarValue = 'LA'
+    } else if (this.previsaoSelecionado.remanejar === 'L') {
+      this.remanejarValue = 'L'
+    } else {
+      this.remanejarValue = 'NA'
+    }
   }
 
   private updateWindowHeight(): void {

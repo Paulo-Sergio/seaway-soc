@@ -28,4 +28,7 @@ export class Previsao {
   public bloqueado?: string
   public codigoColecao?: string
   public nomeColecao?: string  
+
+  /** Ação */
+  public remanejar?: string
 }

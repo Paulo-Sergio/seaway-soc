@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import localePt from '@angular/common/locales/pt';
 import { VitrineComponent } from './vitrine.component';
 import { TableModule } from 'primeng/table';
@@ -16,6 +16,7 @@ import { SplitterModule } from 'primeng/splitter';
 import { WindowService } from './window.service';
 import { ImageModule } from 'primeng/image';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { SocService } from './soc.service';
 
 registerLocaleData(localePt);
@@ -24,6 +25,7 @@ registerLocaleData(localePt);
   imports: [
     CommonModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     TableModule,
     DropdownModule,
@@ -34,6 +36,7 @@ registerLocaleData(localePt);
     DialogModule,
     SplitterModule,
     ImageModule,
+    RadioButtonModule,
     ProgressSpinnerModule
   ],
   declarations: [

@@ -54,4 +54,7 @@ public class Previsao {
     private String bloqueado;         // "B" ou ""
     private String codigoColecao;
     private String nomeColecao;
+
+    // campo de ação
+    private String remanejar;
 }

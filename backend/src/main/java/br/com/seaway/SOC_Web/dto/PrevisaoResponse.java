@@ -37,4 +37,7 @@ public class PrevisaoResponse {
     private String bloqueado;
     private String codigoColecao;
     private String nomeColecao;
+
+    // campo de ação
+    private String remanejar;
 }

@@ -32,4 +32,10 @@ public class PrevisaoController {
     public List<GruposMaisVendidosResponse> getDescricaoGruposEVendasSum() {
         return previsaoService.obterDescricaoGruposEVendasSum();
     }
+
+    @PutMapping("/{referencia}/remanejar/{remanejar}")
+    public ResponseEntity<Void> updatedRemanejar(@PathVariable String referencia, @PathVariable String remanejar) {
+        previsaoService.updateRemanejar(referencia, remanejar);
+        return ResponseEntity.noContent().build();
+    }
 }

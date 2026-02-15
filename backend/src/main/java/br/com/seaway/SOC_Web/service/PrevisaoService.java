@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,8 +22,7 @@ public class PrevisaoService {
     private final PrevisaoUtil previsaoUtil;
 
     public List<String> findAllGrupos() {
-        List<String> grupos = previsaoRepository.findAllDistinctDescricaoGrupo();
-        return grupos;
+        return previsaoRepository.findAllDistinctDescricaoGrupo();
     }
 
     public List<PrevisaoResponse> findByDescricaoGrupo(String descricaoGrupo) {
@@ -33,5 +33,14 @@ public class PrevisaoService {
 
     public List<GruposMaisVendidosResponse> obterDescricaoGruposEVendasSum() {
         return previsaoRepository.findDescricaoGrupoAndVendasSum();
+    }
+
+    public void updateRemanejar(String referencia, String remanejar) {
+        Optional<Previsao> optional = previsaoRepository.findByReferencia(referencia);
+        if (optional.isPresent()) {
+            Previsao previsao = optional.get();
+            previsao.setRemanejar(remanejar.equals("NA") ? null :  remanejar);
+            previsaoRepository.save(previsao);
+        }
     }
 }

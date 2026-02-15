@@ -4,10 +4,7 @@ import br.com.seaway.SOC_Web.dto.Cor01Response;
 import br.com.seaway.SOC_Web.service.Cor01Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +25,15 @@ public class Cor01Controller {
     public ResponseEntity<List<Cor01Response>> findByReferencia(@PathVariable String referencia) {
         List<Cor01Response> response = cor01Service.findByReferencia(referencia);
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{referencia}/codCor/{codCor}/classe/{classe}")
+    public ResponseEntity<Void> updateClasse(
+            @PathVariable String referencia,
+            @PathVariable String codCor,
+            @PathVariable String classe
+    ) {
+        cor01Service.updateClasse(referencia, codCor, classe);
+        return ResponseEntity.noContent().build();
     }
 }
