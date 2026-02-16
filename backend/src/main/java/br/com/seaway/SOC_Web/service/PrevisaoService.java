@@ -53,7 +53,21 @@ public class PrevisaoService {
 
             Previsao previsao = optional.get();
             previsao.setSugestaoOc(String.format("%04d", Integer.parseInt(sugestaoOc)));
-            previsao.setDataSugestao(LocalDate.now().format(formatter));
+
+            if (Integer.parseInt(sugestaoOc) <= 0) {
+                previsao.setDataSugestao(null);
+            } else {
+                previsao.setDataSugestao(LocalDate.now().format(formatter));
+            }
+            previsaoRepository.save(previsao);
+        }
+    }
+
+    public void updatePrioridade(String referencia, String prioridade) {
+        Optional<Previsao> optional = previsaoRepository.findByReferencia(referencia);
+        if (optional.isPresent()) {
+            Previsao previsao = optional.get();
+            previsao.setPrioridade(prioridade.equals("NA") ? null : prioridade);
             previsaoRepository.save(previsao);
         }
     }

@@ -53,6 +53,7 @@ public class PrevisaoUtil {
                 .codigoColecao(previsao.getCodigoColecao())
                 .nomeColecao(previsao.getNomeColecao())
                 .remanejar(previsao.getRemanejar())
+                .prioridade(previsao.getPrioridade())
                 .analise(opAnalise.map(analise -> analiseUtil.createResponse(analise)).orElse(null))
                 .build();
     }

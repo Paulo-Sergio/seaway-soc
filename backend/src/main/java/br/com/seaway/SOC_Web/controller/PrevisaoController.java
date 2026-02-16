@@ -44,4 +44,10 @@ public class PrevisaoController {
         previsaoService.updateSugestaoOc(referencia, sugestaoOc);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{referencia}/prioridade/{prioridade}")
+    public ResponseEntity<Void> updatedPrioridade(@PathVariable String referencia, @PathVariable String prioridade) {
+        previsaoService.updatePrioridade(referencia, prioridade);
+        return ResponseEntity.noContent().build();
+    }
 }

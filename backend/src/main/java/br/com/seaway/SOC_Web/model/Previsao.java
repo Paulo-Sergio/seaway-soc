@@ -57,4 +57,5 @@ public class Previsao {
 
     // campo de ação
     private String remanejar;
+    private String prioridade;
 }

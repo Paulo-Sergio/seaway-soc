@@ -109,6 +109,14 @@ export class SocService {
     )
   }
 
+  public updatePrioridade(referencia: string, prioridade: string): Observable<any> {
+    return this.http.put<any>(`${baseUrl}/api/previsoes/${referencia}/prioridade/${prioridade}`,
+      {
+        headers: new HttpHeaders({ contentType: this.applicationJson })
+      }
+    )
+  }
+
   public updateClasse(referencia: string, codCor: string, classe: string): Observable<any> {
     return this.http.put<any>(`${baseUrl}/api/cores01/${referencia}/codCor/${codCor}/classe/${classe}`,
       {

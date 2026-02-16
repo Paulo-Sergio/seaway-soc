@@ -111,7 +111,7 @@
                 <th colspan="8"></th>
                 <th colspan="2" class="text-center" style="font-size: 1.2em;">Lojas</th>
                 <th colspan="2" class="text-center" style="font-size: 1.2em;">Atacado</th>
-                <th colspan="6"></th>
+                <th colspan="8"></th>
               </tr>
               <tr>
                 <th></th> <!-- Expansion column -->
@@ -150,8 +150,9 @@
                 </th>
                 <th class="text-right" pSortableColumn="dataSugestao">Data<p-sortIcon field="dataSugestao"></p-sortIcon>
                 </th>
-                <th class="text-right" pSortableColumn="temPromocao">P<p-sortIcon field="temPromocao"></p-sortIcon>
+                <th class="text-center" pSortableColumn="temPromocao">P<p-sortIcon field="temPromocao"></p-sortIcon>
                 </th>
+                <th class="text-center">Prioridade</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-prev let-expanded="expanded">
@@ -186,7 +187,15 @@
                     (keyup.enter)="updateSugestaoOc(prev)" max="4">
                 </td>
                 <td class="text-right">{{ prev.dataSugestao | date:'dd/MM' }}</td>
-                <td class="text-right">{{ prev.temPromocao }}</td>
+                <td class="text-center">{{ prev.temPromocao }}</td>
+                <td>
+                  <select [(ngModel)]="prev.prioridade" (change)="onPrioridadeChange(prev, $event)"
+                    class="dropdown-compacto">
+                    <option [value]="NA"></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                  </select>
+                </td>
               </tr>
             </ng-template>
 
@@ -216,6 +225,7 @@
                 <td class="text-right">{{ prev.analise.sugestaoOc }}</td>
                 <td class="text-right">{{ prev.analise.dataSugestao | date:'dd/MM' }}</td>
                 <td class="text-right">{{ prev.analise.temPromocao }}</td>
+                <td></td>
               </tr>
             </ng-template>
           </p-table>

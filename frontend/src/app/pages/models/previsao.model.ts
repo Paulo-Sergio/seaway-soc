@@ -33,6 +33,7 @@ export class Previsao {
 
   /** Ação */
   public remanejar?: string
+  public prioridade?: string
 
   /** Row expanded */
   public analise?: Analise

@@ -144,7 +144,6 @@ export class VitrineComponent implements OnInit {
       });
   }
 
-  // Método para lidar com as mudanças
   public onClasseChange(cor: Cor01, event: any) {
     console.log('Classe alterada para', cor.codigoCor, 'para', event.target.value);
     this.socService.updateClasse(this.previsaoSelecionado.referencia, cor.codigoCor, event.target.value)
@@ -161,8 +160,27 @@ export class VitrineComponent implements OnInit {
 
   public updateSugestaoOc(prev: Previsao) {
     console.log('Valor S.OC:', prev.sugestaoOc);
-    if (!prev.sugestaoOc) prev.sugestaoOc = 0
+    if (!prev.sugestaoOc || prev.sugestaoOc < 0) prev.sugestaoOc = 0
     this.socService.updateSugestaoOc(prev.referencia, prev.sugestaoOc)
+      .subscribe({
+        next: (res: any) => {
+          console.log(res)
+          const index = this.previsoes.findIndex(previsao => previsao.referencia === prev.referencia)
+          if (index !== -1) {
+            // Atualize o registro
+            this.previsoes[index].dataSugestao = !prev.sugestaoOc ? null : new Date()
+          }
+        },
+        error: (err) => {
+          console.log(err)
+          this.showNotificationToast('error', 'Conexão Falhou!')
+        },
+      });
+  }
+
+  public onPrioridadeChange(prev: Previsao, event: any) {
+    console.log('Prioridade da ref', prev.referencia, 'alterada para', event.target.value);
+    this.socService.updatePrioridade(prev.referencia, event.target.value)
       .subscribe({
         next: (res: any) => {
           console.log(res)
