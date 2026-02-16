@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,4 +37,7 @@ public interface PrevisaoRepository extends JpaRepository<Previsao, Long> {
             "WHERE LENGTH(p.dataSugestao) = 10 " +
             "AND p.dataSugestao NOT LIKE '%  %'")
     List<Previsao> findValidDatesSugestao();
+
+    @Query("SELECT p FROM Previsao p WHERE p.dataSugestao = :data ORDER BY p.descricaoGrupo, COALESCE(p.prioridade, 3)")
+    List<Previsao> findByData(String data);
 }

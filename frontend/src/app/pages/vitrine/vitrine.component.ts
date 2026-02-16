@@ -305,30 +305,27 @@ export class VitrineComponent implements OnInit {
 
   public exportReport() {
     this.loadingBtnImprimir = true
-    this.socService.exportReport(this.form.get('colecao').value)
+    this.socService.exportReport()
       .subscribe({
-        next: (res: any) => {
-          console.log(res)
-          this.loadingBtnImprimir = false
-          let blob: Blob = res.body as Blob
-          let url = window.URL.createObjectURL(blob)
-          window.open(url) //apenas abrir no navegador
-
-          /* Fazer download
-          let a = document.createElement('a')
-          a.download = 'Produto Vitrine Relatório'
-          a.href = url
-          a.click()
-          */
-
-          this.showNotificationToast('info', 'Relatório gerado com sucesso!')
+        next: (blob) => {
+          this.loadingBtnImprimir = false;
+          this.downloadFile(blob, `ordem-corte.pdf`);
         },
         error: (err) => {
           console.log(err)
           this.loadingBtnImprimir = false
-          this.showNotificationToast('error', 'Error exporting report!')
+          this.showNotificationToast('error', 'Erro ao gerar relatório!')
         }
       })
+  }
+
+  private downloadFile(blob: Blob, filename: string): void {
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+    window.URL.revokeObjectURL(url);
   }
 
   private gerenciarRadioButtonRemanejar(): void {

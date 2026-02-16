@@ -80,14 +80,10 @@ export class SocService {
     )
   }
 
-  public exportReport(codColecao: string): Observable<any> {
-    let params = new HttpParams()
-    return this.http.get<any>(`${baseUrl}/report/pdf/VitrineHorizontal/codColecao/${codColecao}`,
+  public exportReport(): Observable<Blob> {
+    return this.http.get<Blob>(`${baseUrl}/api/relatorios/ordens-corte/pdf?usuario=sistema`,
       {
-        params: params,
-        observe: 'response',
         responseType: 'blob' as 'json',
-        headers: new HttpHeaders({ contentType: "application/pdf" })
       }
     )
   }

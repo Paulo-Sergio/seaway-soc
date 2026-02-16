@@ -36,7 +36,7 @@
                 <!--<td>{{ cor.classe }}</td>-->
                 <td>
                   <select [(ngModel)]="cor.classe" (change)="onClasseChange(cor, $event)" class="dropdown-compacto">
-                    <option [value]="NA"></option>
+                    <option value="NA"></option>
                     <option value="A">A</option>
                     <option value="B">B</option>
                     <option value="C">C</option>
@@ -159,7 +159,7 @@
               <tr [pSelectableRow]="prev" [ngClass]="{'bloqueado': prev.bloqueado === 'B'}">
                 <td>
                   <button type="button" pButton pRipple [pRowToggler]="prev"
-                    class="p-button-text p-button-rounded p-button-plain"
+                    class="p-button-text p-button-rounded p-button-plain" size="small"
                     [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" *ngIf="prev.analise"></button>
                 </td>
                 <td class="text-center">
@@ -179,7 +179,7 @@
                 <td class="text-right">{{ prev.informadoAtacado }}</td>
                 <td class="text-right">{{ prev.calculadoAtacado }}</td>
                 <td class="text-right">{{ prev.pedidoAtender }}</td>
-                <td class="text-right">Est.Fab</td>
+                <td class="text-right">{{ prev.informadoTotal }}</td>
                 <td class="text-right">{{ prev.ocEmAberto }}</td>
                 <td class="text-right">
                   <input type="number" class="input-compacto" [(ngModel)]="prev.sugestaoOc"
@@ -191,7 +191,7 @@
                 <td>
                   <select [(ngModel)]="prev.prioridade" (change)="onPrioridadeChange(prev, $event)"
                     class="dropdown-compacto">
-                    <option [value]="NA"></option>
+                    <option value="NA"></option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                   </select>
