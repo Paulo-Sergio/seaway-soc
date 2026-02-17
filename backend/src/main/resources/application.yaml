@@ -4,3 +4,9 @@ server:
 spring:
   profiles:
     active: test
+
+  # Desabilitar página de login padrão
+  security:
+    user:
+      name: none
+      password: none

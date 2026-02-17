@@ -187,6 +187,6 @@ export class AppProfileComponent {
     }
 
     public getFullname(): string {
-        return this.authService.getFullname()
+        return 'macaco'
     }
 }

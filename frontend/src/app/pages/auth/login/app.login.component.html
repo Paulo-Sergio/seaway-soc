@@ -12,39 +12,33 @@
       <div class="col-12 login-icon-container">
         <img class="login-icon" src="assets/layout/images/icon-login.png" alt="california-layout" />
       </div>
-      <form [formGroup]="form">
+      <form (ngSubmit)="onSubmit()">
         <div class="col-12 lg:col-12 md:col-12 logo-container">
           <span class="login-summary">Login Seaway SOC</span>
           <div class="login-detail">
             <span>Bem vindo ao sistema SOC Seaway Web</span>
           </div>
         </div>
-        <span style="color: red;" class="p-col-12" *ngIf="isLoginFalhou">
-          Usuário e/ou senha inválido(s)
-        </span>
+
         <div class="col-12 lg:col-12 md:col-12">
           <div class="input-wrapper">
             <label>Usuário</label>
-            <input type="text" autocomplete="off" formControlName="username" placeholder="informe o seu usuário"
-              pInputText>
+            <input type="text" [(ngModel)]="user.username" name="username" autocomplete="off"
+              placeholder="informe o seu usuário" pInputText>
           </div>
         </div>
         <div class="col-12 lg:col-12 md:col-12">
           <div class="input-wrapper">
             <label>Senha</label>
-            <input type="password" autocomplete="off" formControlName="password" placeholder="Informe a sua senha"
-              pInputText>
+            <input type="password" [(ngModel)]="user.password" name="password" autocomplete="off"
+              placeholder="Informe a sua senha" pInputText>
           </div>
         </div>
-        <!--<div class="col-12 lg:col-12 md:col-12 chkbox-container">
-        <div class="remember-me">
-          <input type="checkbox" class="p-chkbox p-chkbox-box">
-          <span>Remember me</span>
-          <a href="#">Reset Password</a
-        </div>
-      </div>-->
+
+        <div *ngIf="errorMessage" class="error-message" style="color: red;">{{ errorMessage }}</div>
+
         <div class="col-12 lg:col-12 md:col-12 button-container">
-          <button type="button" pButton label="Entrar" (click)="onSubmit()"></button>
+          <button type="submit" pButton>Entrar</button>
         </div>
       </form>
     </div>
