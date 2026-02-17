@@ -1,5 +1,6 @@
 package br.com.seaway.SOC_Web.service.file;
 
+import br.com.seaway.SOC_Web.exception.ArquivosNaoEncontradoException;
 import br.com.seaway.SOC_Web.model.Audit;
 import br.com.seaway.SOC_Web.model.AuditSummary;
 import br.com.seaway.SOC_Web.repository.AuditRepository;
@@ -60,10 +61,11 @@ public class AuditFileService {
         Path filePath = Paths.get(fixedPath, filename);
         if (!Files.exists(filePath)) {
             log.error("Arquivo AUDIT não encontrado: {}", filePath);
-            throw new IOException("Arquivo AUDIT não encontrado: " + filePath);
+            throw new ArquivosNaoEncontradoException("Arquivo não encontrado: " + filePath);
         }
         log.info("Processando arquivo AUDIT: {}", filePath);
         processFile(filePath);
+        Files.delete(filePath);
     }
 
     /**

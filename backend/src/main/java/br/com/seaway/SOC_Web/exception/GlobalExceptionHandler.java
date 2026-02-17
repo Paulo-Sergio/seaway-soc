@@ -26,6 +26,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
+    @ExceptionHandler(ArquivosNaoEncontradoException.class)
+    public ResponseEntity<ErrorResponse> arquivosNaoEncontradoException(ArquivosNaoEncontradoException e) {
+        log.error("Erro: {}", e.getMessage());
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                e.getMessage(),
+                HttpStatus.NOT_FOUND.value(),
+                "Arquivos de atualização não encontrado"
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
     @ExceptionHandler(IOException.class)
     public ResponseEntity<String> handleIOException(IOException exc) {
         log.error("Erro de IO ocorreu", exc);

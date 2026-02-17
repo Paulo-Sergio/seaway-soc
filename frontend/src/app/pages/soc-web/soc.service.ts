@@ -81,6 +81,7 @@ export class SocService {
     )
   }
 
+  /** Ações */
   public exportReport(): Observable<Blob> {
     return this.http.get<Blob>(`${baseUrl}/api/relatorios/ordens-corte/pdf?usuario=sistema`,
       {
@@ -89,7 +90,6 @@ export class SocService {
     )
   }
 
-  /** Ações */
   public updatedRemanejar(referencia: string, remanejar: string): Observable<any> {
     return this.http.put<any>(`${baseUrl}/api/previsoes/${referencia}/remanejar/${remanejar}`,
       {
@@ -124,6 +124,15 @@ export class SocService {
 
   public showEstoquePorCor(referencia: string, codCor: string): Observable<Cor03[]> {
     return this.http.get<Cor03[]>(`${baseUrl}/api/cores03/${referencia}/codCor/${codCor}`,
+      {
+        headers: new HttpHeaders({ contentType: this.applicationJson })
+      }
+    )
+  }
+
+  /** Processar e Gerar Arquivos */
+  public importFiles(): Observable<any> {
+    return this.http.post<any>(`${baseUrl}/api/files/process`,
       {
         headers: new HttpHeaders({ contentType: this.applicationJson })
       }

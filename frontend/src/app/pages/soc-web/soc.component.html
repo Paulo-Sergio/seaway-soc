@@ -106,7 +106,8 @@
             <ng-template pTemplate="caption">
               <div class="flex align-items-center justify-content-between">
                 <span>
-                  Coleção: {{parametro?.codColecao}} - {{parametro?.nomeColecao}}
+                  Coleção: {{parametro?.codColecao}} - {{parametro?.nomeColecao}} -
+                  <small>{{parametro?.dataCalculo | date:'dd/MM'}} {{parametro?.horaCalculo}}</small>
                 </span>
                 <p-button (onClick)="exportReport()" label="IMPRIMIR" icon="pi pi-file-pdf" iconPos="right"></p-button>
               </div>
@@ -439,7 +440,7 @@
 <!-- ######### Model (Grade) ############ -->
 <!-- #################################### -->
 <!-- #################################### -->
-<p-dialog header="{{ corSelecionada?.referencia }} {{ corSelecionada?.nomeCor }}" [modal]="true"
+<p-dialog header="Ref.: {{ corSelecionada?.referencia }} - {{ corSelecionada?.nomeCor }}" [modal]="true"
   [(visible)]="diplayModalEstoque" [dismissableMask]="true" [style]="{ width: '50vw' }">
 
   <div class="estoque-container">
@@ -474,6 +475,6 @@
   </div>
 </p-dialog>
 
-<div class="progress-spinner" *ngIf="loadingBtnImprimir">
+<div class="progress-spinner" *ngIf="loadingFull">
   <p-progressSpinner></p-progressSpinner>
 </div>

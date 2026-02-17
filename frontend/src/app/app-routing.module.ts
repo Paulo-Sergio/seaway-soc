@@ -30,7 +30,7 @@ import { AppTimelineDemoComponent } from './pages/app.timelinedemo.component';
 import { AppInvoiceComponent } from './pages/app.invoice.component';
 import { AppHelpComponent } from './pages/app.help.component';
 import { BlocksComponent } from './blocks/blocks/blocks.component';
-import { VitrineComponent } from './pages/vitrine/vitrine.component';
+import { SocComponent } from './pages/soc-web/soc.component';
 import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
@@ -66,8 +66,13 @@ import { HomeComponent } from './pages/home/home.component';
           { path: 'documentation', component: DocumentationComponent },
           { path: 'blocks', component: BlocksComponent },
 
-          { path: '', component: HomeComponent },
-          { path: 'vitrine', component: VitrineComponent }
+          //{ path: '', component: HomeComponent },
+          {
+            path: '',
+            redirectTo: '/produtos',
+            pathMatch: 'full'
+          },
+          { path: 'produtos', component: SocComponent }
         ]
       },
       { path: 'error', component: AppErrorComponent },

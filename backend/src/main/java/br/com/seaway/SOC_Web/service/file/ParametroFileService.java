@@ -1,5 +1,6 @@
 package br.com.seaway.SOC_Web.service.file;
 
+import br.com.seaway.SOC_Web.exception.ArquivosNaoEncontradoException;
 import br.com.seaway.SOC_Web.model.Parametro;
 import br.com.seaway.SOC_Web.repository.ParametroRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,10 +37,11 @@ public class ParametroFileService {
         Path filePath = Paths.get(fixedPath, filename);
         if (!Files.exists(filePath)) {
             log.error("Arquivo não encontrado: {}", filePath);
-            throw new IOException("Arquivo não encontrado: " + filePath);
+            throw new ArquivosNaoEncontradoException("Arquivo não encontrado: " + filePath);
         }
         log.info("Processando arquivo PARAMETR: {}", filePath);
         processFile(filePath);
+        Files.delete(filePath);
     }
 
     /**

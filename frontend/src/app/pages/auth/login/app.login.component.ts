@@ -52,7 +52,7 @@ export class AppLoginComponent {
                   this.userInfoVitrine.roles = user.roles
                   localStorage.setItem('userInfoVitrine', JSON.stringify(this.userInfoVitrine))
 
-                  this.router.navigate(['/'])
+                  this.router.navigate(['/produtos'])
                 },
                 error: (err) => {
                   console.log(err)

@@ -12,7 +12,6 @@ import { baseUrlImgs } from 'src/environments/environment';
 import { Audit } from '../models/audit.model';
 import { AuditSummary } from '../models/audit-summary.model';
 import { Parametro } from '../models/parametro.model';
-import { OverlayPanel } from 'primeng/overlaypanel';
 import { Cor03 } from '../models/cor03.model';
 
 interface LojaInfo {
@@ -21,10 +20,10 @@ interface LojaInfo {
 }
 
 @Component({
-  templateUrl: './vitrine.component.html',
-  styleUrls: ['./vitrine.component.scss']
+  templateUrl: './soc.component.html',
+  styleUrls: ['./soc.component.scss']
 })
-export class VitrineComponent implements OnInit {
+export class SocComponent implements OnInit {
 
   public form: FormGroup
   public remanejarValue: string // Propriedade para armazenar o valor do botão de rádio
@@ -56,7 +55,7 @@ export class VitrineComponent implements OnInit {
   public windowHeight: number = 0
   public scrollHeight: string = '400px'
   public imageUrl: string
-  public loadingBtnImprimir: boolean = false
+  public loadingFull: boolean = false
 
   constructor(
     private breadcrumbService: BreadcrumbService,
@@ -72,8 +71,7 @@ export class VitrineComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.findAllGrupos()
-    this.findParametros()
+    this.importFiles()
 
     this.form = this.fb.group({
       descricaoGrupo: [null]
@@ -374,12 +372,13 @@ export class VitrineComponent implements OnInit {
   }
 
   public exportReport() {
-    this.loadingBtnImprimir = true
+    this.loadingFull = true
     this.socService.exportReport()
       .subscribe({
         next: (blob) => {
-          this.loadingBtnImprimir = false;
-          this.downloadFile(blob, `ordem-corte.pdf`);
+          this.loadingFull = false;
+          const hoje = new Date().toLocaleDateString('pt-BR').replace(/\//g, '-');
+          this.downloadFile(blob, `ordem-corte-${hoje}.pdf`);
         },
         error: (err) => {
           console.log(err)
@@ -388,7 +387,7 @@ export class VitrineComponent implements OnInit {
           } else {
             this.showNotificationToast('error', 'Erro genérico ao gerar relatório!')
           }
-          this.loadingBtnImprimir = false
+          this.loadingFull = false
         }
       })
   }
@@ -410,6 +409,29 @@ export class VitrineComponent implements OnInit {
     } else {
       this.remanejarValue = 'NA'
     }
+  }
+
+  private importFiles(): void {
+    this.loadingFull = true
+    this.socService.importFiles()
+    .subscribe({
+      next: (res: any) => {
+          console.log(res)
+          this.findAllGrupos()
+          this.findParametros()
+          this.loadingFull = false
+        },
+        error: (err) => {
+          console.log(err)
+          if (err.status == 404) {
+            this.findAllGrupos()
+            this.findParametros()
+          } else {
+            this.showNotificationToast('error', 'Falha na importação dos arquivos!')
+          }
+          this.loadingFull = false
+        },
+      });
   }
 
   public selecionarConteudo(event: any) {

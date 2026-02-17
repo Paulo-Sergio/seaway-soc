@@ -1,5 +1,6 @@
 package br.com.seaway.SOC_Web.service.file;
 
+import br.com.seaway.SOC_Web.exception.ArquivosNaoEncontradoException;
 import br.com.seaway.SOC_Web.model.Analise;
 import br.com.seaway.SOC_Web.repository.AnaliseRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,11 +38,12 @@ public class AnaliseFileService {
 
         if (!Files.exists(filePath)) {
             log.error("Arquivo não encontrado: {}", filePath);
-            throw new IOException("Arquivo não encontrado: " + filePath);
+            throw new ArquivosNaoEncontradoException("Arquivo não encontrado: " + filePath);
         }
 
         log.info("Processando arquivo: {}", filePath);
         processFile(filePath);
+        Files.delete(filePath);
     }
 
     /**

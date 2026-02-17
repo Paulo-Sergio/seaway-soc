@@ -1,5 +1,6 @@
 package br.com.seaway.SOC_Web.service.file;
 
+import br.com.seaway.SOC_Web.exception.ArquivosNaoEncontradoException;
 import br.com.seaway.SOC_Web.model.Cor01;
 import br.com.seaway.SOC_Web.repository.Cor01Repository;
 import lombok.RequiredArgsConstructor;
@@ -36,10 +37,11 @@ public class Cor01FileService {
         Path filePath = Paths.get(fixedPath, filename);
         if (!Files.exists(filePath)) {
             log.error("Arquivo não encontrado: {}", filePath);
-            throw new IOException("Arquivo não encontrado: " + filePath);
+            throw new ArquivosNaoEncontradoException("Arquivo não encontrado: " + filePath);
         }
         log.info("Processando arquivo COR: {}", filePath);
         processFile(filePath);
+        Files.delete(filePath);
     }
 
     /**

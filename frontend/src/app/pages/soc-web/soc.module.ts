@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import localePt from '@angular/common/locales/pt';
-import { VitrineComponent } from './vitrine.component';
+import { SocComponent } from './soc.component';
 import { TableModule } from 'primeng/table';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DropdownModule } from 'primeng/dropdown';
@@ -18,8 +18,6 @@ import { ImageModule } from 'primeng/image';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SocService } from './soc.service';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 registerLocaleData(localePt);
 
@@ -39,12 +37,10 @@ registerLocaleData(localePt);
     SplitterModule,
     ImageModule,
     RadioButtonModule,
-    OverlayPanelModule,
-    ScrollPanelModule,
     ProgressSpinnerModule
   ],
   declarations: [
-    VitrineComponent
+    SocComponent
   ],
   exports: [],
   providers: [
@@ -59,4 +55,4 @@ registerLocaleData(localePt);
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class VitrineModule { }
+export class SocModule { }

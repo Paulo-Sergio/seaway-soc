@@ -147,7 +147,7 @@ import { ProductService } from './demo/service/productservice';
 import { BreadcrumbService } from './app.breadcrumb.service';
 import { MenuService } from './app.menu.service';
 
-import { VitrineModule } from './pages/vitrine/vitrine.module';
+import { SocModule } from './pages/soc-web/soc.module';
 import { AuthModule } from './pages/auth/auth.module';
 import { HomeModule } from './pages/home/home.module';
 
@@ -242,7 +242,7 @@ import { HomeModule } from './pages/home/home.module';
         AppCodeModule,
 
         HomeModule,
-        VitrineModule,
+        SocModule,
         AuthModule
     ],
     declarations: [

@@ -125,11 +125,11 @@ export class AppMenuComponent implements OnInit {
         label: 'Documentation', icon: 'pi pi-fw pi-info-circle', routerLink: ['/documentation']
       },*/
 
-      {
+      /*{
         label: 'Home', icon: 'pi pi-fw pi-home', routerLink: ['/']
-      },
+      },*/
       {
-        label: 'Produtos e Vitrine', icon: 'pi pi-fw pi-star-fill', routerLink: ['/vitrine']
+        label: 'Produtos', icon: 'pi pi-fw pi-box', routerLink: ['/produtos']
       },
       {
         label: 'Sair', icon: 'pi pi-fw pi-sign-out', command: () => this.logout()

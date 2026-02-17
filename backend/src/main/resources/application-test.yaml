@@ -18,37 +18,37 @@ spring:
 # Caminho fixo para o arquivo PREVISAO.TXT
 previsao-txt:
   file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
+    fixed-path: C:/projetos/seaway-soc/arquivos-docs/input
     filename: PREVISAO.TXT
 
 # Caminho fixo para o arquivo ANALISE.TXT
 analise-txt:
   file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
+    fixed-path: C:/projetos/seaway-soc/arquivos-docs/input
     filename: ANALISE.TXT
 
 # Caminho fixo para o arquivo COR01.TXT
 cor-txt:
   file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
+    fixed-path: C:/projetos/seaway-soc/arquivos-docs/input
     filename: COR01.TXT
 
 # Caminho fixo para o arquivo AUDIT.TXT
 audit-txt:
   file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
+    fixed-path: C:/projetos/seaway-soc/arquivos-docs/input
     filename: AUDIT.TXT
 
 # Caminho fixo para o arquivo PARAMETR.TXT
 parametro-txt:
   file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
+    fixed-path: C:/projetos/seaway-soc/arquivos-docs/input
     filename: PARAMETR.TXT
 
 # Caminho fixo para o arquivo COR03.TXT
 cor03-txt:
   file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/gerado
+    fixed-path: C:/projetos/seaway-soc/arquivos-docs/input
     filename: COR03.TXT
 
 export-txts: C:/projetos/seaway-soc/arquivos-docs/output
