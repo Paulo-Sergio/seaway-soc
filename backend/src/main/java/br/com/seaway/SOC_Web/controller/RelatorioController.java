@@ -24,19 +24,18 @@ public class RelatorioController {
     }
 
     @GetMapping("/ordens-corte/pdf")
-    public ResponseEntity<byte[]> gerarRelatorioPDF(@RequestParam(defaultValue = "Sistema") String usuario) {
+    public ResponseEntity<byte[]> gerarRelatorioPDF(
+            @RequestParam(defaultValue = "Sistema") String usuario
+    ) throws Exception {
         LocalDate data = LocalDate.now();
-        try {
-            byte[] relatorio = relatorioService.gerarRelatorioOrdemCorte(data, usuario);
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData("filename", "ordem-corte-" + data + ".pdf");
+        // Deixa a IllegalArgumentException propagar para o GlobalExceptionHandler
+        byte[] relatorio = relatorioService.gerarRelatorioOrdemCorte(data, usuario);
 
-            return new ResponseEntity<>(relatorio, headers, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("filename", "ordem-corte-" + data + ".pdf");
+
+        return new ResponseEntity<>(relatorio, headers, HttpStatus.OK);
     }
 }

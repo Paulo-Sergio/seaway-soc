@@ -60,7 +60,7 @@ public class ParametroFileService {
             }
         }
         // Limpa a tabela antes de inserir novos registros
-        parametroRepository.deleteAll();
+        parametroRepository.truncateTable();
         // Salva todos os registros processados no banco de dados
         parametroRepository.saveAll(parametros);
         log.info("Processados e salvos {} registros de parametros", parametros.size());

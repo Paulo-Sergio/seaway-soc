@@ -3,8 +3,10 @@ package br.com.seaway.SOC_Web.repository;
 import br.com.seaway.SOC_Web.dto.GruposMaisVendidosResponse;
 import br.com.seaway.SOC_Web.model.Previsao;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -40,4 +42,9 @@ public interface PrevisaoRepository extends JpaRepository<Previsao, Long> {
 
     @Query("SELECT p FROM Previsao p WHERE p.dataSugestao = :data ORDER BY p.descricaoGrupo, COALESCE(p.prioridade, 3)")
     List<Previsao> findByData(String data);
+
+    @Modifying
+    @Transactional
+    @Query(value = "TRUNCATE TABLE previsoes", nativeQuery = true)
+    void truncateTable();
 }

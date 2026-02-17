@@ -7,6 +7,7 @@ import { Previsao } from "../models/previsao.model";
 import { Audit } from "../models/audit.model";
 import { AuditSummary } from "../models/audit-summary.model";
 import { Parametro } from "../models/parametro.model";
+import { Cor03 } from "../models/cor03.model";
 
 @Injectable()
 export class SocService {
@@ -115,6 +116,14 @@ export class SocService {
 
   public updateClasse(referencia: string, codCor: string, classe: string): Observable<any> {
     return this.http.put<any>(`${baseUrl}/api/cores01/${referencia}/codCor/${codCor}/classe/${classe}`,
+      {
+        headers: new HttpHeaders({ contentType: this.applicationJson })
+      }
+    )
+  }
+
+  public showEstoquePorCor(referencia: string, codCor: string): Observable<Cor03[]> {
+    return this.http.get<Cor03[]>(`${baseUrl}/api/cores03/${referencia}/codCor/${codCor}`,
       {
         headers: new HttpHeaders({ contentType: this.applicationJson })
       }

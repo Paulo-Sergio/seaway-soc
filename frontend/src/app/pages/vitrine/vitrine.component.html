@@ -14,6 +14,7 @@
                 <th>Vd</th>
                 <th>Vd 10d</th>
                 <th>Est</th>
+                <th class="text-center">Grade</th>
                 <th>Vd eco</th>
                 <th>Vd 10d eco</th>
                 <th>Est eco</th>
@@ -28,6 +29,10 @@
                 <td>{{ cor.venda }}</td>
                 <td>{{ cor.venda10Dias }}</td>
                 <td>{{ cor.estoque }}</td>
+                <td class="text-center" style="padding: 0;">
+                  <p-button (onClick)="showDialogEstoque(cor)" icon="pi pi-box" [rounded]="true" [text]="true"
+                    severity="secondary" />
+                </td>
                 <td>{{ cor.vendaEcommerce }}</td>
                 <td>{{ cor.venda10DiasEcommerce }}</td>
                 <td>{{ cor.estoqueEcommerce }}</td>
@@ -264,7 +269,7 @@
 <!-- #################################### -->
 <!-- #################################### -->
 <p-dialog header="Auditoria" [modal]="true" [(visible)]="diplayModalAudits" [style]="{ width: '80vw' }"
-  [maximizable]="true">
+  [maximizable]="true" [dismissableMask]="true">
   <div class="grid">
     <div class="col-12">
       <p-table [value]="[{}]" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
@@ -425,6 +430,46 @@
           </tr>
         </tfoot>
       </table>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- #################################### -->
+<!-- #################################### -->
+<!-- ######### Model (Grade) ############ -->
+<!-- #################################### -->
+<!-- #################################### -->
+<p-dialog header="{{ corSelecionada?.referencia }} {{ corSelecionada?.nomeCor }}" [modal]="true"
+  [(visible)]="diplayModalEstoque" [dismissableMask]="true" [style]="{ width: '50vw' }">
+
+  <div class="estoque-container">
+    <!-- Tabela para cada loja -->
+    <div *ngFor="let loja of lojasList" class="loja-container">
+      <div class="loja-header">
+        <strong>{{ loja.codigoLoja }} – {{ loja.nomeLoja }}</strong>
+      </div>
+
+      <p-table [value]="[loja]" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+        <!-- Cabeçalhos de tamanho -->
+        <ng-template pTemplate="header">
+          <tr>
+            <th *ngFor="let tamanho of tamanhosList">{{ tamanho }}</th>
+            <th class="tot-column">Tot</th>
+          </tr>
+        </ng-template>
+
+        <!-- Linha de estoque -->
+        <ng-template pTemplate="body" let-loja>
+          <tr>
+            <td *ngFor="let tamanho of tamanhosList" class="estoque-cell">
+              {{ getEstoque(loja.codigoLoja, tamanho) }}
+            </td>
+            <td class="estoque-cell tot-column">
+              {{ getTotalEstoquePorLoja(loja.codigoLoja) }}
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
 </p-dialog>

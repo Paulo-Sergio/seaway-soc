@@ -92,8 +92,8 @@ public class AuditFileService {
         }
 
         // Limpa as tabelas antes de inserir novos registros
-        auditRepository.deleteAll();
-        auditSummaryRepository.deleteAll();
+        auditRepository.truncateTable();
+        auditSummaryRepository.truncateTable();
 
         // Salva todos os registros processados no banco de dados
         auditRepository.saveAll(audits);

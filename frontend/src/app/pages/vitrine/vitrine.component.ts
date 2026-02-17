@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreadcrumbService } from '../../app.breadcrumb.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
@@ -12,6 +12,13 @@ import { baseUrlImgs } from 'src/environments/environment';
 import { Audit } from '../models/audit.model';
 import { AuditSummary } from '../models/audit-summary.model';
 import { Parametro } from '../models/parametro.model';
+import { OverlayPanel } from 'primeng/overlaypanel';
+import { Cor03 } from '../models/cor03.model';
+
+interface LojaInfo {
+  codigoLoja: string;
+  nomeLoja: string;
+}
 
 @Component({
   templateUrl: './vitrine.component.html',
@@ -29,6 +36,12 @@ export class VitrineComponent implements OnInit {
   public expandedRows: { [key: string]: boolean } = {};
 
   public cores: Cor01[]
+  public corSelecionada: Cor01
+
+  public diplayModalEstoque: boolean = false
+  public cores03: Cor03[]
+  public lojasList: LojaInfo[] = [];
+  public tamanhosList: string[] = ['34', '36', '38', '40', '42', '44', '46', '48', '50'];
 
   public parametro: Parametro
 
@@ -192,6 +205,58 @@ export class VitrineComponent implements OnInit {
       });
   }
 
+  public showEstoquePorCor(cor: Cor01) {
+    // Salva a cor selecionada
+    this.corSelecionada = cor;
+
+    // Chama o serviço para obter os dados
+    this.socService.showEstoquePorCor(this.previsaoSelecionado.referencia, cor.codigoCor)
+      .subscribe({
+        next: (res: Cor03[]) => {
+          this.cores03 = res
+          console.log(this.cores03)
+          this.processarDadosEstoque();
+        },
+        error: (err) => {
+          console.log(err)
+          this.showNotificationToast('error', 'Conexão Falhou!')
+        },
+      });
+  }
+
+  // Processa os dados recebidos da API
+  private processarDadosEstoque() {
+    // Extrair lojas únicas do array de cores03
+    const lojasMap = new Map<string, LojaInfo>();
+
+    this.cores03.forEach(item => {
+      if (item.codigoLoja && !lojasMap.has(item.codigoLoja)) {
+        lojasMap.set(item.codigoLoja, {
+          codigoLoja: item.codigoLoja,
+          nomeLoja: item.nomeLoja || ''
+        });
+      }
+    });
+
+    // Converter o Map para array
+    this.lojasList = Array.from(lojasMap.values());
+  }
+
+  // Obtém o estoque para uma loja e tamanho específicos
+  getEstoque(codigoLoja: string, tamanho: string): number {
+    const item = this.cores03.find(
+      item => item.codigoLoja === codigoLoja && item.tamanho === tamanho
+    );
+    return item?.estoque || 0;
+  }
+
+  // Calcula o total de estoque para uma loja
+  getTotalEstoquePorLoja(codigoLoja: string): number {
+    return this.cores03
+      .filter(item => item.codigoLoja === codigoLoja)
+      .reduce((total, item) => total + (item.estoque || 0), 0);
+  }
+
   public exportOutputs() {
     this.loading = true
     this.socService.exportOutputs()
@@ -230,6 +295,11 @@ export class VitrineComponent implements OnInit {
     this.diplayModalAudits = true;
     this.findAuditsByReferencia()
     this.findAuditSummaryByReferencia()
+  }
+
+  public showDialogEstoque(cor: Cor01) {
+    this.diplayModalEstoque = true
+    this.showEstoquePorCor(cor)
   }
 
   private findAllGrupos(): void {
@@ -313,8 +383,12 @@ export class VitrineComponent implements OnInit {
         },
         error: (err) => {
           console.log(err)
+          if (err.status == 400) {
+            this.showNotificationToast('warn', 'Sem Ordem de Corte na data de Hoje!')
+          } else {
+            this.showNotificationToast('error', 'Erro genérico ao gerar relatório!')
+          }
           this.loadingBtnImprimir = false
-          this.showNotificationToast('error', 'Erro ao gerar relatório!')
         }
       })
   }

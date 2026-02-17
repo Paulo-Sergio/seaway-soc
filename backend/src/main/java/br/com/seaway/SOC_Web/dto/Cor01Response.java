@@ -9,7 +9,7 @@ public class Cor01Response {
 
     private Long id;
     private String referencia;
-    private int codigoCor;
+    private String codigoCor;
     private String nomeCor;
     private int venda;
     private int venda10Dias;

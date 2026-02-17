@@ -69,7 +69,7 @@ public class AnaliseFileService {
         }
 
         // Limpa a tabela antes de inserir novos registros
-        analiseRepository.deleteAll();
+        analiseRepository.truncateTable();
 
         // Salva todos os registros processados no banco de dados
         analiseRepository.saveAll(analises);

@@ -1,5 +1,6 @@
 package br.com.seaway.SOC_Web.exception;
 
+import br.com.seaway.SOC_Web.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,19 @@ import java.io.IOException;
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(SemOrdemCorteDataHojeException.class)
+    public ResponseEntity<ErrorResponse> semOrdemCorteException(SemOrdemCorteDataHojeException e) {
+        log.error("Erro: {}", e.getMessage());
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                e.getMessage(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Sem Ordem de Corte"
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
 
     @ExceptionHandler(IOException.class)
     public ResponseEntity<String> handleIOException(IOException exc) {

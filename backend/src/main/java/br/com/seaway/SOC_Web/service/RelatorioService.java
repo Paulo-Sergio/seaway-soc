@@ -1,12 +1,12 @@
 package br.com.seaway.SOC_Web.service;
 
 import br.com.seaway.SOC_Web.dto.RelatorioOCResponse;
+import br.com.seaway.SOC_Web.exception.SemOrdemCorteDataHojeException;
 import br.com.seaway.SOC_Web.model.Previsao;
 import br.com.seaway.SOC_Web.repository.PrevisaoRepository;
 import br.com.seaway.SOC_Web.utils.PrevisaoUtil;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -42,7 +42,7 @@ public class RelatorioService {
                 .toList();
 
         if (registros.isEmpty()) {
-            throw new IllegalArgumentException("Nenhuma ordem de corte encontrada para a data: " + data);
+            throw new SemOrdemCorteDataHojeException("Nenhuma ordem de corte encontrada para a data de Hoje");
         }
 
         // Carregar o template do relatório

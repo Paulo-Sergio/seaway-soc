@@ -2,8 +2,10 @@ package br.com.seaway.SOC_Web.repository;
 
 import br.com.seaway.SOC_Web.model.Cor01;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,4 +24,9 @@ public interface Cor01Repository extends JpaRepository<Cor01, Long> {
 
     @Query("SELECT c FROM Cor01 c WHERE c.referencia = :referencia AND c.classe = :classe")
     List<Cor01> findByReferenciaAndClasse(String referencia, String classe);
+
+    @Modifying
+    @Transactional
+    @Query(value = "TRUNCATE TABLE cores01", nativeQuery = true)
+    void truncateTable();
 }

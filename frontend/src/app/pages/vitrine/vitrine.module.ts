@@ -18,6 +18,8 @@ import { ImageModule } from 'primeng/image';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SocService } from './soc.service';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 registerLocaleData(localePt);
 
@@ -37,6 +39,8 @@ registerLocaleData(localePt);
     SplitterModule,
     ImageModule,
     RadioButtonModule,
+    OverlayPanelModule,
+    ScrollPanelModule,
     ProgressSpinnerModule
   ],
   declarations: [

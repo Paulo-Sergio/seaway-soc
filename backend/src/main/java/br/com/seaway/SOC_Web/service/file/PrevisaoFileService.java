@@ -67,7 +67,7 @@ public class PrevisaoFileService {
         }
 
         // Limpa a tabela antes de inserir novos registros
-        previsaoRepository.deleteAll();
+        previsaoRepository.truncateTable();
 
         // Salva todos os registros processados no banco de dados
         previsaoRepository.saveAll(previsoes);

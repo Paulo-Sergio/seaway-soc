@@ -60,7 +60,7 @@ public class Cor01FileService {
             }
         }
         // Limpa a tabela antes de inserir novos registros
-        cor01Repository.deleteAll();
+        cor01Repository.truncateTable();
         // Salva todos os registros processados no banco de dados
         cor01Repository.saveAll(cores);
         log.info("Processados e salvos {} registros de cores", cores.size());
