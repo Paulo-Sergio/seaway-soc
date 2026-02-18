@@ -2,14 +2,14 @@ spring:
   application:
     name: SOC-Web
   datasource:
-    url: jdbc:mysql://localhost:3306/seaway_soc_web?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3308/seaway_soc_web?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format_sql: false
@@ -17,44 +17,44 @@ spring:
 
 logging:
   file:
-    name: ./log.txt
+    name: /home/ubuntu/seaway/soc-web/log.txt
   level:
-    br.com.seaway.SOC_Web: DEBUG
+    br.com.seaway.SOC_Web: INFO
 
 # Caminho fixo para o arquivo PREVISAO.TXT
 previsao-txt:
   file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/input
+    fixed-path: /media/fs-seaway-novo
     filename: PREVISAO.TXT
 
 # Caminho fixo para o arquivo ANALISE.TXT
 analise-txt:
   file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/input
+    fixed-path: /media/fs-seaway-novo
     filename: ANALISE.TXT
 
 # Caminho fixo para o arquivo COR01.TXT
 cor-txt:
   file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/input
+    fixed-path: /media/fs-seaway-novo
     filename: COR01.TXT
 
 # Caminho fixo para o arquivo AUDIT.TXT
 audit-txt:
   file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/input
+    fixed-path: /media/fs-seaway-novo
     filename: AUDIT.TXT
 
 # Caminho fixo para o arquivo PARAMETR.TXT
 parametro-txt:
   file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/input
+    fixed-path: /media/fs-seaway-novo
     filename: PARAMETR.TXT
 
 # Caminho fixo para o arquivo COR03.TXT
 cor03-txt:
   file:
-    fixed-path: C:/projetos/seaway-soc/arquivos-docs/input
+    fixed-path: /media/fs-seaway-novo
     filename: COR03.TXT
 
-export-txts: C:/projetos/seaway-soc/arquivos-docs/output
+export-txts: /media/fs-seaway-novo

@@ -1,9 +1,10 @@
 server:
-  port: 8091
+  port: 8092
 
 spring:
   profiles:
-    active: test
+    active: @activeProfile@
+    # PROD execute: mvn clean package -P prod
 
   # Desabilitar página de login padrão
   security:

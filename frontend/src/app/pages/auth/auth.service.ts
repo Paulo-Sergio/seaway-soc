@@ -19,8 +19,8 @@ export class AuthService {
     private http: HttpClient,
     private router: Router
   ) {
-    // Verificar token expirado a cada minuto
-    setInterval(() => this.checkTokenExpiration(), 60000);
+    // Verificar token expirado a cada hora
+    setInterval(() => this.checkTokenExpiration(), 3600000);
   }
 
   login(user: User): Observable<any> {
@@ -34,10 +34,9 @@ export class AuthService {
         // Armazena as credenciais no localStorage
         localStorage.setItem('auth_token_soc_seaway', btoa(user.username + ':' + user.password));
 
-        // Define a expiração do token: expirar à meia-noite
-        const tomorrow = new Date();
-        tomorrow.setHours(24, 0, 0, 0); // Próxima meia-noite
-        localStorage.setItem('token_expiry_soc_seaway', tomorrow.getTime().toString());
+        // Define a expiração do token (24 horas a partir de agora)
+        const expiryTime = Date.now() + (24 * 60 * 60 * 1000); // 24 horas em milissegundos
+        localStorage.setItem('token_expiry_soc_seaway', expiryTime.toString());
 
         this.isAuthenticatedSubject.next(true);
       })
@@ -53,6 +52,7 @@ export class AuthService {
 
   getAuthToken(): string | null {
     if (!this.hasValidToken()) {
+      this.logout()
       return null;
     }
     return localStorage.getItem('auth_token_soc_seaway');

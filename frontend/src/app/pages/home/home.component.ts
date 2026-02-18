@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   confirmRefresh(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Tem certeza que deseja atualizar os registros? <br> As marcações de Vitrines anteriores serão perdidas!',
+      message: 'Tem certeza que deseja atualizar os registros? <br> As marcações de SOC web anteriores serão perdidas!',
       header: 'Confirmação de atualização',
       icon: 'pi pi-exclamation-triangle',
       acceptIcon: 'pi pi-check mr-2',

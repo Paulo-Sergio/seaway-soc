@@ -13,6 +13,7 @@ import { Audit } from '../models/audit.model';
 import { AuditSummary } from '../models/audit-summary.model';
 import { Parametro } from '../models/parametro.model';
 import { Cor03 } from '../models/cor03.model';
+import { AuthService } from '../auth/auth.service';
 
 interface LojaInfo {
   codigoLoja: string;
@@ -62,6 +63,7 @@ export class SocComponent implements OnInit {
     private socService: SocService,
     private fb: FormBuilder,
     private messageService: MessageService,
+    private authService: AuthService,
     private windowService: WindowService
   ) {
     this.breadcrumbService.setItems([
@@ -263,6 +265,7 @@ export class SocComponent implements OnInit {
           console.log(res)
           this.loading = false
           this.showNotificationToast('success', 'Arquivos exportados com sucesso!')
+          this.authService.logout()
         },
         error: (err) => {
           console.log(err)

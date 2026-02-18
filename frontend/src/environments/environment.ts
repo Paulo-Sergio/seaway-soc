@@ -6,7 +6,7 @@ export const environment = {
   production: false
 };
 
-export const baseUrl = 'http://localhost:8091';
+export const baseUrl = 'http://localhost:8092';
 export const baseUrlImgs = 'http://localhost:8082';
 
 /*

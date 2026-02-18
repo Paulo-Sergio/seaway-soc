@@ -16,7 +16,7 @@
         <div class="col-12 lg:col-12 md:col-12 logo-container">
           <span class="login-summary">Login Seaway SOC</span>
           <div class="login-detail">
-            <span>Bem vindo ao sistema SOC Seaway Web</span>
+            <span>Bem vindo ao sistema Seaway SOC Web</span>
           </div>
         </div>
 
@@ -31,14 +31,14 @@
           <div class="input-wrapper">
             <label>Senha</label>
             <input type="password" [(ngModel)]="user.password" name="password" autocomplete="off"
-              placeholder="Informe a sua senha" pInputText>
+              placeholder="informe a sua senha" pInputText>
           </div>
         </div>
 
         <div *ngIf="errorMessage" class="error-message" style="color: red;">{{ errorMessage }}</div>
 
         <div class="col-12 lg:col-12 md:col-12 button-container">
-          <button type="submit" pButton>Entrar</button>
+          <p-button label="Entrar" type="submit" />
         </div>
       </form>
     </div>

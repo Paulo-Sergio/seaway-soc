@@ -109,7 +109,7 @@
                   Coleção: {{parametro?.codColecao}} - {{parametro?.nomeColecao}} -
                   <small>{{parametro?.dataCalculo | date:'dd/MM'}} {{parametro?.horaCalculo}}</small>
                 </span>
-                <p-button (onClick)="exportReport()" label="IMPRIMIR" icon="pi pi-file-pdf" iconPos="right"></p-button>
+                <p-button (onClick)="exportReport()" label="Imprimir" icon="pi pi-file-pdf" iconPos="left"></p-button>
               </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -163,7 +163,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-prev let-expanded="expanded">
               <tr [pSelectableRow]="prev" [ngClass]="{'bloqueado': prev.bloqueado === 'B'}">
-                <td>
+                <td style="padding: 0;">
                   <button type="button" pButton pRipple [pRowToggler]="prev"
                     class="p-button-text p-button-rounded p-button-plain" size="small"
                     [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" *ngIf="prev.analise"></button>
