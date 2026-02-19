@@ -70,8 +70,12 @@ public class OutputFilesService {
     public void exportSOC() {
         Path filePath = Paths.get(fixedPath, "SOC.TXT");
 
+        // Formata a data de hoje
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dataHoje = LocalDate.now().format(formatter);
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.toFile()))) {
-            List<Previsao> previsoes = previsaoRepository.findValidDatesSugestao();
+            List<Previsao> previsoes = previsaoRepository.findValidDatesSugestao(dataHoje);
 
             for (Previsao prev : previsoes) {
                 String line = prev.getCodigoColecao() + prev.getReferencia() +  prev.getSugestaoOc() + prev.getDataSugestao();

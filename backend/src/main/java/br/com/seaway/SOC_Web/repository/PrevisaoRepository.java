@@ -15,7 +15,7 @@ import java.util.Optional;
 @Repository
 public interface PrevisaoRepository extends JpaRepository<Previsao, Long> {
 
-    @Query("SELECT p FROM Previsao p WHERE p.descricaoGrupo = :descricaoGrupo")
+    @Query("SELECT p FROM Previsao p WHERE p.descricaoGrupo = :descricaoGrupo ORDER BY p.vendasDezDias DESC")
     List<Previsao> findByDescricaoGrupo(String descricaoGrupo);
 
     @Query("SELECT p FROM Previsao p WHERE p.referencia = :referencia")
@@ -35,10 +35,8 @@ public interface PrevisaoRepository extends JpaRepository<Previsao, Long> {
     @Query("SELECT p FROM Previsao p WHERE p.remanejar IS NOT NULL")
     List<Previsao> findNotNullRemanejar();
 
-    @Query("SELECT p FROM Previsao p " +
-            "WHERE LENGTH(p.dataSugestao) = 10 " +
-            "AND p.dataSugestao NOT LIKE '%  %'")
-    List<Previsao> findValidDatesSugestao();
+    @Query("SELECT p FROM Previsao p WHERE p.dataSugestao = :dataHoje")
+    List<Previsao> findValidDatesSugestao(String dataHoje);
 
     @Query("SELECT p FROM Previsao p WHERE p.dataSugestao = :data ORDER BY p.descricaoGrupo, COALESCE(p.prioridade, 3)")
     List<Previsao> findByData(String data);

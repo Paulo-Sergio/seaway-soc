@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface Cor01Repository extends JpaRepository<Cor01, Long> {
 
-    @Query("SELECT c FROM Cor01 c WHERE c.referencia = :referencia")
+    @Query("SELECT c FROM Cor01 c WHERE c.referencia = :referencia ORDER BY c.venda10Dias DESC")
     List<Cor01> findByReferencia(String referencia);
 
     @Query("SELECT c FROM Cor01 c WHERE c.referencia = :referencia AND c.codigoCor = :codCor")

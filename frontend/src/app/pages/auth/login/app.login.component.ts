@@ -12,7 +12,7 @@ import { User } from '../../models/user.model';
 })
 export class AppLoginComponent {
 
-  public user: User = { username: '', password: '' };
+  public user: User = { username: 'macaco', password: '' };
   public errorMessage: string = '';
 
   constructor(

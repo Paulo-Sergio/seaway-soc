@@ -77,9 +77,9 @@
 
     <profiles>
         <profile>
-            <id>dev</id>
+            <id>test</id>
             <properties>
-                <activeProfile>dev</activeProfile>
+                <activeProfile>test</activeProfile>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -89,12 +89,6 @@
             <id>prod</id>
             <properties>
                 <activeProfile>prod</activeProfile>
-            </properties>
-        </profile>
-        <profile>
-            <id>test</id>
-            <properties>
-                <activeProfile>test</activeProfile>
             </properties>
         </profile>
     </profiles>
