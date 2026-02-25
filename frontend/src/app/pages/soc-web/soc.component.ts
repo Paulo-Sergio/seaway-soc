@@ -240,6 +240,13 @@ export class SocComponent implements OnInit {
 
     // Converter o Map para array
     this.lojasList = Array.from(lojasMap.values());
+
+    // Ordenar o array para que a loja com código "030" apareça primeiro
+    this.lojasList.sort((a, b) => {
+      if (a.codigoLoja === "030") return -1;
+      if (b.codigoLoja === "030") return 1;
+      return 0; // mantém a ordem original para as outras lojas
+    });
   }
 
   // Obtém o estoque para uma loja e tamanho específicos
@@ -417,8 +424,8 @@ export class SocComponent implements OnInit {
   private importFiles(): void {
     this.loadingFull = true
     this.socService.importFiles()
-    .subscribe({
-      next: (res: any) => {
+      .subscribe({
+        next: (res: any) => {
           console.log(res)
           this.findAllGrupos()
           this.findParametros()
@@ -443,7 +450,7 @@ export class SocComponent implements OnInit {
 
   private updateWindowHeight(): void {
     this.windowHeight = this.windowService.getWindowHeight();
-    this.scrollHeight = (this.windowHeight - 375).toString() + 'px'
+    this.scrollHeight = (this.windowHeight - 230).toString() + 'px'
   }
 
   private showNotificationToast(severity: string, msg: string) {

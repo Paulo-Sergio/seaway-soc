@@ -1,241 +1,209 @@
 <div class="grid main-grid">
   <div class="col-12">
-    <div class="card">
-      <p-toast></p-toast>
+    <p-toast></p-toast>
 
-      <!--{{previsaoSelecionado | json}}-->
-      <div class="grid" style="height: 165px;">
-        <div class="col-10">
-          <p-table [value]="cores" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
-            [scrollable]="true" scrollHeight="160px">
-            <ng-template pTemplate="header">
-              <tr>
-                <th>Cor</th>
-                <th>Vd</th>
-                <th>Vd 10d</th>
-                <th>Est</th>
-                <th class="text-center">Grade</th>
-                <th>Vd eco</th>
-                <th>Vd 10d eco</th>
-                <th>Est eco</th>
-                <th>Ind</th>
-                <th>IOP</th>
-                <th>Cl</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-cor let-i="rowIndex">
-              <tr>
-                <td>{{ cor.nomeCor }}</td>
-                <td>{{ cor.venda }}</td>
-                <td>{{ cor.venda10Dias }}</td>
-                <td>{{ cor.estoque }}</td>
-                <td class="text-center" style="padding: 0;">
-                  <p-button (onClick)="showDialogEstoque(cor)" icon="pi pi-box" [rounded]="true" [text]="true"
-                    severity="secondary" />
-                </td>
-                <td>{{ cor.vendaEcommerce }}</td>
-                <td>{{ cor.venda10DiasEcommerce }}</td>
-                <td>{{ cor.estoqueEcommerce }}</td>
-                <td>{{ cor.indice }}</td>
-                <td>{{ cor.iop }}</td>
-                <!--<td>{{ cor.classe }}</td>-->
-                <td>
-                  <select [(ngModel)]="cor.classe" (change)="onClasseChange(cor, $event)" class="dropdown-compacto">
-                    <option value="NA"></option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                  </select>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
-        <div class="col-2 text-center" *ngIf="previsaoSelecionado">
-          <p-image *ngIf="imageUrl" [src]="imageUrl" height="145" [preview]="true" alt="imagem de referencia" />
+    <!--{{previsaoSelecionado | json}}-->
+    <div class="grid" style="height: 190px;">
+      <div class="col-10" style="border: 1px solid #c5c5c5; padding: 0;">
+        <p-table [value]="cores" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines custom-table"
+          [scrollable]="true" scrollHeight="185px">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Cor</th>
+              <th>Vd</th>
+              <th>Vd 10d</th>
+              <th>Est</th>
+              <th class="text-center">Grade</th>
+              <th>Vd eco</th>
+              <th>Vd 10d eco</th>
+              <th>Est eco</th>
+              <th>Ind</th>
+              <th>IOP</th>
+              <th>Cl</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-cor let-i="rowIndex">
+            <tr>
+              <td>{{ cor.nomeCor }}</td>
+              <td>{{ cor.venda }}</td>
+              <td>{{ cor.venda10Dias }}</td>
+              <td>{{ cor.estoque }}</td>
+              <td class="text-center">
+                <p-button (onClick)="showDialogEstoque(cor)" icon="pi pi-box" [rounded]="true" severity="info" />
+              </td>
+              <td>{{ cor.vendaEcommerce }}</td>
+              <td>{{ cor.venda10DiasEcommerce }}</td>
+              <td>{{ cor.estoqueEcommerce }}</td>
+              <td>{{ cor.indice }}</td>
+              <td>{{ cor.iop }}</td>
+              <!--<td>{{ cor.classe }}</td>-->
+              <td>
+                <select [(ngModel)]="cor.classe" (change)="onClasseChange(cor, $event)" class="dropdown-compacto">
+                  <option value="NA"></option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                </select>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div class="col-2 text-center" *ngIf="previsaoSelecionado">
+        <p-image *ngIf="imageUrl" [src]="imageUrl" width="100%" height="160" [preview]="true"
+          alt="imagem de referencia" />
+      </div>
+    </div>
+
+    <div class="grid mt-2">
+      <div class="md:col-12">
+        <div class="flex justify-content-center align-items-center">
+          <!-- Botões de rádio com ngModel -->
+          <div class="flex align-items-center ml-3">
+            <p-radioButton name="remanejar" value="NA" [(ngModel)]="remanejarValue"
+              (ngModelChange)="onRemanejarChange($event)" inputId="remanejar1"></p-radioButton>
+            <label for="remanejar1" class="ml-2 font-20">Não remanejar</label>
+          </div>
+          <div class="flex align-items-center ml-3">
+            <p-radioButton name="remanejar" value="L" [(ngModel)]="remanejarValue"
+              (ngModelChange)="onRemanejarChange($event)" inputId="remanejar2"></p-radioButton>
+            <label for="remanejar2" class="ml-2 font-20">Só loja</label>
+          </div>
+          <div class="flex align-items-center ml-3">
+            <p-radioButton name="remanejar" value="LA" [(ngModel)]="remanejarValue"
+              (ngModelChange)="onRemanejarChange($event)" inputId="remanejar3"></p-radioButton>
+            <label for="remanejar3" class="ml-2 font-20">Loja e Atacado</label>
+          </div>
+
+          <p-button (onClick)="showDialogGruposMaisVendidos()" label="Grupos mais vendidos" icon="pi pi-sort-alt"
+            iconPos="left" severity="info" class="ml-4 btn-grande"></p-button>
+          <p-button (onClick)="showDialogAudits()" label="Audt. Produto" icon="pi pi-book" iconPos="left"
+            severity="info" class="ml-2 btn-grande"></p-button>
+          <p-button (onClick)="exportReport()" class="ml-2 btn-grande" label="Imprimir" icon="pi pi-file-pdf"
+            iconPos="left" severity="info"></p-button>
+          <p-button label="Sair/Gerar TXT" icon="pi pi-file-edit" iconPos="left" severity="info"
+            (onClick)="exportOutputs()" class="ml-2 btn-grande"></p-button>
+
         </div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="grid">
-        <div class="md:col-4">
-          <form [formGroup]="form">
-            <p-dropdown [options]="grupos" formControlName="descricaoGrupo" [showClear]="false"
-              [style]="{'width':'100%'}">
-            </p-dropdown>
-          </form>
-        </div>
+    <div class="grid">
+      <div class="col-12">
+        <p-table [value]="previsoes" [(selection)]="previsaoSelecionado" (onRowSelect)="onRowSelect($event)"
+          selectionMode="single" dataKey="referencia" [expandedRowKeys]="expandedRows"
+          styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines custom-table"
+          (onRowUnselect)="onRowUnselect($event)" [rows]="10" responsiveLayout="scroll" [loading]="loading"
+          minFractionDigits="1" [scrollable]="true" [scrollHeight]="scrollHeight">
+          <ng-template pTemplate="header">
+            <tr>
+              <th colspan="8" style="background-color: #f8f9fa;">
+                <form [formGroup]="form">
+                  <p-dropdown [options]="grupos" formControlName="descricaoGrupo" [showClear]="false"
+                    [style]="{'width':'100%'}" class="custom-dropdown">
+                  </p-dropdown>
+                </form>
+              </th>
+              <th colspan="2" class="text-center" style="font-size: 1.2em; background-color: #f8f9fa;">Lojas</th>
+              <th colspan="2" class="text-center" style="font-size: 1.2em; background-color: #f8f9fa;">Atacado</th>
+              <th colspan="8" style="background-color: #f8f9fa;"></th>
+            </tr>
+            <tr>
+              <th></th> <!-- Expansion column -->
+              <th class="text-center" pSortableColumn="temPromocao">P</th>
+              <th class="text-center" pSortableColumn="referencia">Ref</th>
+              <th class="text-right" pSortableColumn="giro">Giro</th>
+              <th class="text-right" pSortableColumn="venda">Vend</th>
+              <th class="text-right" pSortableColumn="indice">Indc</th>
+              <th class="text-right" pSortableColumn="estoque">Est</th>
+              <th class="text-right" pSortableColumn="vendasDezDias">V.10</th>
+              <th class="text-right" pSortableColumn="calculadoLoja">Calc</th>
+              <th class="text-right" pSortableColumn="informadoLoja">Info</th>
+              <th class="text-right" pSortableColumn="informadoAtacado">Info</th>
+              <th class="text-right" pSortableColumn="calculadoAtacado">Calc</th>
+              <th class="text-right" pSortableColumn="pedidoAtender">Ped At</th>
+              <th class="text-right" pSortableColumn="informadoTotal">Est.Fab</th>
+              <th class="text-right" pSortableColumn="ocEmAberto">OC Prod</th>
+              <th class="text-right" pSortableColumn="sugestaoOc">S.OC</th>
+              <th class="text-right" pSortableColumn="dataSugestao">Data</th>
+              <th style="width: 4rem" class="text-center">#</th>
+              <th class="text-center">Pri</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-prev let-expanded="expanded">
+            <tr [pSelectableRow]="prev" [ngClass]="{'bloqueado': prev.bloqueado === 'B'}">
+              <td style="padding: 0;">
+                <button type="button" pButton pRipple [pRowToggler]="prev"
+                  class="p-button-text p-button-rounded p-button-plain" size="small"
+                  [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" *ngIf="prev.analise"></button>
+              </td>
+              <td class="text-center">{{ prev.temPromocao }}</td>
+              <td class="text-center">
+                {{ prev.referencia }}
+                <small *ngIf="prev.remanejar"><strong>({{ prev.remanejar }})</strong></small>
+              </td>
+              <td class="text-right">{{ prev.giro }}%</td>
+              <td class="text-right">{{ prev.venda }}</td>
+              <td class="text-right">{{ prev.indice }}</td>
+              <td class="text-right">{{ prev.estoque }}</td>
+              <td class="text-right">{{ prev.vendasDezDias }}</td>
+              <td class="text-right">{{ prev.calculadoLoja }}</td>
+              <td class="text-right">{{ prev.informadoLoja }}</td>
+              <td class="text-right">{{ prev.informadoAtacado }}</td>
+              <td class="text-right">{{ prev.calculadoAtacado }}</td>
+              <td class="text-right">{{ prev.pedidoAtender }}</td>
+              <td class="text-right">{{ prev.informadoTotal }}</td>
+              <td class="text-right">{{ prev.ocEmAberto }}</td>
+              <td class="text-right" [ngClass]="'soc-column'">
+                <!-- (blur)="updateSugestaoOc(prev)" -->
+                <input type="number" [ngClass]="'soc-column'" class="input-compacto" [(ngModel)]="prev.sugestaoOc"
+                  (focus)="selecionarConteudo($event)" (keyup.enter)="updateSugestaoOc(prev)" max="4">
+              </td>
+              <td class="text-right">{{ prev.dataSugestao | date:'dd/MM' }}</td>
+              <td class="text-center">
+                <p-tableRadioButton [value]="prev" />
+              </td>
+              <td class="text-center">
+                <select [(ngModel)]="prev.prioridade" (change)="onPrioridadeChange(prev, $event)"
+                  class="dropdown-compacto">
+                  <option value="NA"></option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+              </td>
+            </tr>
+          </ng-template>
 
-        <div class="md:col-8">
-          <div class="flex align-items-center">
-            <p-button (onClick)="showDialogGruposMaisVendidos()" label="Grupos mais vendidos" icon="pi pi-sort-alt"
-              iconPos="left" [outlined]="true" severity="info" class="mr-2"></p-button>
-            <p-button (onClick)="showDialogAudits()" label="Audt. Produto" icon="pi pi-book" iconPos="left"
-              [outlined]="true" severity="info" class="mr-2"></p-button>
-            <p-button label="Sair/Gerar TXT" icon="pi pi-file-edit" iconPos="left" [outlined]="true" severity="info"
-              (onClick)="exportOutputs()" class="mr-2"></p-button>
-
-            <!-- Botões de rádio com ngModel -->
-            <div class="flex align-items-center ml-3">
-              <p-radioButton name="remanejar" value="NA" [(ngModel)]="remanejarValue"
-                (ngModelChange)="onRemanejarChange($event)" inputId="remanejar1"></p-radioButton>
-              <label for="remanejar1" class="ml-2">Não remanejar</label>
-            </div>
-            <div class="flex align-items-center ml-3">
-              <p-radioButton name="remanejar" value="L" [(ngModel)]="remanejarValue"
-                (ngModelChange)="onRemanejarChange($event)" inputId="remanejar2"></p-radioButton>
-              <label for="remanejar2" class="ml-2">Só loja</label>
-            </div>
-            <div class="flex align-items-center ml-3">
-              <p-radioButton name="remanejar" value="LA" [(ngModel)]="remanejarValue"
-                (ngModelChange)="onRemanejarChange($event)" inputId="remanejar3"></p-radioButton>
-              <label for="remanejar3" class="ml-2">Loja e Atacado</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid">
-        <div class="col-12">
-          <p-table [value]="previsoes" [(selection)]="previsaoSelecionado" (onRowSelect)="onRowSelect($event)"
-            selectionMode="single" dataKey="referencia" [expandedRowKeys]="expandedRows"
-            styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines"
-            (onRowUnselect)="onRowUnselect($event)" [rows]="10" responsiveLayout="scroll" [loading]="loading"
-            minFractionDigits="1" [scrollable]="true" [scrollHeight]="scrollHeight">
-            <ng-template pTemplate="caption">
-              <div class="flex align-items-center justify-content-between">
-                <span>
-                  Coleção: {{parametro?.codColecao}} - {{parametro?.nomeColecao}} -
-                  <small>{{parametro?.dataCalculo | date:'dd/MM'}} {{parametro?.horaCalculo}}</small>
-                </span>
-                <p-button (onClick)="exportReport()" label="Imprimir" icon="pi pi-file-pdf" iconPos="left"></p-button>
-              </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-              <tr>
-                <th colspan="8"></th>
-                <th colspan="2" class="text-center" style="font-size: 1.2em;">Lojas</th>
-                <th colspan="2" class="text-center" style="font-size: 1.2em;">Atacado</th>
-                <th colspan="8"></th>
-              </tr>
-              <tr>
-                <th></th> <!-- Expansion column -->
-                <th style="width: 4rem" class="text-center">#</th>
-                <th class="text-center" pSortableColumn="referencia">Ref<p-sortIcon field="referencia"></p-sortIcon>
-                </th>
-                <th class="text-right" pSortableColumn="giro">Giro<p-sortIcon field="giro"></p-sortIcon>
-                </th>
-                <th class="text-right" pSortableColumn="venda">Vend<p-sortIcon field="venda"></p-sortIcon>
-                </th>
-                <th class="text-right" pSortableColumn="indice">Indc<p-sortIcon field="indice"></p-sortIcon></th>
-                <th class="text-right" pSortableColumn="estoque">Est<p-sortIcon field="estoque"></p-sortIcon></th>
-                <th class="text-right" pSortableColumn="vendasDezDias">V.10<p-sortIcon
-                    field="vendasDezDias"></p-sortIcon></th>
-                <th class="text-right" pSortableColumn="calculadoLoja">Calc<p-sortIcon
-                    field="calculadoLoja"></p-sortIcon>
-                </th>
-                <th class="text-right" pSortableColumn="informadoLoja">Info<p-sortIcon
-                    field="informadoLoja"></p-sortIcon>
-                </th>
-                <th class="text-right" pSortableColumn="informadoAtacado">Info<p-sortIcon
-                    field="informadoAtacado"></p-sortIcon>
-                </th>
-                <th class="text-right" pSortableColumn="calculadoAtacado">Calc<p-sortIcon
-                    field="calculadoAtacado"></p-sortIcon>
-                </th>
-                <th class="text-right" pSortableColumn="pedidoAtender">Ped Atend<p-sortIcon
-                    field="pedidoAtender"></p-sortIcon>
-                </th>
-                <th class="text-right" pSortableColumn="performance">Est.Fab<p-sortIcon
-                    field="performance"></p-sortIcon>
-                </th>
-                <th class="text-right" pSortableColumn="ocEmAberto">OC Prod<p-sortIcon field="ocEmAberto"></p-sortIcon>
-                </th>
-                <th class="text-right" pSortableColumn="sugestaoOc">S.OC<p-sortIcon field="sugestaoOc"></p-sortIcon>
-                </th>
-                <th class="text-right" pSortableColumn="dataSugestao">Data<p-sortIcon field="dataSugestao"></p-sortIcon>
-                </th>
-                <th class="text-center" pSortableColumn="temPromocao">P<p-sortIcon field="temPromocao"></p-sortIcon>
-                </th>
-                <th class="text-center">Prioridade</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-prev let-expanded="expanded">
-              <tr [pSelectableRow]="prev" [ngClass]="{'bloqueado': prev.bloqueado === 'B'}">
-                <td style="padding: 0;">
-                  <button type="button" pButton pRipple [pRowToggler]="prev"
-                    class="p-button-text p-button-rounded p-button-plain" size="small"
-                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" *ngIf="prev.analise"></button>
-                </td>
-                <td class="text-center">
-                  <p-tableRadioButton [value]="prev" />
-                </td>
-                <td class="text-center">
-                  {{ prev.referencia }}
-                  <small *ngIf="prev.remanejar"><strong>({{ prev.remanejar }})</strong></small>
-                </td>
-                <td class="text-right">{{ prev.giro }}%</td>
-                <td class="text-right">{{ prev.venda }}</td>
-                <td class="text-right">{{ prev.indice }}</td>
-                <td class="text-right">{{ prev.estoque }}</td>
-                <td class="text-right">{{ prev.vendasDezDias }}</td>
-                <td class="text-right">{{ prev.calculadoLoja }}</td>
-                <td class="text-right">{{ prev.informadoLoja }}</td>
-                <td class="text-right">{{ prev.informadoAtacado }}</td>
-                <td class="text-right">{{ prev.calculadoAtacado }}</td>
-                <td class="text-right">{{ prev.pedidoAtender }}</td>
-                <td class="text-right">{{ prev.informadoTotal }}</td>
-                <td class="text-right">{{ prev.ocEmAberto }}</td>
-                <td class="text-right">
-                  <input type="number" class="input-compacto" [(ngModel)]="prev.sugestaoOc"
-                    (focus)="selecionarConteudo($event)" (blur)="updateSugestaoOc(prev)"
-                    (keyup.enter)="updateSugestaoOc(prev)" max="4">
-                </td>
-                <td class="text-right">{{ prev.dataSugestao | date:'dd/MM' }}</td>
-                <td class="text-center">{{ prev.temPromocao }}</td>
-                <td>
-                  <select [(ngModel)]="prev.prioridade" (change)="onPrioridadeChange(prev, $event)"
-                    class="dropdown-compacto">
-                    <option value="NA"></option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                  </select>
-                </td>
-              </tr>
-            </ng-template>
-
-            <!-- Row Expansion Template -->
-            <ng-template pTemplate="rowexpansion" let-prev>
-              <tr class="expansion-row" [ngClass]="{'bloqueado': prev.analise.bloqueado === 'B'}">
-                <td></td> <!-- Célula vazia para a coluna de expansão -->
-                <td class="text-center">
-                  <!-- Célula vazia ou ícone de análise -->
-                  <i class="pi pi-arrow-up-right text-primary"></i>
-                </td>
-                <td class="text-center">
-                  <span class="text-primary">{{ prev.analise.referencia || prev.referencia }}</span>
-                </td>
-                <td class="text-right">{{ prev.analise.giro }}%</td>
-                <td class="text-right">{{ prev.analise.venda }}</td>
-                <td class="text-right">{{ prev.analise.indice }}</td>
-                <td class="text-right">{{ prev.analise.estoque }}</td>
-                <td class="text-right">{{ prev.analise.vendasDezDias }}</td>
-                <td class="text-right">{{ prev.analise.calculadoLoja }}</td>
-                <td class="text-right">{{ prev.analise.informadoLoja }}</td>
-                <td class="text-right">{{ prev.analise.informadoAtacado }}</td>
-                <td class="text-right">{{ prev.analise.calculadoAtacado }}</td>
-                <td class="text-right">{{ prev.analise.pedidoAtender }}</td>
-                <td class="text-right">{{ prev.analise.performance }}</td>
-                <td class="text-right">{{ prev.analise.ocEmAberto }}</td>
-                <td class="text-right">{{ prev.analise.sugestaoOc }}</td>
-                <td class="text-right">{{ prev.analise.dataSugestao | date:'dd/MM' }}</td>
-                <td class="text-right">{{ prev.analise.temPromocao }}</td>
-                <td></td>
-              </tr>
-            </ng-template>
-          </p-table>
-        </div>
+          <!-- Row Expansion Template -->
+          <ng-template pTemplate="rowexpansion" let-prev>
+            <tr class="expansion-row" [ngClass]="{'bloqueado': prev.analise.bloqueado === 'B'}">
+              <td></td> <!-- Célula vazia para a coluna de expansão -->
+              <td class="text-center">
+                <!-- Célula vazia ou ícone de análise -->
+                <i class="pi pi-arrow-up-right text-primary"></i>
+              </td>
+              <td class="text-center">
+                <span class="text-primary">{{ prev.analise.referencia || prev.referencia }}</span>
+              </td>
+              <td class="text-right">{{ prev.analise.giro }}%</td>
+              <td class="text-right">{{ prev.analise.venda }}</td>
+              <td class="text-right">{{ prev.analise.indice }}</td>
+              <td class="text-right">{{ prev.analise.estoque }}</td>
+              <td class="text-right">{{ prev.analise.vendasDezDias }}</td>
+              <td class="text-right">{{ prev.analise.calculadoLoja }}</td>
+              <td class="text-right">{{ prev.analise.informadoLoja }}</td>
+              <td class="text-right">{{ prev.analise.informadoAtacado }}</td>
+              <td class="text-right">{{ prev.analise.calculadoAtacado }}</td>
+              <td class="text-right">{{ prev.analise.pedidoAtender }}</td>
+              <td class="text-right">{{ prev.analise.performance }}</td>
+              <td class="text-right">{{ prev.analise.ocEmAberto }}</td>
+              <td class="text-right">{{ prev.analise.sugestaoOc }}</td>
+              <td class="text-right">{{ prev.analise.dataSugestao | date:'dd/MM' }}</td>
+              <td class="text-right">{{ prev.analise.temPromocao }}</td>
+              <td></td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
     </div>
 
@@ -247,7 +215,8 @@
 <!-- ### Modal GRUPOS MAIS VENDIDOS ##### -->
 <!-- #################################### -->
 <!-- #################################### -->
-<p-dialog header="Grupos Mais Vendidos" [modal]="true" [(visible)]="diplayModalGruposMaisVendidos">
+<p-dialog header="Grupos Mais Vendidos" [modal]="true" [(visible)]="diplayModalGruposMaisVendidos"
+  [dismissableMask]="true">
   <p-table [value]="gruposMaisVendidos" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
       <tr>
@@ -273,12 +242,13 @@
   [maximizable]="true" [dismissableMask]="true">
   <div class="grid">
     <div class="col-12">
-      <p-table [value]="[{}]" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+      <p-table [value]="[{}]"
+        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines custom-table custom-table-audits1">
         <ng-template pTemplate="header">
           <tr>
             <th colspan="7"></th>
-            <th colspan="2" class="text-center" style="font-size: 1.2em;">Lojas</th>
-            <th colspan="2" class="text-center" style="font-size: 1.2em;">Atacado</th>
+            <th colspan="2" class="text-center">Lojas</th>
+            <th colspan="2" class="text-center">Atacado</th>
             <th colspan="6"></th>
           </tr>
           <tr>
@@ -292,7 +262,7 @@
             <th class="text-right">Info</th>
             <th class="text-right">Info</th>
             <th class="text-right">Calc</th>
-            <th class="text-right">Ped Atend</th>
+            <th class="text-right">Ped At</th>
             <th class="text-right">Est.Fab</th>
             <th class="text-right">OC Prod</th>
             <th class="text-right">S.OC</th>
@@ -312,22 +282,22 @@
             <td class="text-right">{{ previsaoSelecionado?.informadoAtacado }}</td>
             <td class="text-right">{{ previsaoSelecionado?.calculadoAtacado }}</td>
             <td class="text-right">{{ previsaoSelecionado?.pedidoAtender }}</td>
-            <td class="text-right">Est.Fab</td>
+            <td class="text-right">{{ previsaoSelecionado?.informadoTotal }}</td>
             <td class="text-right">{{ previsaoSelecionado?.ocEmAberto }}</td>
             <td class="text-right">{{ previsaoSelecionado?.sugestaoOc }}</td>
-            <td class="text-right">{{ previsaoSelecionado?.dataSugestao }}</td>
+            <td class="text-right">{{ previsaoSelecionado?.dataSugestao | date:'dd/MM' }}</td>
           </tr>
         </ng-template>
       </p-table>
     </div>
 
-    <div class="col-12">
+    <div class="col-12 font-20">
       Produto: <span class="destacar-green">{{previsaoSelecionado?.descricaoProduto}}</span>
     </div>
 
     <div class="col-8 flex align-items-center">
-      <p-image *ngIf="imageUrl" [src]="imageUrl" height="100" alt="imagem de referencia" />
-      <table style="width:300px" class="auditDadosCalculo">
+      <p-image *ngIf="imageUrl" [src]="imageUrl" height="130" alt="imagem de referencia" />
+      <table style="width:500px" class="auditDadosCalculo font-20">
         <tr>
           <td class="text-right td-50">Coleção: </td>
           <td class="td-50">
@@ -343,31 +313,31 @@
       </table>
     </div>
     <div class="col-4">
-      <table style="width:100%" class="auditDadosCalculo" border="0.5">
+      <table style="width:100%" class="auditDadosCalculo font-20" border="0.5">
         <tr>
-          <td class="text-right td-70">S. OC: </td>
-          <td class="td-30">
+          <td class="text-right td-80">S. OC: </td>
+          <td class="td-20">
             <span class="destacar-blue">{{previsaoSelecionado?.sugestaoOc}}</span>
           </td>
         </tr>
         <tr>
-          <td class="text-right td-70">Multiplicador p/ atacado: </td>
-          <td class="td-30">
+          <td class="text-right td-80">Mult. p/ atacado: </td>
+          <td class="td-20">
             <span class="destacar-blue">1</span>
           </td>
         </tr>
         <tr>
-          <td class="text-right td-70">Multiplicador p/ venda 10 dias das lojas: </td>
-          <td class="td-30">
+          <td class="text-right td-80">Mult. p/ venda 10 dias lojas: </td>
+          <td class="td-20">
             <span class="destacar-blue">1</span>
           </td>
         </tr>
       </table>
     </div>
 
-
     <div class="col-8">
-      <p-table [value]="audits" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+      <p-table [value]="audits" [scrollable]="true" scrollHeight="225px"
+        styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines custom-table custom-table-audits2">
         <ng-template pTemplate="header">
           <tr>
             <th>Lojas</th>
@@ -389,42 +359,42 @@
       </p-table>
     </div>
     <div class="col-4">
-      <table style="width:100%;" class="auditDadosCalculo2">
+      <table style="width:100%;" class="auditDadosCalculo2 font-20">
         <thead style="background-color: #e4e4e4;">
           <tr>
-            <th colspan="2">Dados p/ cálculo sugest. de OC</th>
+            <th colspan="2" style="padding: 2px;">Dados p/ cálculo sugest. de OC</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="text-right td-50">+ Prev. Total</td>
-            <td class="td-50 destacar-blue">{{auditSummary?.previsaoTotal}}</td>
+            <td class="text-right td-80">+ Prev. Total</td>
+            <td class="td-20 destacar-blue">{{auditSummary?.previsaoTotal}}</td>
           </tr>
           <tr>
-            <td class="text-right td-50">- OC em aberto</td>
-            <td class="td-50 destacar-blue">{{auditSummary?.ocEmAberto}}</td>
+            <td class="text-right td-80">- OC em aberto</td>
+            <td class="td-20 destacar-blue">{{auditSummary?.ocEmAberto}}</td>
           </tr>
           <tr>
-            <td class="text-right td-50">- Est. Fábrica</td>
-            <td class="td-50 destacar-blue">{{auditSummary?.estoqueFabrica}}</td>
+            <td class="text-right td-80">- Est. Fábrica</td>
+            <td class="td-20 destacar-blue">{{auditSummary?.estoqueFabrica}}</td>
           </tr>
           <tr>
-            <td class="text-right td-50">- Est. Lojas</td>
-            <td class="td-50 destacar-blue">{{auditSummary?.estoqueLojaFinal}}</td>
+            <td class="text-right td-80">- Est. Lojas</td>
+            <td class="td-20 destacar-blue">{{auditSummary?.estoqueLojaFinal}}</td>
           </tr>
           <tr>
-            <td class="text-right td-50">- Ped. Exp/Fat/Desp</td>
-            <td class="td-50 destacar-blue">{{auditSummary?.pedidosExpFacDesp}}</td>
+            <td class="text-right td-80">- Ped. Exp/Fat/Desp</td>
+            <td class="td-20 destacar-blue">{{auditSummary?.pedidosExpFacDesp}}</td>
           </tr>
           <tr>
-            <td class="text-right td-50">+ Sld. Ped. Ant</td>
-            <td class="td-50 destacar-blue">{{auditSummary?.saldoPedidoAnterior}}</td>
+            <td class="text-right td-80">+ Sld. Ped. Ant</td>
+            <td class="td-20 destacar-blue">{{auditSummary?.saldoPedidoAnterior}}</td>
           </tr>
         </tbody>
         <tfoot style="background-color: #e4e4e4;">
           <tr>
-            <td class="text-right td-50">= Sugestão de OC</td>
-            <td class="td-50 destacar-blue">
+            <td class="text-right td-80">= Sugestão de OC</td>
+            <td class="td-20 destacar-blue">
               {{auditSummary?.previsaoTotal - auditSummary?.ocEmAberto - auditSummary?.estoqueFabrica -
               auditSummary?.estoqueLojaFinal - auditSummary?.pedidosExpFacDesp + auditSummary?.saldoPedidoAnterior}}
             </td>
@@ -443,38 +413,32 @@
 <p-dialog header="Ref.: {{ corSelecionada?.referencia }} - {{ corSelecionada?.nomeCor }}" [modal]="true"
   [(visible)]="diplayModalEstoque" [dismissableMask]="true" [style]="{ width: '50vw' }">
 
-  <div class="estoque-container">
-    <!-- Tabela para cada loja -->
-    <div *ngFor="let loja of lojasList" class="loja-container">
-      <div class="loja-header">
-        <strong>{{ loja.codigoLoja }} – {{ loja.nomeLoja }}</strong>
-      </div>
+  <p-table [value]="lojasList" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
+    <!-- Single header for all stores -->
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Loja</th>
+        <th *ngFor="let tamanho of tamanhosList">{{ tamanho }}</th>
+        <th class="tot-column">Tot</th>
+      </tr>
+    </ng-template>
 
-      <p-table [value]="[loja]" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines">
-        <!-- Cabeçalhos de tamanho -->
-        <ng-template pTemplate="header">
-          <tr>
-            <th *ngFor="let tamanho of tamanhosList">{{ tamanho }}</th>
-            <th class="tot-column">Tot</th>
-          </tr>
-        </ng-template>
-
-        <!-- Linha de estoque -->
-        <ng-template pTemplate="body" let-loja>
-          <tr>
-            <td *ngFor="let tamanho of tamanhosList" class="estoque-cell">
-              {{ getEstoque(loja.codigoLoja, tamanho) }}
-            </td>
-            <td class="estoque-cell tot-column">
-              {{ getTotalEstoquePorLoja(loja.codigoLoja) }}
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-      <br />
-    </div>
-  </div>
+    <!-- One row per store -->
+    <ng-template pTemplate="body" let-loja>
+      <tr>
+        <td><strong>{{ loja.codigoLoja }} – {{ loja.nomeLoja }}</strong></td>
+        <td *ngFor="let tamanho of tamanhosList" class="estoque-cell">
+          {{ getEstoque(loja.codigoLoja, tamanho) }}
+        </td>
+        <td class="estoque-cell tot-column">
+          {{ getTotalEstoquePorLoja(loja.codigoLoja) }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </p-dialog>
+
+
 
 <div class="progress-spinner" *ngIf="loadingFull">
   <p-progressSpinner></p-progressSpinner>

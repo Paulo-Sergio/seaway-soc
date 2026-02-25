@@ -6,13 +6,6 @@
         <i class="pi pi-align-left"></i>
     </a>
 
-    <!--
-    <a id="layout-megamenu-button" href="#" (click)="appMain.onMegaMenuButtonClick($event)">
-        <i class="pi pi-angle-down"></i>
-        <span class="mega-menu-title">Mega Menu</span>
-    </a>
-    -->
-
     <a id="topbar-menu-button" href="#" (click)="appMain.onTopbarMenuButtonClick($event)"
         *ngIf="app.profileMode==='top' || appMain.isHorizontal()">
         <img src="assets/layout/images/user-default.png" alt="california-layout">
@@ -134,9 +127,8 @@
         </li>
     </ul>
 
-    <!--
     <a id="right-sidebar-button" href="#" (click)="appMain.onRightPanelButtonClick($event)">
         <i class="pi pi-ellipsis-v"></i>
     </a>
-    -->
+    
 </div>

@@ -1,3 +1,4 @@
+<!--
 <div class="layout-wrapper" (click)="onLayoutClick()"
      [ngClass]="{'layout-wrapper-overlay-sidebar': isOverlay(),
                  'layout-wrapper-slim-sidebar': isSlim(),
@@ -27,8 +28,17 @@
             <router-outlet></router-outlet>
         </div>
 
-        <!--<app-footer></app-footer>-->
+        <app-footer></app-footer>
     </div>
 
     <app-config></app-config>
+</div>
+-->
+
+<div class="layout-main">
+    <app-breadcrumb></app-breadcrumb>
+
+    <div class="layout-main-content">
+        <router-outlet></router-outlet>
+    </div>
 </div>

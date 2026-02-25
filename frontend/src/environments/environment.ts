@@ -7,7 +7,7 @@ export const environment = {
 };
 
 export const baseUrl = 'http://localhost:8092';
-export const baseUrlImgs = 'http://localhost:8082';
+export const baseUrlImgs = 'http://localhost:8083';
 
 /*
  * In development mode, to ignore zone related error stack frames such as

@@ -1,51 +1,59 @@
-.card {
-    -webkit-box-shadow: 14px 8px 29px 0px rgba(135, 135, 135, 0.25);
-    -moz-box-shadow: 14px 8px 29px 0px rgba(135, 135, 135, 0.25);
-    box-shadow: 14px 8px 29px 0px rgba(135, 135, 135, 0.25);
+:host ::ng-deep .bloqueado {
+    background-color: yellow !important
 }
 
-// DEIXAR O CARD DE CORES FIXO (não esta sendo mais usado)
-.fixed-card {
-    position: sticky;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    /* Ajuste o z-index conforme necessário para garantir que o card fique sobre outros elementos */
-
-    border: 2px solid #cecece;
+// Tamanho de Fontes
+p-table tr,
+p-table td input,
+p-table td select {
+    font-size: 22px;
+    font-weight: bold;
 }
 
-
-.card {
-    padding: 10px;
-    margin-bottom: 10px;
+::ng-deep .custom-dropdown .p-dropdown-label {
+    font-size: 20px !important;
+    font-weight: bold;
 }
 
+::ng-deep .custom-dropdown .p-dropdown-items {
+    font-size: 20px !important;
+    font-weight: bold;
+}
+
+::ng-deep .btn-grande .p-button-label {
+    font-size: 20px !important;
+}
+
+.font-20 {
+    font-size: 20px !important;
+    font-weight: bold;
+}
+
+// FIM - Tamanho de Fontes
+
+
+/* Modal Audits */
 .auditDadosCalculo,
 .auditDadosCalculo2 .td-50 {
     width: 50%;
 }
 
-.auditDadosCalculo .td-70 {
-    width: 70%;
+.auditDadosCalculo .td-80 {
+    width: 80%;
 }
 
-.auditDadosCalculo .td-30 {
-    width: 30%;
+.auditDadosCalculo .td-20 {
+    width: 20%;
 }
 
 .auditDadosCalculo2 {
     border-collapse: collapse;
-    /* Colapsa as bordas para evitar espaços */
 }
 
 .auditDadosCalculo2 th,
 .auditDadosCalculo2 td {
     border: 1px solid #ccc;
-    /* Borda fina e discreta */
-    padding: 7px;
-    /* Espaçamento interno */
+    padding: 0 10px;
 }
 
 .destacar-green {
@@ -58,37 +66,7 @@
     font-weight: bolder;
 }
 
-:host ::ng-deep .bloqueado {
-    background-color: yellow !important
-}
-
-// ---------- LOADING ----------
-.progress-spinner {
-    position: fixed;
-    z-index: 999;
-    height: 2em;
-    width: 2em;
-    overflow: show;
-    margin: auto;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-}
-
-/* Transparent Overlay */
-.progress-spinner:before {
-    content: '';
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.53);
-}
-
-// ---------- LOADING ----------
+/* FIM - Modal Audits */
 
 
 // Dropdown para Classe das Cores
@@ -136,3 +114,71 @@
 }
 
 // FIM - Input para S.OC
+
+// ---------- LOADING ----------
+.progress-spinner {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+/* Transparent Overlay */
+.progress-spinner:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.53);
+}
+
+// ---------- LOADING ----------
+
+
+// Estilização das tabelas
+::ng-deep .custom-table.p-datatable-striped tbody tr:nth-child(even) {
+    background-color: #dff0ff !important;
+}
+
+::ng-deep .custom-table.p-datatable-striped tbody tr:nth-child(odd) {
+    background-color: #f6fbff !important;
+}
+
+::ng-deep .custom-table th {
+    background-color: #dff0ff;
+}
+
+::ng-deep .custom-table.p-datatable-striped tbody tr td {
+    border: 1px solid #dddddd !important;
+}
+
+::ng-deep .custom-table.p-datatable-striped thead tr th {
+    border: 1px solid #dddddd !important;
+}
+
+::ng-deep .custom-table tbody tr td,
+::ng-deep .custom-table-audits1 tbody tr td,
+::ng-deep .custom-table-audits2 tbody tr td {
+    padding: 0 10px;
+}
+
+::ng-deep .custom-table-audits1 thead tr th,
+::ng-deep .custom-table-audits2 thead tr th {
+    padding: 0 10px;
+}
+
+.soc-column {
+  background-color: #dff0ff !important; /* Azul claro */
+  padding: 0;
+}
+
+// FIM - Estilização das tabelas
