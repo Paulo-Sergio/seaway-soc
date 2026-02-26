@@ -15,7 +15,7 @@ p-table td select {
     font-weight: bold;
 }
 
-::ng-deep .custom-dropdown .p-dropdown-items {
+::ng-deep .custom-dropdown .p-dropdown-items .ng-star-inserted {
     font-size: 20px !important;
     font-weight: bold;
 }
@@ -167,7 +167,8 @@ p-table td select {
 
 ::ng-deep .custom-table tbody tr td,
 ::ng-deep .custom-table-audits1 tbody tr td,
-::ng-deep .custom-table-audits2 tbody tr td {
+::ng-deep .custom-table-audits2 tbody tr td,
+::ng-deep .custom-table-grade tbody tr td {
     padding: 0 10px;
 }
 
@@ -177,8 +178,18 @@ p-table td select {
 }
 
 .soc-column {
-  background-color: #dff0ff !important; /* Azul claro */
-  padding: 0;
+    background-color: #dff0ff !important;
+    padding: 0;
 }
 
+.tot-column{
+    background-color: #dff0ff !important;
+}
+
+
 // FIM - Estilização das tabelas
+
+// Abrir o preview com a tela toda já preenchida
+::ng-deep .p-image-preview {
+    height: 100vh;
+}

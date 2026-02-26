@@ -450,7 +450,7 @@ export class SocComponent implements OnInit {
 
   private updateWindowHeight(): void {
     this.windowHeight = this.windowService.getWindowHeight();
-    this.scrollHeight = (this.windowHeight - 230).toString() + 'px'
+    this.scrollHeight = (this.windowHeight - 240).toString() + 'px'
   }
 
   private showNotificationToast(severity: string, msg: string) {
