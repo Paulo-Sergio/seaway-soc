@@ -224,7 +224,9 @@ export class SocComponent implements OnInit {
       });
   }
 
-  // Processa os dados recebidos da API
+  /**
+   * REFERENTE A GRADE
+   */
   private processarDadosEstoque() {
     // Extrair lojas únicas do array de cores03
     const lojasMap = new Map<string, LojaInfo>();
@@ -263,6 +265,28 @@ export class SocComponent implements OnInit {
       .filter(item => item.codigoLoja === codigoLoja)
       .reduce((total, item) => total + (item.estoque || 0), 0);
   }
+
+  // Get total stock for a specific size across all stores
+  getTotalEstoquePorTamanho(tamanho: string): number {
+    let total = 0;
+    this.lojasList.forEach(loja => {
+      const estoque = this.getEstoque(loja.codigoLoja, tamanho);
+      total += isNaN(estoque) ? 0 : estoque;
+    });
+    return total;
+  }
+
+  // Get grand total of all stock
+  getTotalGeralEstoque(): number {
+    let total = 0;
+    this.lojasList.forEach(loja => {
+      total += this.getTotalEstoquePorLoja(loja.codigoLoja);
+    });
+    return total;
+  }
+  /**
+   * FIM dos metodos - REFERENTE A GRADE
+   */
 
   public exportOutputs() {
     this.loading = true
@@ -357,7 +381,12 @@ export class SocComponent implements OnInit {
     this.socService.findAuditsByReferencia(this.previsaoSelecionado?.referencia)
       .subscribe({
         next: (res: Audit[]) => {
-          this.audits = res
+          // Ordena colocando codigoLoja 30 em primeiro
+          this.audits = res.sort((a, b) => {
+            if (a.codigoLoja === 30) return -1;
+            if (b.codigoLoja === 30) return 1;
+            return 0;
+          });
           console.log(this.audits)
         },
         error: (err) => {
@@ -450,7 +479,7 @@ export class SocComponent implements OnInit {
 
   private updateWindowHeight(): void {
     this.windowHeight = this.windowService.getWindowHeight();
-    this.scrollHeight = (this.windowHeight - 240).toString() + 'px'
+    this.scrollHeight = (this.windowHeight - 275).toString() + 'px'
   }
 
   private showNotificationToast(severity: string, msg: string) {

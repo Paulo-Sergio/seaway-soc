@@ -3,10 +3,10 @@
     <p-toast></p-toast>
 
     <!--{{previsaoSelecionado | json}}-->
-    <div class="grid" style="height: 190px; margin: 7px;">
+    <div class="grid" style="height: 200px; margin: 7px;">
       <div class="col-10" style="border: 1px solid #c5c5c5; padding: 0;">
         <p-table [value]="cores" styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines custom-table"
-          [scrollable]="true" scrollHeight="185px">
+          [scrollable]="true" scrollHeight="195px">
           <ng-template pTemplate="header">
             <tr>
               <th>Cor</th>
@@ -49,15 +49,15 @@
           </ng-template>
         </p-table>
       </div>
-      <div class="col-2 text-center" *ngIf="previsaoSelecionado" style="padding: 0;">
+      <div class="col-2 text-center" *ngIf="previsaoSelecionado" style="padding: 0; position: relative;">
         <p-image *ngIf="imageUrl" [src]="imageUrl" [preview]="true" alt="imagem de referencia"
-          [style]="{'display': 'block', 'width': '100%', 'height': '190px', 'overflow': 'hidden'}"
-          [imageStyle]="{'width': '100%', 'height': '190px'}" />
+          [style]="{'position': 'absolute', 'z-index': '10', 'width': '100%', 'right': '0'}"
+          [imageStyle]="{'width': '100%', 'height': 'auto', 'object-fit': 'contain'}" />
       </div>
     </div>
 
-    <div class="grid mt-2">
-      <div class="md:col-12">
+    <div class="grid">
+      <div class="md:col-10">
         <div class="flex justify-content-center align-items-center">
           <!-- Botões de rádio com ngModel -->
           <div class="flex align-items-center ml-3">
@@ -77,16 +77,17 @@
           </div>
 
           <p-button (onClick)="showDialogGruposMaisVendidos()" label="Grupos mais vendidos" icon="pi pi-sort-alt"
-            iconPos="left" severity="info" class="ml-4 btn-grande"></p-button>
+            iconPos="left" severity="info" class="ml-4 btn-grande" size="small"></p-button>
           <p-button (onClick)="showDialogAudits()" label="Audt. Produto" icon="pi pi-book" iconPos="left"
-            severity="info" class="ml-2 btn-grande"></p-button>
+            severity="info" class="ml-2 btn-grande" size="small"></p-button>
           <p-button (onClick)="exportReport()" class="ml-2 btn-grande" label="Imprimir" icon="pi pi-file-pdf"
-            iconPos="left" severity="info"></p-button>
+            iconPos="left" severity="info" size="small"></p-button>
           <p-button label="Sair/Gerar TXT" icon="pi pi-file-edit" iconPos="left" severity="info"
-            (onClick)="exportOutputs()" class="ml-2 btn-grande"></p-button>
+            (onClick)="exportOutputs()" class="ml-2 btn-grande" size="small"></p-button>
 
         </div>
       </div>
+      <div class="md:col-2"></div>
     </div>
 
     <div class="grid" style="margin: 0;">
@@ -216,7 +217,7 @@
 <!-- ### Modal GRUPOS MAIS VENDIDOS ##### -->
 <!-- #################################### -->
 <!-- #################################### -->
-<p-dialog header="Grupos Mais Vendidos" [modal]="true" [(visible)]="diplayModalGruposMaisVendidos" 
+<p-dialog header="Grupos Mais Vendidos" [modal]="true" [(visible)]="diplayModalGruposMaisVendidos"
   [dismissableMask]="true">
   <p-table [value]="gruposMaisVendidos"
     styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines custom-table">
@@ -240,8 +241,7 @@
 <!-- ########## Modal AUDITS ########## -->
 <!-- #################################### -->
 <!-- #################################### -->
-<p-dialog header="Auditoria" [modal]="true" [(visible)]="diplayModalAudits" [style]="{ width: '80vw' }"
-  [maximizable]="true" [dismissableMask]="true">
+<p-dialog header="Auditoria" [modal]="true" [(visible)]="diplayModalAudits" styleClass="fullscreen-dialog">
   <div class="grid">
     <div class="col-12">
       <p-table [value]="[{}]"
@@ -293,28 +293,30 @@
       </p-table>
     </div>
 
-    <div class="col-12 font-20">
-      Produto: <span class="destacar-green">{{previsaoSelecionado?.descricaoProduto}}</span>
-    </div>
-
     <div class="col-8 flex align-items-center">
-      <p-image *ngIf="imageUrl" [src]="imageUrl" height="130" alt="imagem de referencia" />
-      <table style="width:500px" class="auditDadosCalculo font-20">
+      <p-image *ngIf="imageUrl" [src]="imageUrl" height="140" alt="imagem de referencia" />
+      <table style="width:700px" class="auditDadosCalculo font-20">
         <tr>
-          <td class="text-right td-50">Coleção: </td>
-          <td class="td-50">
+          <td class="text-right ">Produto: </td>
+          <td>
+            <span class="destacar-green">{{previsaoSelecionado?.descricaoProduto}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-right ">Coleção: </td>
+          <td>
             <span class="destacar-green">{{parametro?.codColecao}} - {{parametro?.nomeColecao}}</span>
           </td>
         </tr>
         <tr>
-          <td class="text-right td-50">Último Cálculo: </td>
-          <td class="td-50">
+          <td class="text-right ">Último Cálculo: </td>
+          <td>
             <span class="destacar-green">{{parametro?.dataCalculo}} {{parametro?.horaCalculo}}</span>
           </td>
         </tr>
       </table>
     </div>
-    <div class="col-4">
+    <div class="col-4 flex align-items-center">
       <table style="width:100%" class="auditDadosCalculo font-20" border="0.5">
         <tr>
           <td class="text-right td-80">S. OC: </td>
@@ -338,15 +340,15 @@
     </div>
 
     <div class="col-8">
-      <p-table [value]="audits" [scrollable]="true" scrollHeight="225px"
+      <p-table [value]="audits" [scrollable]="true"
         styleClass="p-datatable-sm p-datatable-striped p-datatable-gridlines custom-table custom-table-audits2">
         <ng-template pTemplate="header">
           <tr>
             <th>Lojas</th>
-            <th>G. Mín</th>
-            <th>Est</th>
-            <th>V.10d</th>
-            <th>Vnd</th>
+            <th class="text-right">G. Mín</th>
+            <th class="text-right">Est</th>
+            <th class="text-right">V.10d</th>
+            <th class="text-right">Vnd</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-audit>
@@ -361,7 +363,7 @@
       </p-table>
     </div>
     <div class="col-4">
-      <table style="width:100%;" class="auditDadosCalculo2 font-20">
+      <table style="width:100%;" class="auditDadosCalculo2 font-25">
         <thead style="background-color: #e4e4e4;">
           <tr>
             <th colspan="2" style="padding: 2px;">Dados p/ cálculo sugest. de OC</th>
@@ -430,11 +432,24 @@
     <ng-template pTemplate="body" let-loja>
       <tr>
         <td>{{ loja.codigoLoja }} {{ loja.nomeLoja }}</td>
-        <td *ngFor="let tamanho of tamanhosList" class="estoque-cell text-right">
+        <td *ngFor="let tamanho of tamanhosList" class="text-right">
           {{ getEstoque(loja.codigoLoja, tamanho) }}
         </td>
-        <td class="estoque-cell tot-column text-right">
+        <td class="tot-column text-right">
           {{ getTotalEstoquePorLoja(loja.codigoLoja) }}
+        </td>
+      </tr>
+    </ng-template>
+
+    <!-- Footer with totals -->
+    <ng-template pTemplate="footer">
+      <tr>
+        <td>TOTAL GERAL</td>
+        <td *ngFor="let tamanho of tamanhosList" class="text-right ">
+          {{ getTotalEstoquePorTamanho(tamanho) }}
+        </td>
+        <td class="text-right">
+          {{ getTotalGeralEstoque() }}
         </td>
       </tr>
     </ng-template>

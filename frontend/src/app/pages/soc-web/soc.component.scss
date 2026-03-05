@@ -1,3 +1,7 @@
+* {
+    color: #000;
+}
+
 :host ::ng-deep .bloqueado {
     background-color: yellow !important
 }
@@ -6,26 +10,31 @@
 p-table tr,
 p-table td input,
 p-table td select {
-    font-size: 22px;
+    font-size: 25px;
     font-weight: bold;
 }
 
 ::ng-deep .custom-dropdown .p-dropdown-label {
-    font-size: 20px !important;
+    font-size: 23px !important;
     font-weight: bold;
 }
 
 ::ng-deep .custom-dropdown .p-dropdown-items .ng-star-inserted {
-    font-size: 20px !important;
+    font-size: 23px !important;
     font-weight: bold;
 }
 
 ::ng-deep .btn-grande .p-button-label {
-    font-size: 20px !important;
+    font-size: 23px !important;
 }
 
 .font-20 {
     font-size: 20px !important;
+    font-weight: bold;
+}
+
+.font-25 {
+    font-size: 25px !important;
     font-weight: bold;
 }
 
@@ -145,16 +154,16 @@ p-table td select {
 
 
 // Estilização das tabelas
-::ng-deep .custom-table.p-datatable-striped tbody tr:nth-child(even) {
-    background-color: #dff0ff !important;
+::ng-deep .custom-table.p-datatable-striped tbody tr:nth-child(odd) {
+    background-color: #f2f5f8 !important;
 }
 
-::ng-deep .custom-table.p-datatable-striped tbody tr:nth-child(odd) {
-    background-color: #f6fbff !important;
+::ng-deep .custom-table.p-datatable-striped tbody tr:nth-child(even) {
+    background-color: #d5eaf4 !important;
 }
 
 ::ng-deep .custom-table th {
-    background-color: #dff0ff;
+    background-color: #d5eaf4;
 }
 
 ::ng-deep .custom-table.p-datatable-striped tbody tr td {
@@ -163,6 +172,12 @@ p-table td select {
 
 ::ng-deep .custom-table.p-datatable-striped thead tr th {
     border: 1px solid #dddddd !important;
+}
+
+::ng-deep .custom-table.p-datatable-striped tfoot tr td {
+    border: 1px solid #dddddd !important;
+    font-weight: bold;
+    background-color: #a1d9f5;
 }
 
 ::ng-deep .custom-table tbody tr td,
@@ -178,12 +193,12 @@ p-table td select {
 }
 
 .soc-column {
-    background-color: #dff0ff !important;
+    background-color: #d5eaf4 !important;
     padding: 0;
 }
 
-.tot-column{
-    background-color: #dff0ff !important;
+.tot-column {
+    background-color: #a1d9f5 !important;
 }
 
 
@@ -192,4 +207,17 @@ p-table td select {
 // Abrir o preview com a tela toda já preenchida
 ::ng-deep .p-image-preview {
     height: 100vh;
+}
+
+:host ::ng-deep .fullscreen-dialog {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+}
+
+:host ::ng-deep .p-dialog-header-close-icon {
+    width: 2rem !important;
+    height: 2rem !important;
 }
