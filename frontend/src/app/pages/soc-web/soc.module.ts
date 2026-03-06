@@ -18,6 +18,7 @@ import { ImageModule } from 'primeng/image';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SocService } from './soc.service';
+import { CheckboxModule } from 'primeng/checkbox';
 
 registerLocaleData(localePt);
 
@@ -37,7 +38,8 @@ registerLocaleData(localePt);
     SplitterModule,
     ImageModule,
     RadioButtonModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    CheckboxModule
   ],
   declarations: [
     SocComponent

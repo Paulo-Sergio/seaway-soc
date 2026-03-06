@@ -41,6 +41,21 @@ export class SocService {
     )
   }
 
+  public findByDescricaoGrupoComAgrupar(search: any): Observable<Previsao[]> {
+    let params = new HttpParams()
+
+    if (search.descricaoGrupo != null) {
+      params = params.set('descricaoGrupo', search.descricaoGrupo)
+    }
+
+    return this.http.get<Previsao[]>(`${baseUrl}/api/previsoes/byDescricaoGrupo/agrupar`,
+      {
+        params,
+        headers: new HttpHeaders({ contentType: this.applicationJson })
+      }
+    )
+  }
+
   public findCoresByReferencia(referencia: string): Observable<Cor01[]> {
     return this.http.get<Cor01[]>(`${baseUrl}/api/cores01/${referencia}`,
       {
@@ -75,6 +90,14 @@ export class SocService {
 
   public findParametros(): Observable<Parametro> {
     return this.http.get<Parametro>(`${baseUrl}/api/parametros`,
+      {
+        headers: new HttpHeaders({ contentType: this.applicationJson })
+      }
+    )
+  }
+
+  public findHojeSoc(): Observable<Previsao[]> {
+    return this.http.get<Previsao[]>(`${baseUrl}/api/previsoes/hojeSoc`,
       {
         headers: new HttpHeaders({ contentType: this.applicationJson })
       }

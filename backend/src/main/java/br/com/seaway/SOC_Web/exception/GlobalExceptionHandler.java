@@ -39,6 +39,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
+    @ExceptionHandler(AgrupaVazioException.class)
+    public ResponseEntity<ErrorResponse> agrupaVazioException(AgrupaVazioException e) {
+        log.error("Erro: {}", e.getMessage());
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                e.getMessage(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Esse produto não possui grupo! Não é possível agrupá-lo!"
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
     @ExceptionHandler(IOException.class)
     public ResponseEntity<String> handleIOException(IOException exc) {
         log.error("Erro de IO ocorreu", exc);

@@ -50,4 +50,16 @@ public class PrevisaoController {
         previsaoService.updatePrioridade(referencia, prioridade);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("hojeSoc")
+    public ResponseEntity<List<PrevisaoResponse>> findByHojeSoc() {
+        List<PrevisaoResponse> response = previsaoService.findByHojeSoc();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("byDescricaoGrupo/agrupar")
+    public ResponseEntity<List<PrevisaoResponse>> findByDescricaoGrupoComAgrupar(@RequestParam String descricaoGrupo) {
+        List<PrevisaoResponse> response = previsaoService.findByDescricaoGrupoComAgrupar(descricaoGrupo);
+        return ResponseEntity.ok(response);
+    }
 }

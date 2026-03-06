@@ -2,6 +2,7 @@ package br.com.seaway.SOC_Web.service;
 
 import br.com.seaway.SOC_Web.dto.GruposMaisVendidosResponse;
 import br.com.seaway.SOC_Web.dto.PrevisaoResponse;
+import br.com.seaway.SOC_Web.exception.AgrupaVazioException;
 import br.com.seaway.SOC_Web.model.Previsao;
 import br.com.seaway.SOC_Web.repository.PrevisaoRepository;
 import br.com.seaway.SOC_Web.utils.PrevisaoUtil;
@@ -70,5 +71,25 @@ public class PrevisaoService {
             previsao.setPrioridade(prioridade.equals("NA") ? null : prioridade);
             previsaoRepository.save(previsao);
         }
+    }
+
+    public List<PrevisaoResponse> findByHojeSoc() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        List<Previsao> previsoes = previsaoRepository.findByDataHojeSoc(LocalDate.now().format(formatter));
+
+        return previsoes.stream().map(previsaoUtil::createResponse).toList();
+    }
+
+    public List<PrevisaoResponse> findByDescricaoGrupoComAgrupar(String descricaoGrupo) {
+        List<Previsao> previsoes = previsaoRepository.findByDescricaoGrupo(descricaoGrupo);
+        boolean temAgrupaValido = previsoes.stream()
+                .anyMatch(p -> p.getAgrupa() != null && !p.getAgrupa().trim().isEmpty());
+        if (!temAgrupaValido) {
+            throw new AgrupaVazioException("Esse produto não possui grupo! Não é possível agrupá-lo!");
+        }
+
+        List<Previsao> previsoesAgrupadas = previsaoRepository.findByDescricaoGrupoComAgrupar(descricaoGrupo);
+        return previsoesAgrupadas.stream().map(previsaoUtil::createResponse).toList();
     }
 }

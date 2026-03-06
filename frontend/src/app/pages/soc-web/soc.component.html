@@ -1,6 +1,6 @@
 <div class="grid main-grid">
   <div class="col-12">
-    <p-toast></p-toast>
+    <p-toast position="center"></p-toast>
 
     <!--{{previsaoSelecionado | json}}-->
     <div class="grid" style="height: 200px; margin: 7px;">
@@ -59,31 +59,38 @@
     <div class="grid">
       <div class="md:col-10">
         <div class="flex justify-content-center align-items-center">
+
+          <p-checkbox [(ngModel)]="hojeSoc" [binary]="true" inputId="binary"
+            (ngModelChange)="onHojeSocChanged($event)" /><span class="ml-1 font-20">Hoje</span>
+
+          <p-button (onClick)="showDialogGruposMaisVendidos()" label="Grupos mais vendidos" icon="pi pi-sort-alt"
+            iconPos="left" severity="info" class="ml-2 btn-grande"></p-button>
+          <p-button (onClick)="showDialogAudits()" label="Audt. Produto" icon="pi pi-book" iconPos="left"
+            severity="info" class="ml-2 btn-grande"></p-button>
+          <p-button (onClick)="exportReport()" class="ml-2 btn-grande" label="Imprimir" icon="pi pi-file-pdf" iconPos="left"
+            severity="info"></p-button>
+          <p-button label="Sair/Gerar TXT" icon="pi pi-file-edit" iconPos="left" severity="info"
+            (onClick)="exportOutputs()" class="ml-2 btn-grande"></p-button>
+
           <!-- Botões de rádio com ngModel -->
-          <div class="flex align-items-center ml-3">
+          <div class="flex align-items-center ml-2">
             <p-radioButton name="remanejar" value="NA" [(ngModel)]="remanejarValue"
               (ngModelChange)="onRemanejarChange($event)" inputId="remanejar1"></p-radioButton>
             <label for="remanejar1" class="ml-2 font-20">Não remanejar</label>
           </div>
-          <div class="flex align-items-center ml-3">
+          <div class="flex align-items-center ml-2">
             <p-radioButton name="remanejar" value="L" [(ngModel)]="remanejarValue"
               (ngModelChange)="onRemanejarChange($event)" inputId="remanejar2"></p-radioButton>
             <label for="remanejar2" class="ml-2 font-20">Só loja</label>
           </div>
-          <div class="flex align-items-center ml-3">
+          <div class="flex align-items-center ml-2">
             <p-radioButton name="remanejar" value="LA" [(ngModel)]="remanejarValue"
               (ngModelChange)="onRemanejarChange($event)" inputId="remanejar3"></p-radioButton>
             <label for="remanejar3" class="ml-2 font-20">Loja e Atacado</label>
           </div>
 
-          <p-button (onClick)="showDialogGruposMaisVendidos()" label="Grupos mais vendidos" icon="pi pi-sort-alt"
-            iconPos="left" severity="info" class="ml-4 btn-grande" size="small"></p-button>
-          <p-button (onClick)="showDialogAudits()" label="Audt. Produto" icon="pi pi-book" iconPos="left"
-            severity="info" class="ml-2 btn-grande" size="small"></p-button>
-          <p-button (onClick)="exportReport()" class="ml-2 btn-grande" label="Imprimir" icon="pi pi-file-pdf"
-            iconPos="left" severity="info" size="small"></p-button>
-          <p-button label="Sair/Gerar TXT" icon="pi pi-file-edit" iconPos="left" severity="info"
-            (onClick)="exportOutputs()" class="ml-2 btn-grande" size="small"></p-button>
+          <p-button label="Agrupar" icon="pi pi-list" iconPos="left" severity="info"
+            (onClick)="findPrevisoesComAgrupar()" class="ml-2 btn-grande"></p-button>
 
         </div>
       </div>
@@ -100,7 +107,7 @@
           <ng-template pTemplate="header">
             <tr>
               <th colspan="8" style="background-color: #f8f9fa;">
-                <form [formGroup]="form">
+                <form [formGroup]="form" *ngIf="!hojeSoc">
                   <p-dropdown [options]="grupos" formControlName="descricaoGrupo" [showClear]="false"
                     [style]="{'width':'100%'}" class="custom-dropdown">
                   </p-dropdown>
@@ -163,7 +170,7 @@
               </td>
               <td class="text-right">{{ prev.dataSugestao | date:'dd/MM' }}</td>
               <td class="text-center">
-                <p-tableRadioButton [value]="prev" />
+                <p-tableRadioButton [value]="prev" class="tableRadioButton-vertical-center" />
               </td>
               <td class="text-center">
                 <select [(ngModel)]="prev.prioridade" (change)="onPrioridadeChange(prev, $event)"
@@ -173,6 +180,11 @@
                   <option value="2">2</option>
                 </select>
               </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="19" class="text-center">Nenhum registro encontrado</td>
             </tr>
           </ng-template>
 

@@ -27,6 +27,7 @@ interface LojaInfo {
 export class SocComponent implements OnInit {
 
   public form: FormGroup
+  public hojeSoc: boolean
   public remanejarValue: string // Propriedade para armazenar o valor do botão de rádio
 
   public previsoes: Previsao[]
@@ -106,14 +107,9 @@ export class SocComponent implements OnInit {
         next: (res: Previsao[]) => {
           this.previsoes = res
           console.log(this.previsoes)
-          this.loading = false
 
-          // Seleciona a primeira linha automaticamente se houver dados
-          if (this.previsoes && this.previsoes.length > 0) {
-            this.previsaoSelecionado = this.previsoes[0];
-            // Opcional: disparar o evento de seleção manualmente
-            this.onRowSelect({ data: this.previsoes[0] });
-          }
+          this.selecionarPrimeiraLinha()
+          this.loading = false
         },
         error: (err) => {
           console.log(err)
@@ -134,6 +130,54 @@ export class SocComponent implements OnInit {
         error: (err) => {
           console.log(err)
           this.showNotificationToast('error', 'Conexão Falhou!')
+        },
+      });
+  }
+
+  public onHojeSocChanged(value: boolean) {
+    this.hojeSoc = value
+    console.log('onHojeSocChanged:', value)
+    if (value) {
+      this.loading = true
+      this.socService.findHojeSoc()
+        .subscribe({
+          next: (res: Previsao[]) => {
+            this.previsoes = res
+            console.log(this.previsoes)
+
+            this.selecionarPrimeiraLinha()
+            this.loading = false
+          },
+          error: (err) => {
+            console.log(err)
+            this.loading = false
+            this.showNotificationToast('error', 'Conexão Falhou!')
+          },
+        });
+    } else {
+      this.getAllPrevisoes()
+    }
+  }
+
+  public findPrevisoesComAgrupar() {
+    this.loading = true
+    this.socService.findByDescricaoGrupoComAgrupar(this.form.value)
+      .subscribe({
+        next: (res: Previsao[]) => {
+          this.previsoes = res
+          console.log(this.previsoes)
+
+          this.selecionarPrimeiraLinha()
+          this.loading = false
+        },
+        error: (err) => {
+          console.log(err)
+          if (err.status == 400) {
+            this.showNotificationToastWarn('warn', err?.error?.message)
+          } else {
+            this.showNotificationToast('error', 'Conexão Falhou!')
+          }
+          this.loading = false
         },
       });
   }
@@ -477,6 +521,15 @@ export class SocComponent implements OnInit {
     event.target.select();
   }
 
+  private selecionarPrimeiraLinha(): void {
+    // Seleciona a primeira linha automaticamente se houver dados
+    if (this.previsoes && this.previsoes.length > 0) {
+      this.previsaoSelecionado = this.previsoes[0];
+      // Opcional: disparar o evento de seleção manualmente
+      this.onRowSelect({ data: this.previsoes[0] });
+    }
+  }
+
   private updateWindowHeight(): void {
     this.windowHeight = this.windowService.getWindowHeight();
     this.scrollHeight = (this.windowHeight - 275).toString() + 'px'
@@ -484,5 +537,9 @@ export class SocComponent implements OnInit {
 
   private showNotificationToast(severity: string, msg: string) {
     this.messageService.add({ severity: severity, summary: `${UtilsSeaway.capitalize(severity)} Messagem`, detail: msg });
+  }
+
+  private showNotificationToastWarn(severity: string, msg: string) {
+    this.messageService.add({ severity: severity, summary: 'Mensagem de alerta!', detail: msg });
   }
 }

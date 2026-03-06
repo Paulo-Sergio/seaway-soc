@@ -1,0 +1,132 @@
+0590005SEAWAY CS.FORTE014001600000048012IGUATEMI       017003800010366016TACARUNA       016002000020356018SEAWAY RECIFE  014002600000101024SEAWAY NORTE   015000800000099025NEWMAR         015001400000238026RIO MAR        014000700000133028GUARARAPES     015000900020282029PATTEO         012001200010104030E-COMMERCE NOVO000000000000000                  000000000000000                  000000000000000                  000000000000000                  000000000000000                  000000000000000000600060011015000000000
+
+referencia=0590
+codigoLoja=005
+nomeLoja=SEAWAY CS.FORTE
+gradeMinima=014
+estoqueLoja=0016
+vendas10Dias=0000
+vendaAcumulada=0048
+
+... isso vai se repetir 15x, ou seja, mais 14 registros no banco de dados...
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=012
+nomeLoja=IGUATEMI       
+gradeMinima=017
+estoqueLoja=0038
+vendas10Dias=0001
+vendaAcumulada=0366
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=016
+nomeLoja=TACARUNA       
+gradeMinima=016
+estoqueLoja=0020
+vendas10Dias=0002
+vendaAcumulada=0356
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=018
+nomeLoja=SEAWAY RECIFE  
+gradeMinima=014
+estoqueLoja=0026
+vendas10Dias=0000
+vendaAcumulada=0101
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=024
+nomeLoja=SEAWAY NORTE   
+gradeMinima=015
+estoqueLoja=0008
+vendas10Dias=0000
+vendaAcumulada=0099
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=025
+nomeLoja=NEWMAR         
+gradeMinima=015
+estoqueLoja=0014
+vendas10Dias=0000
+vendaAcumulada=0238
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=026
+nomeLoja=RIO MAR        
+gradeMinima=014
+estoqueLoja=0007
+vendas10Dias=0000
+vendaAcumulada=0133
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=028
+nomeLoja=GUARARAPES     
+gradeMinima=015
+estoqueLoja=0009
+vendas10Dias=0002
+vendaAcumulada=0282
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=029
+nomeLoja=PATTEO         
+gradeMinima=012
+estoqueLoja=0012
+vendas10Dias=0001
+vendaAcumulada=0104
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=030
+nomeLoja=E-COMMERCE NOVO                                                  
+gradeMinima=000
+estoqueLoja=0000
+vendas10Dias=0000
+vendaAcumulada=0000
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=   
+nomeLoja=               
+gradeMinima=000
+estoqueLoja=0000
+vendas10Dias=0000
+vendaAcumulada=0000
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=   
+nomeLoja=               
+gradeMinima=000
+estoqueLoja=0000
+vendas10Dias=0000
+vendaAcumulada=0000
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=   
+nomeLoja=               
+gradeMinima=000
+estoqueLoja=0000
+vendas10Dias=0000
+vendaAcumulada=0000
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=   
+nomeLoja=               
+gradeMinima=000
+estoqueLoja=0000
+vendas10Dias=0000
+vendaAcumulada=0000
+
+referencia=0590 // mantem a referencia do inicio da linha (4 digitos)
+codigoLoja=   
+nomeLoja=               
+gradeMinima=000
+estoqueLoja=0000
+vendas10Dias=0000
+vendaAcumulada=0000
+
+previsaoTotal=0006
+ocEmAberto=0006
+estoqueFabrica=0011
+estoqueLojaFinal=0150
+pedidosExpFacDesp=0000
+saldoPedidoAnterior=0000
+
+agora vai para a segunda linha do TXT...

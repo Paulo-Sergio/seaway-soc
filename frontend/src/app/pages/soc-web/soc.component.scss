@@ -24,8 +24,11 @@ p-table td select {
     font-weight: bold;
 }
 
+::ng-deep .p-button.p-button-info {
+    padding: 7px 5px;
+}
 ::ng-deep .btn-grande .p-button-label {
-    font-size: 23px !important;
+    font-size: 19px !important;
 }
 
 .font-20 {
@@ -217,7 +220,15 @@ p-table td select {
     max-height: 100vh !important;
 }
 
+// Fechar X do modal maior
 :host ::ng-deep .p-dialog-header-close-icon {
     width: 2rem !important;
     height: 2rem !important;
+}
+
+// Radiobutton da Table previsões centralizado verticalmente
+.tableRadioButton-vertical-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
