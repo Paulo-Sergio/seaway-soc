@@ -38,16 +38,21 @@ public interface PrevisaoRepository extends JpaRepository<Previsao, Long> {
     @Query("SELECT p FROM Previsao p WHERE p.dataSugestao = :dataHoje")
     List<Previsao> findValidDatesSugestao(String dataHoje);
 
-    @Query("SELECT p FROM Previsao p WHERE p.dataSugestao = :data ORDER BY p.descricaoGrupo, COALESCE(p.prioridade, 3)")
-    List<Previsao> findByData(String data);
-
-    @Query("SELECT p FROM Previsao p WHERE p.dataSugestao = :data ORDER BY p.vendasDezDias DESC ")
-    List<Previsao> findByDataHojeSoc(String data);
+    @Query("SELECT p FROM Previsao p WHERE p.dataSugestao = :data AND p.descricaoGrupo = :descricaoGrupo ORDER BY p.vendasDezDias DESC ")
+    List<Previsao> findByDataHojeSoc(String data, String descricaoGrupo);
 
     @Query("SELECT p FROM Previsao p WHERE p.descricaoGrupo = :descricaoGrupo " +
             "ORDER BY (CASE WHEN p.agrupa IS NULL OR p.agrupa = '' THEN 1 ELSE 0 END) ASC, " +
             "p.agrupa DESC, p.vendasDezDias DESC")
     List<Previsao> findByDescricaoGrupoComAgrupar(String descricaoGrupo);
+
+    /** Consultar para os relatórios */
+    @Query("SELECT p FROM Previsao p WHERE p.dataSugestao = :data ORDER BY p.descricaoGrupo, COALESCE(p.prioridade, 3)")
+    List<Previsao> findByData(String data);
+
+    @Query("SELECT p FROM Previsao p WHERE p.remanejar = :tipo ORDER BY p.descricaoGrupo, COALESCE(p.prioridade, 3)")
+    List<Previsao> findRemanejados(String tipo);
+    /** FIM - Consultar para os relatórios */
 
     @Modifying
     @Transactional

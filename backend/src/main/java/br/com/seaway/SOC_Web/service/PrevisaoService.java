@@ -73,10 +73,10 @@ public class PrevisaoService {
         }
     }
 
-    public List<PrevisaoResponse> findByHojeSoc() {
+    public List<PrevisaoResponse> findByHojeSoc(String descricaoGrupo) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        List<Previsao> previsoes = previsaoRepository.findByDataHojeSoc(LocalDate.now().format(formatter));
+        List<Previsao> previsoes = previsaoRepository.findByDataHojeSoc(LocalDate.now().format(formatter), descricaoGrupo);
 
         return previsoes.stream().map(previsaoUtil::createResponse).toList();
     }

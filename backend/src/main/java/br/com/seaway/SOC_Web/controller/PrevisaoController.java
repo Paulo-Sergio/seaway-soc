@@ -52,8 +52,8 @@ public class PrevisaoController {
     }
 
     @GetMapping("hojeSoc")
-    public ResponseEntity<List<PrevisaoResponse>> findByHojeSoc() {
-        List<PrevisaoResponse> response = previsaoService.findByHojeSoc();
+    public ResponseEntity<List<PrevisaoResponse>> findByHojeSoc(@RequestParam String descricaoGrupo) {
+        List<PrevisaoResponse> response = previsaoService.findByHojeSoc(descricaoGrupo);
         return ResponseEntity.ok(response);
     }
 
