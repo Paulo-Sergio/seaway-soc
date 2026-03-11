@@ -8,7 +8,9 @@
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
-        "e2e": "ng e2e"
+        "e2e": "ng e2e",
+        "build:themes": "sass src/assets/theme:src/assets/theme --no-source-map && sass src/assets/layout/css:src/assets/layout/css --no-source-map",
+        "watch:themes": "sass --watch src/assets/theme:src/assets/theme src/assets/layout/css:src/assets/layout/css"
     },
     "private": true,
     "dependencies": {
@@ -47,6 +49,7 @@
         "karma-coverage": "~2.2.0",
         "karma-jasmine": "~5.1.0",
         "karma-jasmine-html-reporter": "~2.1.0",
-        "typescript": "~5.2.2"
+        "typescript": "~5.2.2",
+        "sass": "^1.72.0"
     }
 }
