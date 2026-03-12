@@ -96,9 +96,14 @@ export class SocService {
     )
   }
 
-  public findHojeSoc(): Observable<Previsao[]> {
+  public findHojeSoc(search: any): Observable<Previsao[]> {
+    let params = new HttpParams()
+    if (search.descricaoGrupo != null) {
+      params = params.set('descricaoGrupo', search.descricaoGrupo)
+    }
     return this.http.get<Previsao[]>(`${baseUrl}/api/previsoes/hojeSoc`,
       {
+        params,
         headers: new HttpHeaders({ contentType: this.applicationJson })
       }
     )

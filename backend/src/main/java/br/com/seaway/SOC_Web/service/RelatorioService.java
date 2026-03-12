@@ -15,10 +15,7 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class RelatorioService {
@@ -34,21 +31,41 @@ public class RelatorioService {
     }
 
     public byte[] gerarRelatorioOrdemCorte(LocalDate data, String usuario) throws Exception {
-        // Buscar dados do banco
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        // Buscar dados normais da data específica (excluindo remanejados)
         List<Previsao> previsoes = previsaoRepository.findByData(data.format(formatter));
-        List<RelatorioOCResponse> registros = previsoes.stream()
+        List<RelatorioOCResponse> registrosNormais = previsoes.stream()
                 .map(previsaoUtil::createResponseRelatorioOC)
                 .toList();
 
-        if (registros.isEmpty()) {
+        // Buscar remanejados (sem filtro de data)
+        List<Previsao> remanejados = previsaoRepository.findRemanejados();
+        List<RelatorioOCResponse> registrosRemanejadosL = remanejados.stream()
+                .filter(r -> "L".equalsIgnoreCase(r.getRemanejar()))
+                .map(previsaoUtil::createResponseRelatorioOC)
+                .toList();
+
+        List<RelatorioOCResponse> registrosRemanejadosLA = remanejados.stream()
+                .filter(r -> "LA".equalsIgnoreCase(r.getRemanejar()))
+                .map(previsaoUtil::createResponseRelatorioOC)
+                .toList();
+
+        if (registrosNormais.isEmpty() && registrosRemanejadosL.isEmpty() && registrosRemanejadosLA.isEmpty()) {
             throw new SemOrdemCorteDataHojeException("Nenhuma ordem de corte encontrada para a data de Hoje");
         }
 
-        // Carregar o template do relatório
+        // Compilar o subrelatório de remanejados
+        Resource subreportResource = resourceLoader.getResource("classpath:reports/ordem_corte_remanejados_sub.jrxml");
+        InputStream subreportInputStream = subreportResource.getInputStream();
+        JasperReport subreportJasperReport = JasperCompileManager.compileReport(subreportInputStream);
+        subreportInputStream.close();
+
+        // Carregar o template do relatório principal
         Resource resource = resourceLoader.getResource("classpath:reports/ordem_corte.jrxml");
         InputStream inputStream = resource.getInputStream();
         JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
+        inputStream.close();
 
         // Preparar parâmetros
         Map<String, Object> parameters = new HashMap<>();
@@ -56,13 +73,18 @@ public class RelatorioService {
         parameters.put("DATA_RELATORIO", Date.from(data.atStartOfDay(ZoneId.systemDefault()).toInstant()));
         parameters.put("USUARIO", usuario);
 
-        // Preparar a fonte de dados
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(registros);
+        // Passar os datasources dos remanejados como parâmetros
+        parameters.put("datasourceRemanejadosL", new JRBeanCollectionDataSource(registrosRemanejadosL));
+        parameters.put("datasourceRemanejadosLA", new JRBeanCollectionDataSource(registrosRemanejadosLA));
 
-        // Preencher o relatório
+        // Passar o subrelatório compilado como parâmetro
+        parameters.put("subreportJasper", subreportJasperReport);
+
+        // Usar apenas os registros normais como datasource principal
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(registrosNormais);
+
+        // Preencher e exportar
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-
-        // Exportar para PDF
         return JasperExportManager.exportReportToPdf(jasperPrint);
     }
 }

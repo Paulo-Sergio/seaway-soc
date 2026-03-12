@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordem_corte_remanejados_sub" pageWidth="535" pageHeight="842" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" uuid="b5c6d7e8-f9a0-4b1c-2d3e-4f5a6b7c8d9e">
+	<field name="descricaoGrupo" class="java.lang.String"/>
+	<field name="referencia" class="java.lang.String"/>
+	<field name="venda" class="java.lang.Integer"/>
+	<field name="indice" class="java.lang.Double"/>
+	<field name="estoque" class="java.lang.Integer"/>
+	<field name="vendasDezDias" class="java.lang.Integer"/>
+	<field name="calculadoLoja" class="java.lang.Integer"/>
+	<field name="informadoLoja" class="java.lang.Integer"/>
+	<field name="informadoAtacado" class="java.lang.Integer"/>
+	<field name="calculadoAtacado" class="java.lang.Integer"/>
+	<field name="informadoTotal" class="java.lang.Integer"/>
+	<field name="sugestaoOc" class="java.lang.Integer"/>
+	<field name="dataSugestao" class="java.lang.String"/>
+	<field name="remanejar" class="java.lang.String"/>
+	<field name="prioridade" class="java.lang.String"/>
+	<field name="coresPreferenciais" class="java.lang.String"/>
+	<field name="coresNaoPreferenciais" class="java.lang.String"/>
+	<field name="coresBloqueadas" class="java.lang.String"/>
+	<group name="CategoriaGroup">
+		<groupExpression><![CDATA[$F{descricaoGrupo}]]></groupExpression>
+		<groupHeader>
+			<band height="70">
+				<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+					<reportElement mode="Opaque" x="0" y="0" width="535" height="30" backcolor="#F0F0F0" uuid="c6d7e8f9-a0b1-4c2d-3e4f-5a6b7c8d9e0f"/>
+					<box padding="5">
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{descricaoGrupo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="35" width="535" height="15" uuid="d7e8f9a0-b1c2-4d3e-4f5a-6b7c8d9e0f1a"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Lojas                                Atacado]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="50" width="40" height="20" uuid="e8f9a0b1-c2d3-4e5f-6a7b-8c9d0e1f2a3b"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Ref]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="40" y="50" width="40" height="20" uuid="f9a0b1c2-d3e4-5f6a-7b8c-9d0e1f2a3b4c"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Vend]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="80" y="50" width="40" height="20" uuid="a0b1c2d3-e4f5-6a7b-8c9d-0e1f2a3b4c5d"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Indc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="50" width="40" height="20" uuid="b1c2d3e4-f5a6-7b8c-9d0e-1f2a3b4c5d6e"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Est]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="160" y="50" width="40" height="20" uuid="c2d3e4f5-a6b7-8c9d-0e1f-2a3b4c5d6e7f"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[V.10]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="200" y="50" width="40" height="20" uuid="d3e4f5a6-b7c8-9d0e-1f2a-3b4c5d6e7f8a"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Calc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="240" y="50" width="40" height="20" uuid="e4f5a6b7-c8d9-0e1f-2a3b-4c5d6e7f8a9b"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Info]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="280" y="50" width="40" height="20" uuid="f5a6b7c8-d9e0-1f2a-3b4c-5d6e7f8a9b0c"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Info]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="320" y="50" width="40" height="20" uuid="a6b7c8d9-e0f1-2a3b-4c5d-6e7f8a9b0c1d"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Calc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="360" y="50" width="40" height="20" uuid="b7c8d9e0-f1a2-3b4c-5d6e-7f8a9b0c1d2e"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="400" y="50" width="40" height="20" uuid="c8d9e0f1-a2b3-4c5d-6e7f-8a9b0c1d2e3f"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[S.OC]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="440" y="50" width="95" height="20" uuid="d9e0f1a2-b3c4-5d6e-7f8a-9b0c1d2e3f4a"/>
+					<box>
+						<pen lineWidth="0.5" lineColor="#666666"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Data]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="40" height="20" uuid="e0f1a2b3-c4d5-6e7f-8a9b-0c1d2e3f4a5b"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{referencia}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="40" y="0" width="40" height="20" uuid="f1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6c"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{venda}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="80" y="0" width="40" height="20" uuid="a2b3c4d5-e6f7-8a9b-0c1d-2e3f4a5b6c7d"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{indice}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="120" y="0" width="40" height="20" uuid="b3c4d5e6-f7a8-9b0c-1d2e-3f4a5b6c7d8e"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estoque}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="160" y="0" width="40" height="20" uuid="c4d5e6f7-a8b9-0c1d-2e3f-4a5b6c7d8e9f"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vendasDezDias}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="200" y="0" width="40" height="20" uuid="d5e6f7a8-b9c0-1d2e-3f4a-5b6c7d8e9f0a"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{calculadoLoja}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="240" y="0" width="40" height="20" uuid="e6f7a8b9-c0d1-2e3f-4a5b-6c7d8e9f0a1b"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{informadoLoja}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="280" y="0" width="40" height="20" uuid="f7a8b9c0-d1e2-3f4a-5b6c-7d8e9f0a1b2c"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{informadoAtacado}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="320" y="0" width="40" height="20" uuid="a8b9c0d1-e2f3-4a5b-6c7d-8e9f0a1b2c3d"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{calculadoAtacado}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="360" y="0" width="40" height="20" uuid="b9c0d1e2-f3a4-5b6c-7d8e-9f0a1b2c3d4e"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{informadoTotal}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="400" y="0" width="40" height="20" uuid="c0d1e2f3-a4b5-6c7d-8e9f-0a1b2c3d4e5f"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sugestaoOc}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="440" y="0" width="95" height="20" uuid="d1e2f3a4-b5c6-7d8e-9f0a-1b2c3d4e5f6a"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataSugestao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

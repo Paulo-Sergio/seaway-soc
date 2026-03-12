@@ -107,7 +107,7 @@
           <ng-template pTemplate="header">
             <tr>
               <th colspan="8" style="background-color: #f8f9fa;">
-                <form [formGroup]="form" *ngIf="!hojeSoc">
+                <form [formGroup]="form">
                   <p-dropdown [options]="grupos" formControlName="descricaoGrupo" [showClear]="false"
                     [style]="{'width':'100%'}" class="custom-dropdown">
                   </p-dropdown>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.15.0.final using JasperReports Library version 6.15.0-dd49bfb94918336b8321d5507193f0169ead4e95  -->
+<!-- Created with Jaspersoft Studio version 6.21.5.final using JasperReports Library version 6.21.5-74d586df47b25dbd05bd0957999819196e59934a  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordem_corte" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="4152643a-76b2-4e97-a9aa-9752354ce124">
 	<parameter name="LOGO_PATH" class="java.lang.String"/>
 	<parameter name="DATA_RELATORIO" class="java.util.Date"/>
 	<parameter name="USUARIO" class="java.lang.String"/>
+	<parameter name="datasourceRemanejadosL" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="datasourceRemanejadosLA" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="subreportJasper" class="net.sf.jasperreports.engine.JasperReport"/>
 	<field name="descricaoGrupo" class="java.lang.String"/>
 	<field name="referencia" class="java.lang.String"/>
 	<field name="venda" class="java.lang.Integer"/>
@@ -41,7 +44,7 @@
 					<textFieldExpression><![CDATA[$F{descricaoGrupo}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="0" y="35" width="535" height="20" uuid="7d7d8a4f-14c9-40b5-b757-8016f97a28fa">
+					<reportElement x="0" y="32" width="535" height="20" uuid="7d7d8a4f-14c9-40b5-b757-8016f97a28fa">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -209,7 +212,8 @@
 		</band>
 	</title>
 	<detail>
-		<band height="50" splitType="Stretch">
+		<band height="43" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="40" height="20" uuid="71788802-35c5-45aa-af3a-26a9512a680f"/>
 				<box>
@@ -339,13 +343,6 @@
 ($F{coresNaoPreferenciais} != null && !$F{coresNaoPreferenciais}.isEmpty() ? "Não Preferenciais: " + $F{coresNaoPreferenciais} + "<br/>" : "") +
 ($F{coresBloqueadas} != null && !$F{coresBloqueadas}.isEmpty() ? "<b>Bloqueadas: " + $F{coresBloqueadas} + "</b>" : "")]]></textFieldExpression>
 			</textField>
-			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
-				<reportElement x="440" y="22" width="94" height="15" uuid="fe19692d-b754-4dc2-b8ea-6203670e99dd"/>
-				<textElement textAlignment="Right">
-					<font size="10" isBold="true" isItalic="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($F{prioridade} != null && !$F{prioridade}.isEmpty() ? "Prioridade: " + $F{prioridade} : "")]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 	<pageFooter>
@@ -373,4 +370,51 @@
 			</textField>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="535" height="25" uuid="a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d">
+					<printWhenExpression><![CDATA[$P{datasourceRemanejadosL} != null &&
+                    $P{datasourceRemanejadosL}.getRecordCount() > 0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remanejados (L)]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="25" width="535" height="1" uuid="c3d4e5f6-a7b8-9c0d-1e2f-3a4b5c6d7e8f">
+					<printWhenExpression><![CDATA[$P{datasourceRemanejadosL} != null &&
+                    $P{datasourceRemanejadosL}.getRecordCount() > 0]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{datasourceRemanejadosL}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subreportJasper}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="48" width="535" height="25" uuid="d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a">
+					<printWhenExpression><![CDATA[$P{datasourceRemanejadosLA} != null &&
+                    $P{datasourceRemanejadosLA}.getRecordCount() > 0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5" lineColor="#666666"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remanejados (LA)]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="73" width="535" height="1" uuid="f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f9a0b1c">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<printWhenExpression><![CDATA[$P{datasourceRemanejadosLA} != null &&
+                    $P{datasourceRemanejadosLA}.getRecordCount() > 0]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{datasourceRemanejadosLA}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{subreportJasper}]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
 </jasperReport>

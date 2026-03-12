@@ -107,7 +107,7 @@ export class SocComponent implements OnInit {
         next: (res: Previsao[]) => {
           this.previsoes = res
           console.log(this.previsoes)
-
+          this.hojeSoc = false
           this.selecionarPrimeiraLinha()
           this.loading = false
         },
@@ -139,7 +139,7 @@ export class SocComponent implements OnInit {
     console.log('onHojeSocChanged:', value)
     if (value) {
       this.loading = true
-      this.socService.findHojeSoc()
+      this.socService.findHojeSoc(this.form.value)
         .subscribe({
           next: (res: Previsao[]) => {
             this.previsoes = res
@@ -460,8 +460,8 @@ export class SocComponent implements OnInit {
       .subscribe({
         next: (blob) => {
           this.loadingFull = false;
-          const hoje = new Date().toLocaleDateString('pt-BR').replace(/\//g, '-');
-          this.downloadFile(blob, `ordem-corte-${hoje}.pdf`);
+          let url = window.URL.createObjectURL(blob)
+          window.open(url) //apenas abrir no navegador
         },
         error: (err) => {
           console.log(err)
@@ -473,15 +473,6 @@ export class SocComponent implements OnInit {
           this.loadingFull = false
         }
       })
-  }
-
-  private downloadFile(blob: Blob, filename: string): void {
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    link.click();
-    window.URL.revokeObjectURL(url);
   }
 
   private gerenciarRadioButtonRemanejar(): void {
