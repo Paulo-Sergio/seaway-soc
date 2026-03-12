@@ -51,6 +51,12 @@ public class RelatorioService {
                 .map(previsaoUtil::createResponseRelatorioOC)
                 .toList();
 
+        // Prioridades
+        List<Previsao> prioridadesList = previsaoRepository.findPrioridades();
+        List<RelatorioOCResponse> prioridades = prioridadesList.stream()
+                .map(previsaoUtil::createResponseRelatorioOC)
+                .toList();
+
         if (registrosNormais.isEmpty() && registrosRemanejadosL.isEmpty() && registrosRemanejadosLA.isEmpty()) {
             throw new SemOrdemCorteDataHojeException("Nenhuma ordem de corte encontrada para a data de Hoje");
         }
@@ -59,6 +65,12 @@ public class RelatorioService {
         Resource subreportResource = resourceLoader.getResource("classpath:reports/ordem_corte_remanejados_sub.jrxml");
         InputStream subreportInputStream = subreportResource.getInputStream();
         JasperReport subreportJasperReport = JasperCompileManager.compileReport(subreportInputStream);
+        subreportInputStream.close();
+
+        // Compilar o subrelatório de prioridades
+        Resource subreportPrioridadesResource = resourceLoader.getResource("classpath:reports/prioridade_producao_sub.jrxml");
+        InputStream subreportPrioridadesResourceInputStream = subreportPrioridadesResource.getInputStream();
+        JasperReport subreportPrioridadesJasperReport = JasperCompileManager.compileReport(subreportPrioridadesResourceInputStream);
         subreportInputStream.close();
 
         // Carregar o template do relatório principal
@@ -73,12 +85,14 @@ public class RelatorioService {
         parameters.put("DATA_RELATORIO", Date.from(data.atStartOfDay(ZoneId.systemDefault()).toInstant()));
         parameters.put("USUARIO", usuario);
 
-        // Passar os datasources dos remanejados como parâmetros
+        // Passar os datasources dos remanejados e prioridades como parâmetros
         parameters.put("datasourceRemanejadosL", new JRBeanCollectionDataSource(registrosRemanejadosL));
         parameters.put("datasourceRemanejadosLA", new JRBeanCollectionDataSource(registrosRemanejadosLA));
+        parameters.put("datasourcePrioridades", new JRBeanCollectionDataSource(prioridades));
 
         // Passar o subrelatório compilado como parâmetro
         parameters.put("subreportJasper", subreportJasperReport);
+        parameters.put("subreportPrioridadesJasper", subreportPrioridadesJasperReport);
 
         // Usar apenas os registros normais como datasource principal
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(registrosNormais);

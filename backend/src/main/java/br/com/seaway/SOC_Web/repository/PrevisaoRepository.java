@@ -52,6 +52,9 @@ public interface PrevisaoRepository extends JpaRepository<Previsao, Long> {
 
     @Query("SELECT p FROM Previsao p WHERE p.remanejar IS NOT NULL ORDER BY p.descricaoGrupo, COALESCE(p.prioridade, 3)")
     List<Previsao> findRemanejados();
+
+    @Query("SELECT p FROM Previsao p WHERE p.prioridade IS NOT NULL ORDER BY p.descricaoGrupo, p.prioridade")
+    List<Previsao> findPrioridades();
     /** FIM - Consultar para os relatórios */
 
     @Modifying

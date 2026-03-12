@@ -83,6 +83,7 @@ public class PrevisaoUtil {
                 .informadoAtacado(Integer.parseInt(previsao.getInformadoAtacado()))
                 .calculadoAtacado(Integer.parseInt(previsao.getCalculadoAtacado()))
                 .informadoTotal(Integer.parseInt(previsao.getInformadoTotal()))
+                .ocEmAberto(Integer.parseInt(previsao.getOcEmAberto()))
                 .sugestaoOc(Integer.parseInt(previsao.getSugestaoOc()))
                 .dataSugestao(previsao.getDataSugestao())
                 .remanejar(previsao.getRemanejar())

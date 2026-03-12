@@ -18,6 +18,7 @@ public class RelatorioOCResponse {
     private int informadoAtacado;
     private int calculadoAtacado;
     private int informadoTotal;
+    private int ocEmAberto;
     private int sugestaoOc;
     private String dataSugestao;
     private String remanejar;
