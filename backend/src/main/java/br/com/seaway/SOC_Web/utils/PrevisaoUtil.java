@@ -2,12 +2,8 @@ package br.com.seaway.SOC_Web.utils;
 
 import br.com.seaway.SOC_Web.dto.PrevisaoResponse;
 import br.com.seaway.SOC_Web.dto.RelatorioOCResponse;
-import br.com.seaway.SOC_Web.model.Analise;
-import br.com.seaway.SOC_Web.model.Cor01;
-import br.com.seaway.SOC_Web.model.Previsao;
-import br.com.seaway.SOC_Web.repository.AnaliseRepository;
-import br.com.seaway.SOC_Web.repository.Cor01Repository;
-import br.com.seaway.SOC_Web.repository.PrevisaoRepository;
+import br.com.seaway.SOC_Web.model.*;
+import br.com.seaway.SOC_Web.repository.*;
 import br.com.seaway.SOC_Web.service.PrevisaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +21,9 @@ public class PrevisaoUtil {
     private AnaliseRepository analiseRepository;
 
     @Autowired
+    private AuditSummaryRepository auditSummaryRepository;
+
+    @Autowired
     private AnaliseUtil analiseUtil;
 
     @Autowired
@@ -32,6 +31,7 @@ public class PrevisaoUtil {
 
     public PrevisaoResponse createResponse(Previsao previsao) {
         Optional<Analise> opAnalise = analiseRepository.findByReferencia(previsao.getReferencia());
+        Optional<AuditSummary> opAuditSummary = auditSummaryRepository.findByReferencia(previsao.getReferencia());
 
         return PrevisaoResponse.builder()
                 .id(previsao.getId())
@@ -63,6 +63,7 @@ public class PrevisaoUtil {
                 .nomeColecao(previsao.getNomeColecao())
                 .remanejar(previsao.getRemanejar())
                 .prioridade(previsao.getPrioridade())
+                .estoqueFabrica(opAuditSummary.map(auditSummary -> SeawayUtil.parseInt(auditSummary.getEstoqueFabrica())).orElse(0))
                 .analise(opAnalise.map(analise -> analiseUtil.createResponse(analise)).orElse(null))
                 .build();
     }

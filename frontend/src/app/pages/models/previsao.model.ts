@@ -35,6 +35,9 @@ export class Previsao {
   public remanejar?: string
   public prioridade?: string
 
+  // campo vem de AuditSummary
+  private estoqueFabrica?: number;
+
   /** Row expanded */
   public analise?: Analise
 }

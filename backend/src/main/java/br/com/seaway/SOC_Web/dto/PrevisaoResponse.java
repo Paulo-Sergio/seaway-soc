@@ -42,6 +42,9 @@ public class PrevisaoResponse {
     private String remanejar;
     private String prioridade;
 
+    // campo vem de AuditSummary
+    private int estoqueFabrica;
+
     // row expanded
     private AnaliseResponse analise;
 }
